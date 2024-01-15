@@ -97,7 +97,7 @@
         app:layout_constraintTop_toBottomOf="@id/order_completed_order_delete_btn" />
 
     <TextView
-        android:id="@+id/oreder_completed_notice_01_tv"
+        android:id="@+id/order_completed_notice_01_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="개인용기를 지참하여 "
@@ -106,29 +106,30 @@
         android:layout_marginEnd="5dp"
         app:layout_constraintTop_toBottomOf="@id/order_completed_line_02_view"
         app:layout_constraintStart_toStartOf="@id/order_completed_line_02_view"
-        app:layout_constraintEnd_toEndOf="@id/oreder_completed_notice_02_tv"/>
+        app:layout_constraintEnd_toEndOf="@id/order_completed_notice_02_tv"/>
 
     <TextView
-        android:id="@+id/oreder_completed_notice_02_tv"
+        android:id="@+id/order_completed_notice_02_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text=" 에 방문해주세요!"
         android:textColor="@color/grey"
         android:textSize="18sp"
         android:layout_marginStart="5dp"
-        app:layout_constraintTop_toBottomOf="@id/oreder_completed_notice_01_tv"
-        app:layout_constraintStart_toStartOf="@id/oreder_completed_notice_01_tv"
+        app:layout_constraintTop_toBottomOf="@id/order_completed_notice_01_tv"
+        app:layout_constraintStart_toStartOf="@id/order_completed_notice_01_tv"
         app:layout_constraintEnd_toEndOf="@id/order_completed_line_02_view"/>
 
-    <TextView
-        android:id="@+id/oreder_completed_notice_time_tv"
+    <!--<TextView
+        android:id="@+id/order_completed_notice_time_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="오후 12:30"
         android:textColor="@color/dark_grey"
         android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintTop_toTopof="@id/oreder_completed_notice_02_tv"
-        app:layout_constraintBottom_toBottomOf="@id/oreder_completed_notice_02_tv"
-        app:layout_constraintEnd_toStartOf="@id/oreder_completed_notice_02_tv" />
+        app:layout_constraintTop_toTopof="@id/order_completed_notice_02_tv"
+        app:layout_constraintBottom_toBottomOf="@id/order_completed_notice_02_tv"
+        app:layout_constraintEnd_toStartOf="@id/order_completed_notice_02_tv" />-->
+
 </androidx.constraintlayout.widget.ConstraintLayout>
