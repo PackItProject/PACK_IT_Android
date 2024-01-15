@@ -13,18 +13,18 @@
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginTop="20dp"
         android:layout_marginStart="25dp"/>
-    
+
     <TextView
         android:id="@+id/order_store_name_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="84dp"
+        android:layout_height="38dp"
+        android:layout_marginStart="5dp"
         android:text="가게 이름"
+        android:textColor="@color/dark_grey"
         android:textSize="22sp"
         android:textStyle="bold"
-        android:textColor="@color/dark_grey"
-        app:layout_constraintTop_toBottomOf="@id/order_back_iv"
         app:layout_constraintStart_toStartOf="@id/order_back_iv"
-        android:layout_marginStart="5dp"/>
+        app:layout_constraintTop_toBottomOf="@id/order_back_iv" />
     
     <TextView
         android:id="@+id/order_store_address_tv"
@@ -50,6 +50,7 @@
         android:id="@+id/order_request_et"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:minHeight="48dp"
         android:hint="ex. 덜 맵게 해주세요, 땅콩은 빼주세요"
         android:textSize="13sp"
         android:textColor="@color/dark_grey"
@@ -220,6 +221,7 @@
         android:id="@+id/order_coupon_et"
         android:layout_width="260dp"
         android:layout_height="wrap_content"
+        android:minHeight="48dp"
         android:hint="쿠폰 미사용"
         android:textSize="13sp"
         android:textColor="@color/dark_grey"
@@ -363,6 +365,7 @@
         app:layout_constraintBottom_toBottomOf="@id/order_total_check_tv" />
 
     <Button
+        android:id="@+id/order_pay_btn"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@drawable/bottom_btn"
