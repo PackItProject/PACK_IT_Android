@@ -1,0 +1,34 @@
+package com.umc.android.packit
+
+import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
+import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.umc.android.packit.databinding.ActivityMainBinding
+import com.umc.android.packit.databinding.FragmentStoreListBinding
+
+class MainActivity : AppCompatActivity() {
+
+    private lateinit var binding: ActivityMainBinding
+    private lateinit var bottomSheetDialog: BottomSheetDialog
+    private lateinit var bottomSheet: FragmentStoreListBinding
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+            super.onCreate(savedInstanceState)
+            binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        bottomSheetDialog = BottomSheetDialog(this)
+        bottomSheet = FragmentStoreListBinding.inflate(layoutInflater)
+        bottomSheetDialog.setContentView(bottomSheet.root)
+
+//            val bottomSheetView = layoutInflater.inflate(R.layout.fragment_store_list, null)
+//        bottomSheetDialog = BottomSheetDialog(this)
+//            bottomSheetDialog.setContentView(bottomSheetView)
+
+        binding.storeListBtn.setOnClickListener {
+                bottomSheetDialog.show()
+            }
+
+        }
+
+    }
