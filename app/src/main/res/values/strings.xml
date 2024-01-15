@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">PackIt!</string>
+    <string name="google_map_api_key">AIzaSyAIiKuJ8RTp54prSp0lyIUw15lUVftR-6s</string>
 </resources>
