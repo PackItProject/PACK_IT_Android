@@ -35,12 +35,13 @@
     <View
         android:id="@+id/cart_menu_background_view"
         android:layout_width="0dp"
-        android:layout_height="180dp"
+        android:layout_height="176dp"
         android:background="@color/white_text"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginHorizontal="16dp"
         app:layout_constraintTop_toBottomOf="@id/cart_store_name_tv"/>
+
     <ImageView
         android:id="@+id/cart_menu_closed_btn_iv"
         android:layout_width="wrap_content"
@@ -90,17 +91,18 @@
         android:textColor="@color/dark_grey"
         app:layout_constraintEnd_toStartOf="@id/cart_menu_count_tv"
         app:layout_constraintBottom_toBottomOf="@id/cart_menu_background_view" />
+
     <TextView
         android:id="@+id/cart_menu_count_tv"
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:text="1"
         android:textSize="16sp"
-        android:gravity="center_vertical"
+        android:gravity="center"
         android:textColor="@color/dark_grey"
         app:layout_constraintEnd_toStartOf="@id/cart_menu_plus_btn"
         app:layout_constraintTop_toTopOf="@id/cart_menu_plus_btn"
-        app:layout_constraintBottom_toBottomOf="@id/cart_menu_plus_btn"
+        app:layout_constraintBottom_toBottomOf="@id/cart_menu_plus_btn" />
 
     <Button
         android:id="@+id/cart_menu_plus_btn"
@@ -112,4 +114,142 @@
         app:layout_constraintEnd_toEndOf="@id/cart_menu_background_view"
         app:layout_constraintBottom_toBottomOf="@id/cart_menu_background_view" />
 
+    <View
+        android:id="@+id/cart_pick_up_background_view"
+        android:layout_width="0dp"
+        android:layout_height="126dp"
+        android:background="@color/white_text"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintTop_toBottomOf="@id/cart_menu_background_view"/>
+
+    <TextView
+        android:id="@+id/cart_pick_up_reserved_time_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="픽업할 시간 예약"
+        android:textColor="@color/grey"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toTopOf="@id/cart_pick_up_background_view"
+        app:layout_constraintStart_toStartOf="@id/cart_pick_up_background_view" />
+    
+    <Button
+        android:id="@+id/cart_pick_up_meridiem_btn"
+        android:layout_width="60dp"
+        android:layout_height="44dp"
+        android:text="오후"
+        android:textColor="@color/dark_grey"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        app:layout_constraintTop_toBottomOf="@id/cart_pick_up_reserved_time_tv"
+        app:layout_constraintBottom_toBottomOf="@id/cart_pick_up_background_view"
+        app:layout_constraintStart_toStartOf="@id/cart_pick_up_background_view"
+        app:layout_constraintEnd_toStartOf="@id/cart_pick_up_minute_btn"/>
+
+    <Button
+        android:id="@+id/cart_pick_up_hour_btn"
+        android:layout_width="60dp"
+        android:layout_height="44dp"
+        android:text="12"
+        android:textColor="@color/dark_grey"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@id/cart_pick_up_background_view"
+        app:layout_constraintEnd_toEndOf="@id/cart_pick_up_background_view"
+        app:layout_constraintTop_toBottomOf="@id/cart_pick_up_reserved_time_tv"
+        app:layout_constraintBottom_toBottomOf="@id/cart_pick_up_background_view" />
+
+    <Button
+        android:id="@+id/cart_pick_up_minute_btn"
+        android:layout_width="60dp"
+        android:layout_height="44dp"
+        android:text="30"
+        android:textColor="@color/dark_grey"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        app:layout_constraintTop_toBottomOf="@id/cart_pick_up_reserved_time_tv"
+        app:layout_constraintBottom_toBottomOf="@id/cart_pick_up_background_view"
+        app:layout_constraintEnd_toEndOf="@id/cart_pick_up_background_view"
+        app:layout_constraintStart_toEndOf="@id/cart_pick_up_meridiem_btn" />
+
+    <View
+        android:id="@+id/cart_completed_background_view"
+        android:layout_width="0dp"
+        android:layout_height="116dp"
+        android:background="@color/white_text"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintTop_toBottomOf="@id/cart_pick_up_background_view"/>
+
+    <TextView
+        android:id="@+id/cart_completed_pick_up_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="픽업 시간"
+        android:textColor="@color/grey"
+        android:textSize="16sp"
+        app:layout_constraintTop_toTopOf="@id/cart_completed_background_view"
+        app:layout_constraintBottom_toTopOf="@id/cart_completed_total_tv"
+        app:layout_constraintStart_toStartOf="@id/cart_completed_background_view" />
+
+    <TextView
+        android:id="@+id/cart_completed_total_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="총 결제 금액"
+        android:textColor="@color/grey"
+        android:textSize="16sp"
+        app:layout_constraintTop_toBottomOf="@id/cart_completed_pick_up_tv"
+        app:layout_constraintBottom_toBottomOf="@id/cart_completed_background_view"
+        app:layout_constraintStart_toStartOf="@id/cart_completed_background_view" />
+
+    <TextView
+        android:id="@+id/cart_completed_pick_up_time_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="오후 12:30"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="@color/dark_grey"
+        app:layout_constraintEnd_toEndOf="@id/cart_completed_background_view"
+        app:layout_constraintTop_toTopOf="@id/cart_completed_pick_up_tv"
+        app:layout_constraintBottom_toBottomOf="@id/cart_completed_pick_up_tv"/>
+
+    <TextView
+        android:id="@+id/cart_completed_total_price_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="13,000원"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="@color/dark_grey"
+        app:layout_constraintEnd_toEndOf="@id/cart_completed_background_view"
+        app:layout_constraintTop_toTopOf="@id/cart_completed_total_tv"
+        app:layout_constraintBottom_toBottomOf="@id/cart_completed_total_tv"/>
+
+    <View
+        android:id="@+id/cart_order_button_background_view"
+        android:layout_width="match_parent"
+        android:layout_height="97dp"
+        android:background="@color/white_text"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+    <Button
+        android:id="@+id/cart_order_btn"
+        android:layout_width="0dp"
+        android:layout_height="65dp"
+        android:background="@drawable/bottom_btn"
+        android:text="주문하기"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:layout_constraintTop_toTopOf="@id/cart_order_button_background_view"
+        app:layout_constraintBottom_toBottomOf="@id/cart_order_button_background_view"
+        app:layout_constraintStart_toStartOf="@id/cart_order_button_background_view"
+        app:layout_constraintEnd_toEndOf="@id/cart_order_button_background_view"
+        android:layout_marginHorizontal="18dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>
