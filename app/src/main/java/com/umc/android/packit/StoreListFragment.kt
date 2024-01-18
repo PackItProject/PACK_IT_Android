@@ -8,8 +8,8 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.umc.android.packit.databinding.FragmentStoreListBinding
-
+import com.example.packit.R
+import com.example.packit.databinding.FragmentStoreListBinding
 class StoreListFragment : Fragment() {
 
     private var storeDatas = ArrayList<Store>()

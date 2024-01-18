@@ -25,7 +25,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="fitCenter"
-            android:src="#767676"
+            android:src="@color/grey"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.cardview.widget.CardView>
@@ -63,7 +63,7 @@
         android:layout_height="wrap_content"
         android:text="평점 4.5  ·"
         android:textSize="12sp"
-        android:textColor="#767676"
+        android:textColor="@color/grey"
         app:layout_constraintTop_toBottomOf="@+id/item_favorite_name_tv"
         app:layout_constraintStart_toStartOf="@id/item_favorite_name_tv"
         app:layout_constraintEnd_toStartOf="@id/item_favorite_state_tv"/>
@@ -75,7 +75,7 @@
         android:layout_marginStart="8dp"
         android:text="영업 중"
         android:textSize="12sp"
-        android:textColor="#767676"
+        android:textColor="@color/grey"
         app:layout_constraintTop_toTopOf="@id/item_favorite_rate_tv"
         app:layout_constraintStart_toEndOf="@id/item_favorite_rate_tv"/>
 
@@ -85,7 +85,7 @@
         android:layout_height="wrap_content"
         android:text="주소"
         android:textSize="12sp"
-        android:textColor="#767676"
+        android:textColor="@color/grey"
         app:layout_constraintBottom_toBottomOf="@id/item_favorite_img_cardView"
         app:layout_constraintStart_toStartOf="@id/item_favorite_name_tv"/>
 
