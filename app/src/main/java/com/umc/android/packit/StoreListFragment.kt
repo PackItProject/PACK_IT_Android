@@ -1,15 +1,14 @@
 package com.umc.android.packit
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.packit.R
-import com.example.packit.databinding.FragmentStoreListBinding
+import com.umc.android.packit.databinding.FragmentStoreListBinding
+
 class StoreListFragment : Fragment() {
 
     private var storeDatas = ArrayList<Store>()

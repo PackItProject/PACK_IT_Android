@@ -2,11 +2,9 @@ package com.umc.android.packit
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.packit.R
-import com.example.packit.databinding.ActivityMainBinding
-import com.example.packit.databinding.FragmentStoreListBinding
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.umc.android.packit.databinding.ActivityMainBinding
+import com.umc.android.packit.databinding.FragmentStoreListBinding
 
 class MainActivity : AppCompatActivity(), StoreListRVAdapter.MyItemClickListener {
 
