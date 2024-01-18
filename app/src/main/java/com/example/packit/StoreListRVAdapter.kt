@@ -9,6 +9,16 @@ import com.example.packit.databinding.ItemStoreListBinding
 
 class StoreListRVAdapter(private val stores: ArrayList<Store>) : RecyclerView.Adapter<StoreListRVAdapter.ViewHolder>() {
 
+    interface MyItemClickListener {
+        fun onItemClick(store: Store)
+    }
+
+    private lateinit var mItemClickListener: MyItemClickListener
+
+    fun setMyItemClickListener(itemClickListener: MyItemClickListener) {
+        mItemClickListener = itemClickListener
+    }
+
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): StoreListRVAdapter.ViewHolder {
         val binding: ItemStoreListBinding =
             ItemStoreListBinding.inflate(LayoutInflater.from(viewGroup.context), viewGroup, false)
@@ -19,6 +29,9 @@ class StoreListRVAdapter(private val stores: ArrayList<Store>) : RecyclerView.Ad
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(stores[position])
 
+        holder.itemView.setOnClickListener {
+            mItemClickListener.onItemClick(stores[position])
+        }
     }
 
     override fun getItemCount(): Int = stores.size

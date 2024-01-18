@@ -7,7 +7,7 @@ import com.example.packit.databinding.ActivityMainBinding
 import com.example.packit.databinding.FragmentStoreListBinding
 import com.google.android.material.bottomsheet.BottomSheetDialog
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), StoreListRVAdapter.MyItemClickListener {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var dialog: BottomSheetDialog
@@ -49,6 +49,16 @@ class MainActivity : AppCompatActivity() {
         bottomSheet.storeListRecyclerView.adapter = storeListRVAdapter
         dialog.show()
 
+    }
+
+    override fun onItemClick(store: Store) {
+        // 아이템 클릭 시 StoreFragment를 시작
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.main_frm, StoreFragment())
+            .commitAllowingStateLoss()
+
+        // BottomSheetDialog 닫기 (선택적)
+        // dialog.dismiss()
     }
 
 }

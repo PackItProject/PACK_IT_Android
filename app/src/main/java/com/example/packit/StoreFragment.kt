@@ -28,6 +28,7 @@ class StoreFragment : Fragment() {
 //                .commitAllowingStateLoss()
 //        }
 
+
         val storeAdapter = StoreVPAdapter(this)
         binding.storeContentVp.adapter = storeAdapter
         TabLayoutMediator(binding.storeContentTb, binding.storeContentVp){
