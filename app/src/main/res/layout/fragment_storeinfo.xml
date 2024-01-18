@@ -2,15 +2,154 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="22dp">
 
     <TextView
+        android:id="@+id/storeinfo_name_tv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="가게 정보 프래그먼트"
-        android:textSize="30sp"
+        android:text="가게 이름"
+        android:textSize="24sp"
+        android:textColor="@color/dark_grey"
+        android:textStyle="bold"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <TextView
+        android:id="@+id/storeinfo_tel_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="22dp"
+        android:text="전화번호 :  02-1234-5678"
+        android:textSize="18sp"
+        android:textColor="@color/dark_grey"
+        app:layout_constraintTop_toBottomOf="@id/storeinfo_name_tv"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <TextView
+        android:id="@+id/storeinfo_address_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="11dp"
+        android:text="주소 :  서울특별시 서대문구 OOO"
+        android:textSize="18sp"
+        android:textColor="@color/dark_grey"
+        app:layout_constraintTop_toBottomOf="@id/storeinfo_tel_tv"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <TextView
+        android:id="@+id/storeinfo_represent_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="11dp"
+        android:text="대표자명 :  홍길동"
+        android:textSize="18sp"
+        android:textColor="@color/dark_grey"
+        app:layout_constraintTop_toBottomOf="@id/storeinfo_address_tv"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <TextView
+        android:id="@+id/storeinfo_num_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="11dp"
+        android:text="사업자등록번호 :  123-56-78901"
+        android:textSize="18sp"
+        android:textColor="@color/dark_grey"
+        app:layout_constraintTop_toBottomOf="@id/storeinfo_represent_tv"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+
+    <TextView
+        android:id="@+id/storeinfo_time_title_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:text="영업 시간"
+        android:textSize="24sp"
+        android:textColor="@color/dark_grey"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@id/storeinfo_num_tv"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <TextView
+        android:id="@+id/storeinfo_time_open_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="22dp"
+        android:text="화~일 : 12:00 ~ 21:00"
+        android:textSize="18sp"
+        android:textColor="@color/dark_grey"
+        app:layout_constraintTop_toBottomOf="@id/storeinfo_time_title_tv"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <TextView
+        android:id="@+id/storeinfo_time_close_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="11dp"
+        android:text="월 : 정기휴무"
+        android:textSize="18sp"
+        android:textColor="@color/dark_grey"
+        app:layout_constraintTop_toBottomOf="@id/storeinfo_time_open_tv"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <TextView
+        android:id="@+id/storeinfo_intro_title_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:text="가게 소개"
+        android:textSize="24sp"
+        android:textColor="@color/dark_grey"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@id/storeinfo_time_close_tv"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <TextView
+        android:id="@+id/storeinfo_intro_content_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="22dp"
+        android:text="안녕하세요, OOO입니다."
+        android:textSize="18sp"
+        android:textColor="@color/dark_grey"
+        app:layout_constraintTop_toBottomOf="@id/storeinfo_intro_title_tv"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <TextView
+        android:id="@+id/storeinfo_notice_title_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:text="공지사항"
+        android:textSize="24sp"
+        android:textColor="@color/dark_grey"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@id/storeinfo_intro_content_tv"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <TextView
+        android:id="@+id/storeinfo_notice_content_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="22dp"
+        android:text="1월 10일~1월 20일까지 가게 내부 리모델링으로 휴업합니다. 이용에 불편을 드려 죄송합니다."
+        android:textSize="18sp"
+        android:textColor="@color/dark_grey"
+        app:layout_constraintTop_toBottomOf="@id/storeinfo_notice_title_tv"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 

@@ -58,7 +58,9 @@ class StoreListRVAdapter(private val stores: ArrayList<Store>) : RecyclerView.Ad
             binding.itemListCloseTv.text = store.state
             binding.itemListRateTv.text = store.rate
             binding.itemListStateTv.text = store.state
-            binding.itemListImgIv.setImageResource(store.storeImg!!)
+            store.storeImg?.let {
+                binding.itemListImgIv.setImageResource(it)
+            }
         }
     }
 }

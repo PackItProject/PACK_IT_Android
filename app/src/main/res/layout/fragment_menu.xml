@@ -27,7 +27,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="식사류"
-                android:textColor="#767676"
+                android:textColor="@color/grey"
                 android:paddingVertical="8dp"
                 android:paddingHorizontal="15dp"
                 android:layout_marginEnd="15dp"
@@ -38,7 +38,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="사이드 메뉴"
-                android:textColor="#767676"
+                android:textColor="@color/grey"
                 android:paddingVertical="8dp"
                 android:paddingHorizontal="15dp"
                 android:layout_marginEnd="15dp"
@@ -56,7 +56,7 @@
         android:paddingLeft="21dp"
         android:text="식사류"
         android:textSize="22sp"
-        android:textColor="#363636"
+        android:textColor="@color/dark_grey"
         android:textStyle="bold"
         app:layout_constraintTop_toBottomOf="@id/menu_scroll_hs"
         app:layout_constraintStart_toStartOf="parent"
@@ -82,7 +82,7 @@
         android:paddingLeft="21dp"
         android:text="식사류"
         android:textSize="22sp"
-        android:textColor="#363636"
+        android:textColor="@color/dark_grey"
         android:textStyle="bold"
         app:layout_constraintTop_toBottomOf="@id/menu_main_rv"
         app:layout_constraintStart_toStartOf="parent"
@@ -109,7 +109,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:background="#FFFFFF"
+        android:background="@color/white"
         android:elevation="10dp"
         android:visibility="invisible">
 
@@ -126,7 +126,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:background="#767676"
+        android:background="@color/grey"
         android:visibility="gone"/>
     </LinearLayout>
 
@@ -135,7 +135,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
-        android:textColor="#767676"
+        android:textColor="@color/grey"
         android:textSize="14sp"
         android:text="&lt;유의사항&gt;\n1. 메뉴 사진은 연출된 이미지로, 실제 조리된 음식과 다를 수 있습니다. \n2. 상단의 메뉴 정보, 가격은 업소에서 제공한 정보를 기준으로 작성된 것이며, 변동될 수 있습니다."
         app:layout_constraintStart_toStartOf="parent"
