@@ -16,7 +16,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="2024.01.01 00:00"
-        android:textColor="#767676"
+        android:textColor="@color/grey"
         android:textSize="15sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -35,7 +35,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="fitCenter"
-            android:src="#767676"
+            android:src="@color/grey"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.cardview.widget.CardView>
@@ -59,7 +59,7 @@
         android:layout_height="wrap_content"
         android:text="예약 시간"
         android:textSize="12sp"
-        android:textColor="#767676"
+        android:textColor="@color/grey"
         app:layout_constraintTop_toBottomOf="@+id/item_history_name_tv"
         app:layout_constraintBottom_toTopOf="@id/item_history_menu_tv"
         app:layout_constraintStart_toStartOf="@id/item_history_name_tv"/>
@@ -70,7 +70,7 @@
         android:layout_height="wrap_content"
         android:text="메뉴 1개"
         android:textSize="12sp"
-        android:textColor="#767676"
+        android:textColor="@color/grey"
         app:layout_constraintTop_toBottomOf="@+id/item_history_time_tv"
         app:layout_constraintBottom_toTopOf="@id/item_history_price_tv"
         app:layout_constraintStart_toStartOf="@id/item_history_name_tv"/>
@@ -81,7 +81,7 @@
         android:layout_height="wrap_content"
         android:text="금액"
         android:textSize="12sp"
-        android:textColor="#767676"
+        android:textColor="@color/grey"
         app:layout_constraintTop_toBottomOf="@+id/item_history_menu_tv"
         app:layout_constraintBottom_toBottomOf="@id/item_history_img_cardView"
         app:layout_constraintStart_toStartOf="@id/item_history_name_tv"/>
@@ -102,10 +102,10 @@
     <Button
         android:id="@+id/item_history_detail_btn"
         android:layout_width="71dp"
-        android:layout_height="27dp"
+        android:layout_height="30dp"
         android:text="상세"
         android:textSize="12sp"
-        android:textColor="#767676"
+        android:textColor="@color/grey"
         android:background="@drawable/rounded_button_bg"
         app:layout_constraintEnd_toEndOf="@id/item_history_state_tv"
         app:layout_constraintBottom_toBottomOf="@id/item_history_img_cardView"/>
