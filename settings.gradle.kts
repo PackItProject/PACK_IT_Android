@@ -13,6 +13,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Packit"
+rootProject.name = "PackIt!"
 include(":app")
  

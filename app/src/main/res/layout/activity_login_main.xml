@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="bottom|center_horizontal"
+    android:layout_marginBottom="150dp">
+
+    <!-- 카카오톡으로 로그인 버튼 -->
+    <Button
+        android:id="@+id/btnKakaoLogin"
+        android:layout_width="300dp"
+        android:layout_height="80dp"
+        android:text="카카오톡으로 로그인"
+        android:layout_marginBottom="16dp"
+        style="@style/SquareButton"
+        android:background="@color/grey"
+        />
+
+    <!-- 네이버로 로그인 버튼 -->
+    <Button
+        android:id="@+id/btnNaverLogin"
+        android:layout_width="300dp"
+        android:layout_height="80dp"
+        android:text="네이버로 로그인"
+        android:layout_marginBottom="8dp"
+        style="@style/SquareButton"
+        />
+
+    <!-- 기타 UI 구성 요소 추가 가능 -->
+
+</LinearLayout>
