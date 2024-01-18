@@ -76,7 +76,7 @@
         android:textColor="@color/dark_grey"
         android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@id/menu_info_price_01_tv"
+        app:layout_constraintEnd_toEndOf="@id/menu_info_line_01_view"
         app:layout_constraintTop_toTopOf="@id/menu_info_price_01_tv"
         app:layout_constraintBottom_toBottomOf="@id/menu_info_price_01_tv" />
 
@@ -98,7 +98,7 @@
         android:textColor="@color/dark_grey"
         android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@id/menu_info_size_01_tv"
+        app:layout_constraintEnd_toEndOf="@id/menu_info_line_01_view"
         app:layout_constraintTop_toTopOf="@id/menu_info_size_01_tv"
         app:layout_constraintBottom_toBottomOf="@id/menu_info_size_01_tv" />
 
