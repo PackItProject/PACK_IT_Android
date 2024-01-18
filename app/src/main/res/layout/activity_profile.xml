@@ -1,6 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <View
+        android:id="@+id/profile_basic_background_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/background_grey" />
+
+    <ImageView
+        android:id="@+id/profile_user_iv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/profile_user"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/profile_check_btn"/>
+    
+    <Button
+        android:id="@+id/profile_check_btn"
+        android:layout_width="0dp"
+        android:layout_height="56dp"
+        android:text="확인"
+        android:gravity="center"
+        android:layout_marginHorizontal="60dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/profile_user_iv" />
+
+    <TextView
+        android:id="@+id/profile_nickname_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="별명 설정"
+        android:textSize="18sp"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toStartOf="@id/profile_write_nickname_et"
+        app:layout_constraintTop_toBottomOf="@id/profile_user_iv"/>
+
+    <EditText
+        android:id="@+id/profile_write_nickname_et"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:hint="입력"
+        android:textColorHint="@color/grey"
+        android:textSize="16sp"
+        android:textColor="@color/dark_grey"
+        android:layout_marginHorizontal="30dp"
+        android:background="@color/white_text"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/profile_nickname_tv" />
+
+    <TextView
+        android:id="@+id/profile_not_vaild_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="별명에는 한글, 영어, 숫자만 사용 가능합니다."
+        android:textColor="@color/red"
+        android:textSize="13sp"
+        app:layout_constraintStart_toStartOf="@id/profile_write_nickname_et"
+        app:layout_constraintTop_toBottomOf="@id/profile_write_nickname_et" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
