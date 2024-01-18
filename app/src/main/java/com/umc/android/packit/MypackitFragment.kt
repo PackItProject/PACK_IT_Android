@@ -11,7 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 
 class AccumulationFragment : Fragment() {
 
-    private lateinit var viewModel: MypackitViewModel
+    /*private lateinit var viewModel: MypackitViewModel
 
     private lateinit var textViewAccumulation: TextView
     private lateinit var imageViewAccumulation: ImageView
@@ -49,5 +49,5 @@ class AccumulationFragment : Fragment() {
         textViewAccumulation.text = "적립 내역: $accumulationPoints 점"
 
         // 이미지 및 다른 UI 업데이트 로직도 추가할 수 있음
-    }
+    }*/
 }
