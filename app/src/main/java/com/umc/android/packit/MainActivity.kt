@@ -1,6 +1,5 @@
 package com.umc.android.packit
 
-
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.google.android.gms.maps.GoogleMap
@@ -13,17 +12,15 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.umc.android.packit.databinding.ActivityMainBinding
 import com.umc.android.packit.databinding.FragmentStoreListBinding
 
-class MainActivity : AppCompatActivity(), OnMapReadyCallback, StoreListRVAdapter.MyItemClickListener {
+abstract class MainActivity : AppCompatActivity(), OnMapReadyCallback, StoreListRVAdapter.MyItemClickListener {
 
     companion object {
         const val TAG = "MainActivity"
     }
 
-
     private lateinit var binding: ActivityMainBinding
     private lateinit var dialog: BottomSheetDialog
     private lateinit var bottomSheet: FragmentStoreListBinding
-
     private var storeDatas = ArrayList<Store>()
 
     //background map
@@ -55,18 +52,15 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback, StoreListRVAdapter
 
         }
 
-
 //            val bottomSheetView = layoutInflater.inflate(R.layout.fragment_store_list, null)
 //        bottomSheetDialog = BottomSheetDialog(this)
 //            bottomSheetDialog.setContentView(bottomSheetView)
 
-
-            binding.storeListBtn.setOnClickListener {
-                    showBottomSheet()
-            }
-
+        binding.storeListBtn.setOnClickListener {
+            showBottomSheet()
         }
 
+    }
 
     private fun showBottomSheet() {
         val dialogView = layoutInflater.inflate(R.layout.fragment_store_list, null)
@@ -74,16 +68,12 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback, StoreListRVAdapter
         dialog.setContentView(dialogView)
         bottomSheet = FragmentStoreListBinding.bind(dialogView)
         val storeListRVAdapter = StoreListRVAdapter(storeDatas)
-
-        storeListRVAdapter.setMyItemClickListener(this)
-
         bottomSheet.storeListRecyclerView.adapter = storeListRVAdapter
         dialog.show()
 
     }
 
     override fun onItemClick(store: Store) {
-
         // 아이템 클릭 시 StoreFragment를 시작
         supportFragmentManager.beginTransaction()
             .replace(R.id.main_frm, StoreFragment())
@@ -91,10 +81,6 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback, StoreListRVAdapter
 
         // BottomSheetDialog 닫기 (선택적)
         // dialog.dismiss()
-    }
-
-    override fun onStarClick(store: Store) {
-        TODO("Not yet implemented")
     }
 
 
@@ -176,5 +162,6 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback, StoreListRVAdapter
         var longitude: Double?
     )
 
-}
 
+
+}
