@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
+    app:behavior_expandedOffset="100dp">
+
+
+        <View
+            android:id="@+id/store_list_view"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:background="@color/white"
+            app:layout_constraintBottom_toTopOf="@id/store_list_recyclerView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <ImageView
+            android:id="@+id/store_list_bar"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:paddingHorizontal="150dp"
+            android:gravity="center"
+            android:src="@drawable/btn_ios_bar"
+            app:layout_constraintStart_toStartOf="@id/store_list_view"
+            app:layout_constraintTop_toTopOf="@id/store_list_view" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/store_list_recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="550dp"
+            android:orientation="vertical"
+            android:overScrollMode="never"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constrainedHeight="true"
+            app:layout_constraintTop_toBottomOf="@id/store_list_view"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:listitem="@layout/item_store_list" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
