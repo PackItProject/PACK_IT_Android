@@ -1,5 +1,6 @@
 package com.umc.android.packit
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -54,13 +55,15 @@ class MainActivity : AppCompatActivity(), StoreListRVAdapter.MyItemClickListener
     }
 
     override fun onItemClick(store: Store) {
-        // 아이템 클릭 시 StoreFragment를 시작
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.main_frm, StoreActivity())
-            .commitAllowingStateLoss()
+        // 아이템 클릭 시 StoreActivity를 시작
+        val intent = Intent(this, StoreActivity::class.java)
+        startActivity(intent)
+//        supportFragmentManager.beginTransaction()
+//            .replace(R.id.main_frm, StoreActivity())
+//            .commitAllowingStateLoss()
 
         // BottomSheetDialog 닫기 (선택적)
-        // dialog.dismiss()
+        //dialog.dismiss()
     }
 
     override fun onStarClick(store: Store) {

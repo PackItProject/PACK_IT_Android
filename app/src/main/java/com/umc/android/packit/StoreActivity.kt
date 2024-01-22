@@ -1,41 +1,25 @@
 package com.umc.android.packit
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.Fragment
+import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.tabs.TabLayoutMediator
 import com.umc.android.packit.databinding.ActivityStoreBinding
 
-class StoreActivity : Fragment() {
+class StoreActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityStoreBinding
 
     private val information = arrayListOf("메뉴", "가게 정보", "평점")
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        binding = ActivityStoreBinding.inflate(inflater,container,false)
-
-//        binding.storeBackIv.setOnClickListener {
-//            (context as MainActivity).supportFragmentManager.beginTransaction()
-//                .replace(R.id.main_frm, HomeFragment())
-//                .commitAllowingStateLoss()
-//        }
-
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        binding = ActivityStoreBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         val storeAdapter = StoreVPAdapter(this)
         binding.storeContentVp.adapter = storeAdapter
-        TabLayoutMediator(binding.storeContentTb, binding.storeContentVp){
-                tab, position ->
+        TabLayoutMediator(binding.storeContentTb, binding.storeContentVp) { tab, position ->
             tab.text = information[position]
         }.attach()
-
-        return binding.root
     }
-
 }
