@@ -4,14 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.google.android.material.tabs.TabLayoutMediator
-import com.umc.android.packit.databinding.FragmentStoreBinding
+import com.umc.android.packit.databinding.ActivityStoreBinding
 
-class StoreFragment : Fragment() {
+class StoreActivity : Fragment() {
 
-    lateinit var binding: FragmentStoreBinding
+    lateinit var binding: ActivityStoreBinding
 
     private val information = arrayListOf("메뉴", "가게 정보", "평점")
 
@@ -20,7 +19,7 @@ class StoreFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentStoreBinding.inflate(inflater,container,false)
+        binding = ActivityStoreBinding.inflate(inflater,container,false)
 
 //        binding.storeBackIv.setOnClickListener {
 //            (context as MainActivity).supportFragmentManager.beginTransaction()
