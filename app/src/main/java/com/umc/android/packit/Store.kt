@@ -10,5 +10,6 @@ data class Store(
     var address: String? = "",
     var state: String? = "",
     var rate: String? = "",
+    var star: Boolean? = false,
     var storeImg: Int? = null,
 )
