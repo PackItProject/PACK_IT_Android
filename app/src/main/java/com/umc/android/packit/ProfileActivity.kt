@@ -2,6 +2,7 @@ package com.umc.android.packit
 
 import android.os.Bundle
 import android.text.Editable
+import android.text.InputFilter
 import android.text.TextWatcher
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
@@ -37,6 +38,10 @@ class ProfileActivity : AppCompatActivity() {
                 // 사용자가 입력한 내용이 변경되고 있는 동안에 호출되는 메서드
             }
         })
+
+        // editText 글자 수 제한 추가 (최대 12글자)
+        val maxLength = 12
+        binding.profileNicknameEt.filters = arrayOf(InputFilter.LengthFilter(maxLength))
 
         // 확인 버튼 클릭 시, 닉네임 유효성 검증
         binding.profileConfirmBtn.setOnClickListener {
