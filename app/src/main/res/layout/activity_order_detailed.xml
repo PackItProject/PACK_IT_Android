@@ -249,7 +249,7 @@
         android:id="@+id/order_detailed_order_btn"
         android:layout_width="0dp"
         android:layout_height="65dp"
-        android:background="@drawable/order_completed_btn_grey"
+        android:background="@drawable/order_completed_btn_detailed"
         android:text="주문하기"
         android:textColor="@color/white"
         android:textSize="16sp"

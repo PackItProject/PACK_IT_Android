@@ -46,7 +46,7 @@
         android:id="@+id/cart_menu_closed_btn_iv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/closed"
+        android:src="@drawable/order_completed_img_closed"
         app:layout_constraintTop_toTopOf="@id/cart_menu_background_view"
         app:layout_constraintEnd_toEndOf="@id/cart_menu_background_view"/>
 
@@ -243,7 +243,7 @@
         android:id="@+id/cart_order_btn"
         android:layout_width="0dp"
         android:layout_height="65dp"
-        android:background="@drawable/order_completed_btn_grey"
+        android:background="@drawable/order_completed_btn_detailed"
         android:text="주문하기"
         android:textColor="@color/white"
         android:textSize="16sp"

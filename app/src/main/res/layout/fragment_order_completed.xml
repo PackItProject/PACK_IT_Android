@@ -4,12 +4,14 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <!--  배경색 -->
     <View
         android:id="@+id/order_completed_background_color_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/white_text" />
 
+    <!-- 상단부 -->
     <TextView
         android:id="@+id/order_completed_title_tv"
         android:layout_width="wrap_content"
@@ -27,12 +29,11 @@
         android:id="@+id/order_completed_closed_btn_iv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/closed"
+        android:src="@drawable/order_completed_img_closed"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="25dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
-
 
     <View
         android:id="@+id/order_completed_line_01_view"
@@ -45,6 +46,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/order_completed_title_tv" />
 
+    <!-- 중간 부분 -->
     <TextView
         android:id="@+id/order_completed_store_name_tv"
         android:layout_width="wrap_content"
@@ -53,7 +55,7 @@
         android:text="가게이름"
         android:textColor="@color/dark_grey"
         android:textStyle="bold"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="20dp"
         android:layout_marginStart="30dp"
         app:layout_constraintStart_toStartOf="@id/order_completed_line_01_view"
         app:layout_constraintTop_toBottomOf="@id/order_completed_line_01_view" />
@@ -70,29 +72,30 @@
         app:layout_constraintStart_toStartOf="@id/order_completed_store_name_tv"/>
 
     <Button
-        android:id="@+id/order_completed_order_detail_btn"
+        android:id="@+id/order_completed_order_detailed_btn"
         android:layout_width="100dp"
-        android:layout_height="36dp"
-        android:background="@drawable/order_completed_btn_grey"
+        android:layout_height="48dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/order_completed_btn_detailed"
         android:text="주문 상세"
         android:textColor="@color/dark_grey"
         android:textSize="14sp"
-        android:layout_marginBottom="14dp"
-        android:layout_marginEnd="8dp"
-        app:layout_constraintEnd_toStartOf="@id/order_completed_order_delete_btn"
-        app:layout_constraintBottom_toTopOf="@id/order_completed_line_02_view" />
+        app:layout_constraintBottom_toTopOf="@id/order_completed_line_02_view"
+        app:layout_constraintEnd_toStartOf="@id/order_completed_order_deleted_btn" />
 
     <Button
-        android:id="@+id/order_completed_order_delete_btn"
+        android:id="@+id/order_completed_order_deleted_btn"
         android:layout_width="100dp"
-        android:layout_height="36dp"
+        android:layout_height="48dp"
         android:text="주문 취소"
         android:textColor="@color/red"
         android:textSize="14sp"
-        android:background="@drawable/order_completed_btn_red"
+        android:background="@drawable/order_completed_btn_deleted"
         app:layout_constraintEnd_toEndOf="@id/order_completed_line_01_view"
-        app:layout_constraintTop_toTopOf="@id/order_completed_order_detail_btn"
-        app:layout_constraintBottom_toBottomOf="@id/order_completed_order_detail_btn" />
+        app:layout_constraintTop_toTopOf="@id/order_completed_order_detailed_btn"
+        app:layout_constraintBottom_toBottomOf="@id/order_completed_order_detailed_btn" />
+
     <View
         android:id="@+id/order_completed_line_02_view"
         android:layout_width="0dp"
@@ -104,6 +107,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/order_completed_line_01_view" />
 
+    <!-- 하단부 -->
     <TextView
         android:id="@+id/order_completed_notice_message_01_tv"
         android:layout_width="wrap_content"
@@ -111,8 +115,7 @@
         android:text="개인용기를 지참하여 "
         android:textColor="@color/grey"
         android:textSize="18sp"
-        android:layout_marginTop="24dp"
-
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="5dp"
         app:layout_constraintTop_toBottomOf="@id/order_completed_line_02_view"
         app:layout_constraintStart_toStartOf="@id/order_completed_store_name_tv" />
