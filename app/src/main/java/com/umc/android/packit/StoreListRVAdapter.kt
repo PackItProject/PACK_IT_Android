@@ -2,7 +2,6 @@ package com.umc.android.packit
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.umc.android.packit.databinding.ItemStoreListBinding
