@@ -17,7 +17,7 @@
         android:id="@+id/store_image_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="메뉴 이미지"
+        android:text="가게 이미지"
         android:textColor="@color/white"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -26,10 +26,10 @@
         app:layout_constraintBottom_toBottomOf="@id/store_image_iv" />
 
     <ImageView
-        android:id="@+id/store_info_back_btn_iv"
+        android:id="@+id/store_back_btn_iv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/white_back"
+        android:src="@drawable/img_back_white"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginTop="20dp"

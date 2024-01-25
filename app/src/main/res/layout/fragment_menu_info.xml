@@ -30,7 +30,7 @@
         android:id="@+id/menu_info_back_btn_iv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/white_back"
+        android:src="@drawable/img_back_white"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginTop="20dp"

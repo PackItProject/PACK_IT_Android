@@ -54,18 +54,18 @@ class ProfileActivity : AppCompatActivity() {
         // 에러 메시지 감춤
         binding.profileErrorMessageTv.visibility = View.INVISIBLE
         // editText 테두리 복구 (빨강 -> 회색)
-        binding.profileNicknameEt.setBackgroundResource(R.drawable.profile_et_white)
+        binding.profileNicknameEt.setBackgroundResource(R.drawable.et_valid)
     }
 
     // button 효과 함수 (editText의 내용 유무에 따라 button의 배경색을 바꿈)
     private fun changeButtonBackground(isTyping: Boolean) {
         if (isTyping) {
             // editText가 비어 있지 않은 경우, 버튼 및 텍스트 색 변경
-            binding.profileConfirmBtn.setBackgroundResource(R.drawable.profile_btn_grey)
+            binding.profileConfirmBtn.setBackgroundResource(R.drawable.btn_square)
             binding.profileConfirmBtn.setTextColor(ContextCompat.getColor(this,R.color.white));
         } else {
             // editText가 비어 있는 경우, 원래 색상으로 변경
-            binding.profileConfirmBtn.setBackgroundResource(R.drawable.profile_btn_white)
+            binding.profileConfirmBtn.setBackgroundResource(R.drawable.btn_square_border)
                 binding.profileConfirmBtn.setTextColor(ContextCompat.getColor(this,R.color.grey))
         }
     }
@@ -81,7 +81,7 @@ class ProfileActivity : AppCompatActivity() {
         } else {
             // 유효하지 않은 경우, 에러 메시지 띄우고 테두리 색 (회색 -> 빨강) 변경
             binding.profileErrorMessageTv.visibility = View.VISIBLE
-            binding.profileNicknameEt.setBackgroundResource(R.drawable.profile_et_red)
+            binding.profileNicknameEt.setBackgroundResource(R.drawable.et_invalid)
         }
     }
 
