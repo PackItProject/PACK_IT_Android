@@ -159,7 +159,7 @@
         android:id="@+id/menu_info_add_cart_btn"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@drawable/bottom_btn"
+        android:background="@drawable/order_completed_btn_grey"
         android:text="장바구니에 담기"
         android:textColor="@color/white"
         android:textSize="16sp"
