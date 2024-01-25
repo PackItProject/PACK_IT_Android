@@ -82,7 +82,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback, StoreListRVAdapter
 //            .commitAllowingStateLoss()
 
         // BottomSheetDialog 닫기 (선택적)
-        //dialog.dismiss()
+        dialog.dismiss()
     }
 
     override fun onStarClick(store: Store) {
