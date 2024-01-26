@@ -7,6 +7,21 @@
     android:orientation="vertical"
     android:id="@+id/main_frm">
 
+<!--
+    <fragment
+        android:id="@+id/place_autocomplete"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:name="com.google.android.gms.location.places.ui.PlaceAutocompleteFragment"
+        />
+
+   <fragment
+        android:id="@+id/map"
+        class="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+-->
+
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="600dp"
@@ -25,6 +40,7 @@
             android:background="@drawable/edittext_background">
 
             <ImageView
+                android:id="@+id/gps_iv"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_marginLeft="20dp"
@@ -34,7 +50,7 @@
 
 
             <EditText
-                android:id="@+id/editText"
+                android:id="@+id/storeSearchText"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@android:color/transparent"
@@ -60,17 +76,24 @@
     </FrameLayout>
 
 
+
+
     <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fl_container"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"/>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bnv_map"
+        android:id="@+id/bottomnavi"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white_text"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        app:labelVisibilityMode="labeled"
         app:menu="@menu/bottom_nav_menu"
-        app:labelVisibilityMode="labeled"/>
+        app:itemIconTint="@color/grey"
+        app:itemTextColor="@color/grey"/>
 
 </LinearLayout>

@@ -52,6 +52,7 @@ dependencies {
 
     implementation("androidx.slidingpanelayout:slidingpanelayout:1.2.0")
     implementation("androidx.room:room-common:2.6.1")
+    implementation("com.google.android.libraries.places:places:3.3.0")
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
@@ -64,6 +65,7 @@ dependencies {
     //Google maps
     implementation ("com.google.android.gms:play-services-maps:17.0.0")
     implementation ("com.google.android.gms:play-services-location:17.0.0")
+    implementation ("com.google.android.gms:play-services-places:17.0.0")
 
     //cardview
     implementation ("androidx.cardview:cardview:1.0.0")

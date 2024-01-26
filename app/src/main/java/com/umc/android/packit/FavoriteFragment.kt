@@ -1,5 +1,18 @@
 package com.umc.android.packit
+import android.content.Context
+import android.os.Bundle
+import android.util.Log
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+class FavoriteFragment:Fragment()  {
 
+
+
+
+
+<<<<<<< Updated upstream
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -53,4 +66,6 @@ class FavoriteFragment : Fragment(), FavoriteRVAdapter.MyItemClickListener {
         val adapter = binding.favoriteMainRecyclerView.adapter as? FavoriteRVAdapter
         adapter?.updateStoreStarImage(store)
     }
+=======
+>>>>>>> Stashed changes
 }
