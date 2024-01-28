@@ -18,7 +18,15 @@
         <item name="android:textSize">16sp</item>
         <item name="android:textColor">@color/grey</item>
     </style>
-    
+
+    <!-- 두껍고 어두운 회색 텍스트 -->
+    <style name="BoldDrakGreyText" parent="Widget.AppCompat.TextView">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/dark_grey</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <!-- 둥근 모서리 카드뷰 -->
     <style name="RoundCardView" parent="CardView">
         <item name="cardBackgroundColor">@color/white_text</item>
         <item name="android:elevation">0dp</item>
