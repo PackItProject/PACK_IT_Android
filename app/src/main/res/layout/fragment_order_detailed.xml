@@ -181,6 +181,7 @@
         android:layout_height="wrap_content"
         android:src="@drawable/img_upper_shadow"
         android:scaleType="fitXY"
+        android:elevation="2dp"
         android:layout_marginTop="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
