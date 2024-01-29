@@ -4,27 +4,27 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/menu_navigation"
+        android:id="@+id/mapFragment"
         android:icon="@drawable/ic_navigation"
         android:title="주변"/>
 
     <item
-        android:id="@+id/menu_star"
+        android:id="@+id/favoriteFragment"
         android:icon="@drawable/ic_star"
         android:title="즐겨찾기"/>
 
     <item
-        android:id="@+id/menu_my_packit"
+        android:id="@+id/myPackitFragment"
         android:icon="@drawable/ic_my_packit"
         android:title="MY 패킷"/>
 
     <item
-        android:id="@+id/menu_order_list"
+        android:id="@+id/orderHistoryFragment"
         android:icon="@drawable/ic_order_list"
         android:title="주문내역"/>
 
     <item
-        android:id="@+id/menu_my_info"
+        android:id="@+id/myInfoFragment"
         android:icon="@drawable/ic_my_info"
         android:title="내 정보"/>
 
