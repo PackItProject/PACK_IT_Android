@@ -52,7 +52,7 @@
             android:layout_width="wrap_content"
             android:layout_height="30dp"
             android:text="[필수]서비스 이용 약관 전체동의"
-            android:boxColor="@color/white"/>
+           />
 
 
         <CheckBox

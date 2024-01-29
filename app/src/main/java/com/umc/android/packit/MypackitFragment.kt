@@ -8,6 +8,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 
 class MypackitFragment : Fragment() {
 
@@ -15,6 +17,19 @@ class MypackitFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_mypackit, container, false)
+        val rootView = inflater.inflate(R.layout.fragment_mypackit, container, false)
+
+        val recyclerView: RecyclerView = rootView.findViewById(R.id.badgeRecyclerView)
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())
+
+        val adapter = MypackitPinAdapter(getSampleData()) // Implement getSampleData() to provide your data
+        recyclerView.adapter = adapter
+
+        return rootView
+    }
+
+    private fun getSampleData(): List<String> {
+        // Replace this with your actual data
+        return listOf("Item 0", "Item 1", "Item 2")
     }
 }

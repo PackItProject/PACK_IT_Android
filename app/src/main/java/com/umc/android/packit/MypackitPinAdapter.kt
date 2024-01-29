@@ -7,18 +7,21 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
 class MypackitPinAdapter(private val dataList: List<String>) :
-    RecyclerView.Adapter<MyViewHolder>() {
+    RecyclerView.Adapter<MypackitViewHolder>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MypackitViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val itemView = inflater.inflate(R.layout.item_mypackit_pin, parent, false)
-        return MyViewHolder(itemView)
+        return MypackitViewHolder(itemView)
     }
 
-    override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: MypackitViewHolder, position: Int) {
         // Bind data to views in each item
         val itemText = dataList[position]
         // Set data to your UI components in MyViewHolder
+
+        holder.textViewTitle.text = itemText
+        holder.textViewDate.text = "Some Date"
     }
 
     override fun getItemCount(): Int {
