@@ -47,7 +47,7 @@
         android:layout_marginBottom="200dp">
 
         <!-- 동의 체크박스 -->
-        <CheckBox
+        <!--<CheckBox
             android:id="@+id/checkboxAgree"
             android:layout_width="wrap_content"
             android:layout_height="30dp"
@@ -67,12 +67,12 @@
             android:layout_width="wrap_content"
             android:layout_height="30dp"
             android:layout_marginTop="4dp"
-            android:text="[필수]위치정보 제공 동의" />
+            android:text="[필수]위치정보 제공 동의" />-->
 
     </LinearLayout>
 
     <!-- 확인 버튼 -->
-    <android.widget.Button
+    <!--<android.widget.Button
         android:id="@+id/buttonConfirm"
         android:layout_width="300dp"
         android:layout_height="80dp"
@@ -83,6 +83,6 @@
         android:gravity="center"
         android:layout_marginTop="60dp"
         style="@style/SquareButton"
-        android:background="@color/grey"/>
+        android:background="@color/grey"/>-->
 
 </LinearLayout>

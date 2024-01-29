@@ -8,7 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 
 class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+        /*super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login_main)
 
         // Login_main_ 화면에서 버튼 가져오기
@@ -24,6 +24,6 @@ class LoginActivity : AppCompatActivity() {
         loginButtonNaver.setOnClickListener { // Login_consent 화면으로 이동
             val intent = Intent(this@LoginActivity, LoginConsentActivity::class.java)
             startActivity(intent)
-        }
+        }*/
     }
 }

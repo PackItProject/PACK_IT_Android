@@ -68,7 +68,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
-import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.MapView
@@ -98,7 +97,7 @@ class MapFragment : Fragment(), OnMapReadyCallback,StoreListRVAdapter.MyItemClic
     private lateinit var googleMap: GoogleMap
     private var currentMarker: Marker? = null
     private lateinit var searchEditText: EditText
-    var placeAutoComplete: PlaceAutocompleteFragment? = null //지도검색용 변수
+
 
     private var storeDatas = ArrayList<Store>()
     private lateinit var dialog: BottomSheetDialog
