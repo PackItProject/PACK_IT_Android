@@ -21,7 +21,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="fitCenter"
-            android:src="#767676"
+            android:src="@color/grey"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.cardview.widget.CardView>
@@ -58,7 +58,7 @@
         android:layout_height="wrap_content"
         android:text="권장용량/크기"
         android:textSize="17sp"
-        android:textColor="#363636"
+        android:textColor="@color/dark_grey"
         android:layout_marginLeft="22dp"
         android:layout_marginTop="36dp"
         android:layout_marginBottom="1dp"

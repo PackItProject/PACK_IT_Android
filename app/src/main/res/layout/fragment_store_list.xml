@@ -2,16 +2,17 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     xmlns:tools="http://schemas.android.com/tools"
-    app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+    app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
+    app:behavior_expandedOffset="100dp">
 
 
         <View
             android:id="@+id/store_list_view"
             android:layout_width="match_parent"
             android:layout_height="35dp"
-            android:background="#FFFFFF"
+            android:background="@color/white"
             app:layout_constraintBottom_toTopOf="@id/store_list_recyclerView"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -30,20 +31,13 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/store_list_recyclerView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="550dp"
             android:orientation="vertical"
             android:overScrollMode="never"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constrainedHeight="true"
             app:layout_constraintTop_toBottomOf="@id/store_list_view"
+            app:layout_constraintBottom_toBottomOf="parent"
             tools:listitem="@layout/item_store_list" />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-                android:src="@drawable/store_img_1"
-            app:layout_constraintTop_toBottomOf="@id/store_list_recyclerView"
-
-                app:layout_constraintStart_toStartOf="parent"/>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

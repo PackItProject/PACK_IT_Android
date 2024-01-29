@@ -23,7 +23,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="fitCenter"
-            android:src="#767676"
+            android:src="@color/grey"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.cardview.widget.CardView>
@@ -42,17 +42,41 @@
         app:layout_constraintStart_toEndOf="@id/item_list_img_cardView"/>
 
     <TextView
-        android:id="@+id/item_list_close_tv"
+        android:id="@+id/item_list_close_bracket1_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="3dp"
-        android:text="(영업 종료)"
+        android:text="("
         android:textSize="17sp"
         android:textColor="@color/black"
         android:textStyle="bold"
         app:layout_constraintTop_toTopOf="@id/item_list_img_cardView"
         app:layout_constraintBottom_toTopOf="@id/item_list_rate_tv"
         app:layout_constraintStart_toEndOf="@id/item_list_name_tv"/>
+
+    <TextView
+        android:id="@+id/item_list_close_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="영업 종료"
+        android:textSize="17sp"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        app:layout_constraintTop_toTopOf="@id/item_list_img_cardView"
+        app:layout_constraintBottom_toTopOf="@id/item_list_rate_tv"
+        app:layout_constraintStart_toEndOf="@id/item_list_close_bracket1_tv"/>
+
+    <TextView
+        android:id="@+id/item_list_close_bracket2_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=")"
+        android:textSize="17sp"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        app:layout_constraintTop_toTopOf="@id/item_list_img_cardView"
+        app:layout_constraintBottom_toTopOf="@id/item_list_rate_tv"
+        app:layout_constraintStart_toEndOf="@id/item_list_close_tv"/>
 
 
     <TextView
@@ -61,7 +85,7 @@
         android:layout_height="wrap_content"
         android:text="평점 4.5  ·"
         android:textSize="12sp"
-        android:textColor="#767676"
+        android:textColor="@color/grey"
         app:layout_constraintTop_toBottomOf="@+id/item_list_name_tv"
         app:layout_constraintStart_toStartOf="@id/item_list_name_tv"
         app:layout_constraintEnd_toStartOf="@id/item_list_state_tv"/>
@@ -73,7 +97,7 @@
         android:layout_marginStart="8dp"
         android:text="영업 중"
         android:textSize="12sp"
-        android:textColor="#767676"
+        android:textColor="@color/grey"
         app:layout_constraintTop_toTopOf="@id/item_list_rate_tv"
         app:layout_constraintStart_toEndOf="@id/item_list_rate_tv"/>
 
@@ -83,24 +107,12 @@
         android:layout_height="wrap_content"
         android:text="주소"
         android:textSize="12sp"
-        android:textColor="#767676"
+        android:textColor="@color/grey"
         app:layout_constraintBottom_toBottomOf="@id/item_list_img_cardView"
         app:layout_constraintStart_toStartOf="@id/item_list_name_tv"/>
 
     <ImageView
-        android:id="@+id/item_list_select_star_iv"
-        android:layout_width="wrap_content"
-        android:layout_height="88dp"
-        android:layout_marginRight="16dp"
-        android:src="@drawable/btn_star_select"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_gravity="center_vertical"
-        android:visibility="invisible"
-        android:background="@color/white"/>
-
-    <ImageView
-        android:id="@+id/item_list_star_no_select_iv"
+        android:id="@+id/item_list_star_iv"
         android:layout_width="wrap_content"
         android:layout_height="88dp"
         android:layout_marginRight="16dp"
@@ -110,5 +122,6 @@
         android:layout_gravity="center_vertical"
         android:visibility="visible"
         android:background="@color/white"/>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

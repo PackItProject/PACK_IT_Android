@@ -2,7 +2,6 @@ package com.umc.android.packit
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.umc.android.packit.databinding.ItemStoreListBinding
@@ -11,6 +10,8 @@ class StoreListRVAdapter(private val stores: ArrayList<Store>) : RecyclerView.Ad
 
     interface MyItemClickListener {
         fun onItemClick(store: Store)
+
+        fun onStarClick(store: Store)
     }
 
     private lateinit var mItemClickListener: MyItemClickListener
@@ -32,6 +33,10 @@ class StoreListRVAdapter(private val stores: ArrayList<Store>) : RecyclerView.Ad
         holder.itemView.setOnClickListener {
             mItemClickListener.onItemClick(stores[position])
         }
+
+        holder.binding.itemListStarIv.setOnClickListener {
+            mItemClickListener.onStarClick(stores[position])
+        }
     }
 
     override fun getItemCount(): Int = stores.size
@@ -50,6 +55,14 @@ class StoreListRVAdapter(private val stores: ArrayList<Store>) : RecyclerView.Ad
         notifyDataSetChanged()
     }
 
+    @SuppressLint("NotifyDataSetChanged")
+    fun updateStoreStarImage(store: Store) {
+        val position = stores.indexOf(store)
+        if (position != -1) {
+            notifyItemChanged(position)
+        }
+    }
+
     inner class ViewHolder(val binding: ItemStoreListBinding) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(store: Store) {
@@ -58,7 +71,15 @@ class StoreListRVAdapter(private val stores: ArrayList<Store>) : RecyclerView.Ad
             binding.itemListCloseTv.text = store.state
             binding.itemListRateTv.text = store.rate
             binding.itemListStateTv.text = store.state
-            binding.itemListImgIv.setImageResource(store.storeImg!!)
+            if (store.star==true){
+                binding.itemListStarIv.setImageResource(R.drawable.btn_star_select)
+            }
+            else {
+                binding.itemListStarIv.setImageResource(R.drawable.btn_star_no_select)
+            }
+            store.storeImg?.let {
+                binding.itemListImgIv.setImageResource(it)
+            }
         }
     }
 }
