@@ -1,179 +1,131 @@
 package com.umc.android.packit
 
-import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.MapView
-import com.google.android.gms.maps.model.Marker
-import com.google.android.gms.maps.*
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.MarkerOptions
-import com.google.android.material.bottomsheet.BottomSheetDialog
+import androidx.appcompat.app.AppCompatActivity
 import com.umc.android.packit.databinding.ActivityMainBinding
-import com.umc.android.packit.databinding.FragmentStoreListBinding
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.setupWithNavController
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.room.Index
 
-class MainActivity : AppCompatActivity(), OnMapReadyCallback, StoreListRVAdapter.MyItemClickListener {
+private const val TAG_MAP = "map_fragment"
+private const val TAG_FAVORITE = "favorite_fragment"
 
-    companion object {
-        const val TAG = "MainActivity"
-    }
 
+class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
-    private lateinit var dialog: BottomSheetDialog
-    private lateinit var bottomSheet: FragmentStoreListBinding
-    private var storeDatas = ArrayList<Store>()
-
-    //background map
-    private lateinit var mapView: MapView
-    private lateinit var googleMap: GoogleMap
-    private var currentMarker: Marker? = null
-
-
+    private lateinit var navController: NavController
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        //map
-        this.mapView = binding.mapView
-        mapView.onCreate(savedInstanceState)
-        mapView.getMapAsync(this@MainActivity)
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.fl_container) as NavHostFragment
+        navController = navHostFragment.navController
+
+        binding.bottomnavi.setupWithNavController(navController)
+         if (savedInstanceState == null) {
+             supportFragmentManager.beginTransaction()
+                 .replace(R.id.container, MapFragment())
+                 .commit()
+         }
+
+        binding.bottomnavi.setOnItemSelectedListener { item ->
+            when(item.itemId) {
+                R.id.mapFragment -> {
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.container, MapFragment())
+                        .commit()
+                }
+
+                R.id.favoriteFragment -> {
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.container, FavoriteFragment())
+                        .commit()
+                }
+
+           /*     R.id.myPackitFragment -> {
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.container, myPackitFragment() )
+                        .commit()
+                }*/
+
+                R.id.orderHistoryFragment -> {
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.container, OrderHistoryFragment())
+                        .commit()
+                }
+
+                R.id.myInfoFragment -> {
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.container, MyInfoFragment())
+                        .commit()
+                }
 
 
-        storeDatas.apply{
-            add(Store(1, "가게 이름", "address 1", "영업 중","평점 4.5",true, R.drawable.store_img_1))
-            add(Store(2, "옥루", "address 2", "영업 종료","평점 4.5",false,R.drawable.store_img_2))
-            add(Store(3, "선식당", "address 3", "영업 중","평점 4.5", false,R.drawable.store_img_3))
-            add(Store(4, "가게 이름", "address 1", "영업 중","평점 4.5", true,R.drawable.store_img_1))
-            add(Store(5, "옥루", "address 2", "영업 종료","평점 4.5",false,R.drawable.store_img_2))
-            add(Store(6, "선식당", "address 3", "영업 중","평점 4.5",true, R.drawable.store_img_3))
+            /*    R.id.favoriteFragment -> {
+                    // If you have a destination with id "favoriteFragment" in your navigation graph
+                    navController.navigate(R.id.favoriteFragment)
+                }*/
 
+            }
+            true
         }
 
-//            val bottomSheetView = layoutInflater.inflate(R.layout.fragment_store_list, null)
-//        bottomSheetDialog = BottomSheetDialog(this)
-//            bottomSheetDialog.setContentView(bottomSheetView)
+    }
 
-        binding.storeListBtn.setOnClickListener {
-            showBottomSheet()
+    private fun setFragment(tag: String, fragment: Fragment) {
+        val manager: FragmentManager = supportFragmentManager
+        val fragTransaction = manager.beginTransaction()
+
+        if (manager.findFragmentByTag(tag) == null){
+            fragTransaction.add(R.id.fl_container, fragment, tag)
         }
 
-    }
+        val favorite= manager.findFragmentByTag(TAG_FAVORITE)
 
-    private fun showBottomSheet() {
-        val dialogView = layoutInflater.inflate(R.layout.fragment_store_list, null)
-        dialog = BottomSheetDialog(this)
-        dialog.setContentView(dialogView)
-        bottomSheet = FragmentStoreListBinding.bind(dialogView)
-        val storeListRVAdapter = StoreListRVAdapter(storeDatas)
-        storeListRVAdapter.setMyItemClickListener(this)
-        bottomSheet.storeListRecyclerView.adapter = storeListRVAdapter
-        dialog.show()
-
-    }
-
-    override fun onItemClick(store: Store) {
-        // 아이템 클릭 시 StoreActivity를 시작
-        val intent = Intent(this, StoreActivity::class.java)
-        startActivity(intent)
-//        supportFragmentManager.beginTransaction()
-//            .replace(R.id.main_frm, StoreActivity())
-//            .commitAllowingStateLoss()
-
-        // BottomSheetDialog 닫기 (선택적)
-        //dialog.dismiss()
-    }
-
-    override fun onStarClick(store: Store) {
-        store.star = !store.star!! // Toggle the value
-        updateStoreStarImage(store)
-    }
-
-    private fun updateStoreStarImage(store: Store) {
-        val adapter = bottomSheet.storeListRecyclerView.adapter as? StoreListRVAdapter
-        adapter?.updateStoreStarImage(store)
-    }
-
-
-    /**
-     * onMapReady()
-     * Map 이 사용할 준비가 되었을 때 호출
-     * @param googleMap
-     */
-
-    override fun onMapReady(googleMap: GoogleMap) {
-        this.googleMap = googleMap
-
-        currentMarker = setupMarker(LatLngEntity(37.5562,126.9724))  // default 서울역
-        currentMarker?.showInfoWindow()
-    }
-
-
-
-    /**
-     * setupMarker()
-     * 선택한 위치의 marker 표시
-     * @param locationLatLngEntity
-     * @return
-     */
-
-    private fun setupMarker(locationLatLngEntity: LatLngEntity): Marker? {
-
-        val positionLatLng = LatLng(locationLatLngEntity.latitude!!,locationLatLngEntity.longitude!!)
-        val markerOption = MarkerOptions().apply {
-            position(positionLatLng)
-            title("위치")
-            snippet("서울역 위치")
+        if (favorite != null){
+            fragTransaction.hide(favorite)
         }
 
-        googleMap.mapType = GoogleMap.MAP_TYPE_NORMAL  // 지도 유형 설정
-        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(positionLatLng, 15f))  // 카메라 이동
-        googleMap.animateCamera(CameraUpdateFactory.zoomTo(15f))  // 줌의 정도 - 1 일 경우 세계지도 수준, 숫자가 커질 수록 상세지도가 표시됨
-        return googleMap.addMarker(markerOption)
+        if (tag == TAG_FAVORITE) {
+            if (favorite!=null){
+                fragTransaction.show(favorite)
+            }
+        }
 
+
+        /*if (home != null){
+            fragTransaction.hide(home)
+        }
+
+        if (myPage != null) {
+            fragTransaction.hide(myPage)
+        }*/
+
+        /*
+                if (tag == TAG_CALENDER) {
+                    if (calender!=null){
+                        fragTransaction.show(calender)
+                    }
+                }
+                else if (tag == TAG_HOME) {
+                    if (home != null) {
+                        fragTransaction.show(home)
+                    }
+                }
+
+                else if (tag == TAG_MY_PAGE){
+                    if (myPage != null){
+                        fragTransaction.show(myPage)
+                    }
+                }
+        */
+        fragTransaction.commitAllowingStateLoss()
     }
-
-
-    override fun onStart() {
-        super.onStart()
-        mapView.onStart()
-    }
-    override fun onStop() {
-        super.onStop()
-        mapView.onStop()
-    }
-    override fun onResume() {
-        super.onResume()
-        mapView.onResume()
-    }
-    override fun onPause() {
-        super.onPause()
-        mapView.onPause()
-    }
-    override fun onLowMemory() {
-        super.onLowMemory()
-        mapView.onLowMemory()
-    }
-    override fun onDestroy() {
-        mapView.onDestroy()
-        super.onDestroy()
-    }
-
-
-
-    /**
-     * LatLngEntity data class
-     *
-     * @property latitude 위도 (ex. 37.5562)
-     * @property longitude 경도 (ex. 126.9724)
-     */
-
-    data class LatLngEntity(
-        var latitude: Double?,
-        var longitude: Double?
-    )
-
-
-
 }
+

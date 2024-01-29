@@ -3,8 +3,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:gravity="center">
+    android:gravity="center"
+    android:background="@color/background_grey">
 
     <!-- 서비스 이름 -->
     <TextView
@@ -49,7 +51,8 @@
             android:id="@+id/checkboxAgree"
             android:layout_width="wrap_content"
             android:layout_height="30dp"
-            android:text="[필수]서비스 이용 약관 전체동의" />
+            android:text="[필수]서비스 이용 약관 전체동의"
+            android:boxColor="@color/white"/>
 
 
         <CheckBox
@@ -69,15 +72,17 @@
     </LinearLayout>
 
     <!-- 확인 버튼 -->
-    <Button
+    <android.widget.Button
         android:id="@+id/buttonConfirm"
         android:layout_width="300dp"
         android:layout_height="80dp"
         android:layout_below="@id/checkboxAgree"
         android:layout_margin="16dp"
         android:text="확인"
+        android:textColor="@color/white"
         android:gravity="center"
         android:layout_marginTop="60dp"
-        style="@style/SquareButton"/>
+        style="@style/SquareButton"
+        android:background="@color/grey"/>
 
 </LinearLayout>
