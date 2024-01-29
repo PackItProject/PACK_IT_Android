@@ -17,6 +17,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PackIt"
         tools:targetApi="31">
+
         <activity
             android:name=".LocationListActivity"
             android:exported="false"
@@ -40,7 +41,7 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-<<<<<<< Updated upstream
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
