@@ -23,6 +23,7 @@
             android:exported="false"
             android:label="@string/title_activity_location_list"
             android:theme="@style/Theme.PackIt" />
+
         <activity
             android:name=".SearchMapActivity"
             android:exported="false" /> <!-- Apache HTTP 라이브러리 사용 설정 -->
@@ -58,12 +59,8 @@
 
 
         </activity>
-        <activity
-            android:name=".StoreActivity"
-            android:exported="true"></activity>
-        <activity
-            android:name=".ProfileActivity"
-            android:exported="true"></activity>
+
+
     </application>
 
 </manifest>

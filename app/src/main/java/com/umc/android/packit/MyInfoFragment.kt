@@ -1,10 +1,13 @@
 package com.umc.android.packit
 
+import android.graphics.Outline
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.ViewOutlineProvider
+import android.widget.ImageView
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -40,7 +43,23 @@ class MyInfoFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_my_info, container, false)
+
+        val rootView = inflater.inflate(R.layout.fragment_my_info, container, false) // Replace with your fragment layout XML file
+
+        val profileImageView: ImageView = rootView.findViewById(R.id.profile_img_iv)
+
+        // Set the ViewOutlineProvider for rounded corners
+        profileImageView.outlineProvider = object : ViewOutlineProvider() {
+            override fun getOutline(view: View, outline: Outline) {
+                val cornerRadius = resources.getDimensionPixelSize(R.dimen.corner_radius)
+                outline.setRoundRect(0, 0, view.width, view.height, cornerRadius.toFloat())
+            }
+        }
+
+        profileImageView.clipToOutline = true
+
+        return rootView
+
     }
 
 
