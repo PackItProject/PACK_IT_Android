@@ -16,10 +16,28 @@ class StoreActivity : AppCompatActivity() {
         binding = ActivityStoreBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        initStore()
+
         val storeAdapter = StoreVPAdapter(this)
         binding.storeContentVp.adapter = storeAdapter
         TabLayoutMediator(binding.storeContentTb, binding.storeContentVp) { tab, position ->
             tab.text = information[position]
         }.attach()
+
+        binding.storeBackIv.setOnClickListener {
+            finish()
+        }
+    }
+
+
+    private fun initStore() {
+        val intent = intent
+        if (intent != null) {
+            intent.getIntExtra("storeImg", -1).let { storeImg ->
+                if (storeImg != -1) {
+                    binding.storeBackgroundView.setImageResource(storeImg)
+                }
+            }
+        }
     }
 }

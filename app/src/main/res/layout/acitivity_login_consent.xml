@@ -50,22 +50,21 @@
         <CheckBox
             android:id="@+id/checkboxAgree"
             android:layout_width="wrap_content"
-            android:layout_height="30dp"
-            android:text="[필수]서비스 이용 약관 전체동의"
-            android:boxColor="@color/white"/>
+            android:layout_height="48dp"
+            android:text="[필수]서비스 이용 약관 전체동의" />
 
 
         <CheckBox
             android:id="@+id/checkboxAgree2"
             android:layout_width="wrap_content"
-            android:layout_height="30dp"
+            android:layout_height="48dp"
             android:layout_marginTop="4dp"
             android:text="[필수]개인정보 제3자 제공 동의" />
 
         <CheckBox
             android:id="@+id/checkboxAgree3"
             android:layout_width="wrap_content"
-            android:layout_height="30dp"
+            android:layout_height="48dp"
             android:layout_marginTop="4dp"
             android:text="[필수]위치정보 제공 동의" />
 

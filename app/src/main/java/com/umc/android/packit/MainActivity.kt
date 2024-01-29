@@ -28,11 +28,11 @@ class MainActivity : AppCompatActivity() {
         navController = navHostFragment.navController
 
         binding.bottomnavi.setupWithNavController(navController)
-         if (savedInstanceState == null) {
-             supportFragmentManager.beginTransaction()
-                 .replace(R.id.container, MapFragment())
-                 .commit()
-         }
+        if (savedInstanceState == null) {
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.container, MapFragment())
+                .commit()
+        }
 
         binding.bottomnavi.setOnItemSelectedListener { item ->
             when(item.itemId) {
@@ -48,11 +48,11 @@ class MainActivity : AppCompatActivity() {
                         .commit()
                 }
 
-           /*     R.id.myPackitFragment -> {
-                    supportFragmentManager.beginTransaction()
-                        .replace(R.id.container, myPackitFragment() )
-                        .commit()
-                }*/
+                /*     R.id.myPackitFragment -> {
+                         supportFragmentManager.beginTransaction()
+                             .replace(R.id.container, myPackitFragment() )
+                             .commit()
+                     }*/
 
                 R.id.orderHistoryFragment -> {
                     supportFragmentManager.beginTransaction()
@@ -67,10 +67,10 @@ class MainActivity : AppCompatActivity() {
                 }
 
 
-            /*    R.id.favoriteFragment -> {
-                    // If you have a destination with id "favoriteFragment" in your navigation graph
-                    navController.navigate(R.id.favoriteFragment)
-                }*/
+                /*    R.id.favoriteFragment -> {
+                        // If you have a destination with id "favoriteFragment" in your navigation graph
+                        navController.navigate(R.id.favoriteFragment)
+                    }*/
 
             }
             true
@@ -128,4 +128,3 @@ class MainActivity : AppCompatActivity() {
         fragTransaction.commitAllowingStateLoss()
     }
 }
-
