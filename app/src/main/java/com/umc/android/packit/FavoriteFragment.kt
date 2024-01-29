@@ -40,17 +40,19 @@ class FavoriteFragment : Fragment(), FavoriteRVAdapter.MyItemClickListener {
         // storeDatas 중 star 값이 true인 항목만 필터링하여 반환
         return storeDatas.filter { it.star == true }
     }
+
     override fun onItemClick(store: Store) {
 
     }
 
     override fun onStarClick(store: Store) {
-        store.star = !store.star!! // Toggle the value
-        updateStoreStarImage(store)
+        val favoriteRVAdapter = FavoriteRVAdapter(getFavoriteStores())
+        favoriteRVAdapter.setMyItemClickListener(this)
+        binding.favoriteMainRecyclerView.adapter = favoriteRVAdapter
     }
 
-    private fun updateStoreStarImage(store: Store) {
-        val adapter = binding.favoriteMainRecyclerView.adapter as? FavoriteRVAdapter
-        adapter?.updateStoreStarImage(store)
-    }
+//    private fun updateStoreStarImage(store: Store) {
+//        val adapter = binding.favoriteMainRecyclerView.adapter as? FavoriteRVAdapter
+//        adapter?.updateStoreStarImage(store)
+//    }
 }
