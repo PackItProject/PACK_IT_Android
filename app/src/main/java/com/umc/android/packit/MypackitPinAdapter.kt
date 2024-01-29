@@ -6,28 +6,22 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class MypackitPinAdapter(private val pinList: List<MypackitPinItem>) :
-    RecyclerView.Adapter<MypackitPinAdapter.ViewHolder>() {
+class MypackitPinAdapter(private val dataList: List<String>) :
+    RecyclerView.Adapter<MyViewHolder>() {
 
-    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val pinImageView: ImageView = itemView.findViewById(R.id.badgeImageView)
-        val titleTextView: TextView = itemView.findViewById(R.id.mypackitPinName)
-        val descriptionTextView: TextView = itemView.findViewById(R.id.mypackitPinDate)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
+        val inflater = LayoutInflater.from(parent.context)
+        val itemView = inflater.inflate(R.layout.item_mypackit_pin, parent, false)
+        return MyViewHolder(itemView)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_mypackit_pin, parent, false)
-        return ViewHolder(view)
+    override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
+        // Bind data to views in each item
+        val itemText = dataList[position]
+        // Set data to your UI components in MyViewHolder
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val pinItem = pinList[position]
-
-        holder.pinImageView.setImageResource(pinItem.imageResourceId)
-        holder.titleTextView.text = pinItem.title
-        holder.descriptionTextView.text = pinItem.description
+    override fun getItemCount(): Int {
+        return dataList.size
     }
-
-    override fun getItemCount(): Int = pinList.size
 }
-

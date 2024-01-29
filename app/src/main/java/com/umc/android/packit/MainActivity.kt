@@ -26,6 +26,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback,
     private lateinit var myInfoFragment: MyInfoFragment
     private lateinit var favoriteFragment: FavoriteFragment
     private lateinit var homeFragment: HomeFragment
+    private lateinit var mypackitFragment: MypackitFragment
 
     // private lateinit var mypackitFragment: MypackitFragment
     lateinit var orderHistoryFragment: OrderHistoryFragment
@@ -53,15 +54,15 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback,
         setContentView(binding.root)
         Log.d(TAG, "MainActivity - onCreate() called")
 
-/*
+        /*
 
-        val bottomnavi = binding.bottomnavi
-        bottomnavi.setOnNavigationItemSelectedListener(onBottomNavItemSelectedListener)
+                val bottomnavi = binding.bottomnavi
+                bottomnavi.setOnNavigationItemSelectedListener(onBottomNavItemSelectedListener)
 
 
-        homeFragment = HomeFragment.newInstance()
-        supportFragmentManager.beginTransaction().add(R.id.fl_container, homeFragment).commit()
-*/
+                homeFragment = HomeFragment.newInstance()
+                supportFragmentManager.beginTransaction().add(R.id.fl_container, homeFragment).commit()
+        */
 
         //배경에 지도 띄우기
         this.mapView = binding.mapView
@@ -94,7 +95,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback,
                 searchEditText = findViewById (R.id.storeSearchText)
 */
 
-                storeDatas . apply {
+        storeDatas . apply {
             add(Store(1, "가게 이름", "address 1", "영업 중", "평점 4.5", true, R.drawable.store_img_1))
             add(Store(2, "옥루", "address 2", "영업 종료", "평점 4.5", false, R.drawable.store_img_2))
             add(Store(3, "선식당", "address 3", "영업 중", "평점 4.5", false, R.drawable.store_img_3))
@@ -108,9 +109,15 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback,
 //        bottomSheetDialog = BottomSheetDialog(this)
 //            bottomSheetDialog.setContentView(bottomSheetView)
 
-                binding . storeListBtn . setOnClickListener {
+        binding . storeListBtn . setOnClickListener {
             showBottomSheet()
         }
+
+
+//        mypackitFragment = MypackitFragment()
+//        supportFragmentManager.beginTransaction()
+//            .replace(R.id.mypackit_fragment_container, mypackitFragment)
+//            .commit()
 
     }
 
@@ -287,5 +294,4 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback,
 
 
 }
-
 

@@ -15,15 +15,15 @@ class LoginActivity : AppCompatActivity() {
         val loginButtonKakao = findViewById<Button>(R.id.btnKakaoLogin)
         val loginButtonNaver = findViewById<Button>(R.id.btnNaverLogin)
 
-        // 버튼 클릭 리스너 설정
-        loginButtonKakao.setOnClickListener { // Login_consent 화면으로 이동
-            val intent = Intent(this@LoginActivity, LoginConsentActivity::class.java)
-            startActivity(intent).ccd
-        }
-
-        loginButtonNaver.setOnClickListener { // Login_consent 화면으로 이동
-            val intent = Intent(this@LoginActivity, LoginConsentActivity::class.java)
-            startActivity(intent)
-        }
+//        // 버튼 클릭 리스너 설정
+//        loginButtonKakao.setOnClickListener { // Login_consent 화면으로 이동
+//            val intent = Intent(this@LoginActivity, LoginConsentActivity::class.java)
+//            startActivity(intent).ccd
+//        }
+//
+//        loginButtonNaver.setOnClickListener { // Login_consent 화면으로 이동
+//            val intent = Intent(this@LoginActivity, LoginConsentActivity::class.java)
+//            startActivity(intent)
+//        }
     }
 }
