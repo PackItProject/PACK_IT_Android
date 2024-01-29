@@ -4,12 +4,12 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import java.util.*
 
-@Entity(tableName = "StoreTable")
 data class Store(
-    @PrimaryKey(autoGenerate = false) var id: Int = 0,
+    var id: Int = 0,
     var name: String? = "",
     var address: String? = "",
     var state: String? = "",
     var rate: String? = "",
+    var star: Boolean? = false,
     var storeImg: Int? = null,
 )

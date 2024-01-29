@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- 로그인 초반 사각버튼 -->
     <style name="SquareButton" parent="Widget.AppCompat.Button">
         <item name="android:radius">0dp</item>
         <item name="android:background">@color/grey</item>
+        <!-- 버튼 그림자 삭제 -->
+        <item name="android:outlineProvider">none</item>
     </style>
 </resources>

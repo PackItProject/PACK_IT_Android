@@ -12,7 +12,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:background="#767676"
+        android:background="@color/grey"
         />
 
     <ImageView
@@ -35,7 +35,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:text="가게 이미지"
         android:textSize="18sp"
-        android:textColor="#FFFFFF"
+        android:textColor="@color/white"
         android:gravity="center"
         />
 
@@ -49,7 +49,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_gravity="center_vertical"
         android:visibility="visible"
-        android:background="#767676"/>
+        android:background="@color/grey"/>
 
 
     <com.google.android.material.tabs.TabLayout
@@ -58,9 +58,9 @@
         android:layout_height="wrap_content"
         android:contentDescription="Store Tabs"
         app:tabIndicatorFullWidth="false"
-        app:tabSelectedTextColor="#000000"
-        app:tabIndicatorColor="#000000"
-        app:tabRippleColor="#00ff0000"
+        app:tabSelectedTextColor="@color/black"
+        app:tabIndicatorColor="@color/black"
+        app:tabRippleColor="@color/grey"
         app:layout_constraintTop_toBottomOf="@id/store_background_view"
         app:layout_constraintStart_toStartOf="@id/store_background_view"
         app:layout_constraintEnd_toEndOf="@id/store_background_view"/>
