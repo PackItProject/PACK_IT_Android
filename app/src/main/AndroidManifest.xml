@@ -60,7 +60,7 @@
         </activity>
 
         <activity
-            android:name=".ProfileActivity"
+            android:name=".OrderFragment"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
