@@ -23,36 +23,11 @@ class OrderFragment : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        // 쿠폰 데이터 추가
-        couponOptions = arrayOf("쿠폰 선택", "[첫 주문] 5% 할인", "[누적 주문 10회] 5% 할인")
-
+        // 쿠폰 데이터 가져옴
+        /*couponOptions = arrayOf("쿠폰 미사용", "[첫 주문] 5% 할인", "[누적 주문 10회] 5% 할인")
         // 스피너 설정
-        val adapter = ArrayAdapter(this, R.layout.simple_spinner_dropdown_item, couponOptions)
-        binding.orderCouponSpinner.adapter = adapter
-
-        // "쿠폰 선택"을 드롭다운에서 선택할 수 없게 함
-        binding.orderCouponSpinner.isEnabled = false
-
-        // 스피너 아이템 선택 리스너 설정
-        binding.orderCouponSpinner.setOnItemSelectedListener(object :
-            AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(
-                parent: AdapterView<*>?,
-                view: View?,
-                position: Int,
-                id: Long
-            ) {
-                // 선택한 아이템이 "쿠폰 선택"일 때
-                if (position == 0) {
-                    // "쿠폰 미사용"을 보여줌
-                    // TODO: 쿠폰 미사용 처리
-                }
-            }
-
-            override fun onNothingSelected(parent: AdapterView<*>?) {
-                // 아무것도 선택되지 않았을 때 처리
-            }
-        })
+        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, couponOptions)
+        binding.orderCouponSpinner.adapter = adapter*/
 
         // 하단 체크 버튼
         binding.orderCheckOffBtnIv.setOnClickListener {

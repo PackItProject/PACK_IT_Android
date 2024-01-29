@@ -17,6 +17,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PackIt"
         tools:targetApi="31" >
+
         <activity
             android:name=".SearchMapActivity"
             android:exported="false" /> <!-- Apache HTTP 라이브러리 사용 설정 -->
@@ -33,19 +34,20 @@
         <activity
             android:name=".MainActivity"
             android:exported="true" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".StoreActivity"
             android:exported="true" >
         </activity>
         <activity
-            android:name=".ProfileActivity"
+            android:name=".OrderFragment"
             android:exported="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
     </application>
 

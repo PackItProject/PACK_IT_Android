@@ -25,5 +25,6 @@ class LoginActivity : AppCompatActivity() {
             val intent = Intent(this@LoginActivity, LoginConsentActivity::class.java)
             startActivity(intent)
         }*/
+
     }
 }

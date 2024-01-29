@@ -194,12 +194,17 @@
             style="@style/BoldDrakGreyText"/>
 
 
-        <Spinner
+        <Button
             android:id="@+id/order_coupon_spinner"
             android:layout_width="240dp"
             android:layout_height="48dp"
             android:background="@drawable/et_request"
             android:layout_marginTop="24dp"
+            android:text="쿠폰 선택"
+            android:textSize="13sp"
+            android:textColor="@color/dark_grey"
+            android:gravity="start|center"
+            android:paddingHorizontal="14dp"
             app:layout_constraintTop_toBottomOf="@id/order_coupon_tv"
             app:layout_constraintStart_toStartOf="@id/order_coupon_tv"/>
 

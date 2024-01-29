@@ -90,23 +90,11 @@
         app:layout_constraintStart_toStartOf="@id/item_favorite_name_tv"/>
 
     <ImageView
-        android:id="@+id/item_favorite_select_star_iv"
+        android:id="@+id/item_favorite_star_iv"
         android:layout_width="wrap_content"
         android:layout_height="88dp"
         android:layout_marginRight="16dp"
         android:src="@drawable/btn_star_select"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_gravity="center_vertical"
-        android:visibility="invisible"
-        android:background="@color/white"/>
-
-    <ImageView
-        android:id="@+id/item_favorite_star_no_select_iv"
-        android:layout_width="wrap_content"
-        android:layout_height="88dp"
-        android:layout_marginRight="16dp"
-        android:src="@drawable/btn_star_no_select"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_gravity="center_vertical"
