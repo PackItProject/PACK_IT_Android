@@ -38,24 +38,14 @@ class MainMenuRVAdapter(private val menus: List<Menu>) : RecyclerView.Adapter<Ma
     inner class ViewHolder(val binding: ItemMainMenuBinding) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(menu: Menu) {
-            if (menu.category == 1){
                 binding.itemMainTitleTv.text = menu.menu_name
-                binding.itemMainPriceTv.text = menu.price.toString()
+                binding.itemMainPriceTv.text = menu.price.toString()+"원"
                 binding.itemMainSizeTv.text = menu.containers
 
                 menu.menuImg?.let {
                     binding.itemMainImgIv.setImageResource(it)
                 }
-            }
-            else {
-                binding.itemMainTitleTv.text = menu.menu_name
-                binding.itemMainPriceTv.text = menu.price.toString()
-                binding.itemMainSizeTv.text = menu.containers
 
-                menu.menuImg?.let {
-                    binding.itemMainImgIv.setImageResource(it)
-                }
-            }
 
         }
     }

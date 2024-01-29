@@ -41,21 +41,34 @@ class FavoriteRVAdapter(private val stores: List<Store>) : RecyclerView.Adapter<
 
     override fun getItemCount(): Int = stores.size
 
+    @SuppressLint("NotifyDataSetChanged")
+ /*   fun addStores(stores: ArrayList<Store>) {
+        this.stores.clear()
+        this.stores.addAll(stores)
 
-//    @SuppressLint("NotifyDataSetChanged")
-//    fun updateStoreStarImage(store: Store) {
-//        val position = stores.indexOf(store)
-//        if (position != -1) {
-//            notifyItemChanged(position)
-//        }
-//    }
+        notifyDataSetChanged()
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    private fun removeStore(position: Int) {
+        stores.removeAt(position)
+        notifyDataSetChanged()
+    }
+
+    @SuppressLint("NotifyDataSetChanged")*/
+    fun updateStoreStarImage(store: Store) {
+        val position = stores.indexOf(store)
+        if (position != -1) {
+            notifyItemChanged(position)
+        }
+    }
 
     inner class ViewHolder(val binding: ItemFavoriteBinding) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(store: Store) {
             binding.itemFavoriteNameTv.text = store.name
             binding.itemFavoriteAddressTv.text = store.address
-            binding.itemFavoriteCloseTv.text = store.state
+            binding.itemFavoriteCloseTv.text = "("+store.state+")"
             binding.itemFavoriteRateTv.text = store.rate
             binding.itemFavoriteStateTv.text = store.state
             if (store.star==true){

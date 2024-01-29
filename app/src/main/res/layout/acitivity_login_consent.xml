@@ -3,8 +3,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:gravity="center">
+    android:gravity="center"
+    android:background="@color/background_grey">
 
     <!-- 서비스 이름 -->
     <TextView
@@ -48,36 +50,38 @@
         <CheckBox
             android:id="@+id/checkboxAgree"
             android:layout_width="wrap_content"
-            android:layout_height="30dp"
+            android:layout_height="48dp"
             android:text="[필수]서비스 이용 약관 전체동의" />
 
 
         <CheckBox
             android:id="@+id/checkboxAgree2"
             android:layout_width="wrap_content"
-            android:layout_height="30dp"
+            android:layout_height="48dp"
             android:layout_marginTop="4dp"
             android:text="[필수]개인정보 제3자 제공 동의" />
 
         <CheckBox
             android:id="@+id/checkboxAgree3"
             android:layout_width="wrap_content"
-            android:layout_height="30dp"
+            android:layout_height="48dp"
             android:layout_marginTop="4dp"
             android:text="[필수]위치정보 제공 동의" />
 
     </LinearLayout>
 
     <!-- 확인 버튼 -->
-    <Button
+    <android.widget.Button
         android:id="@+id/buttonConfirm"
         android:layout_width="300dp"
         android:layout_height="80dp"
         android:layout_below="@id/checkboxAgree"
         android:layout_margin="16dp"
         android:text="확인"
+        android:textColor="@color/white"
         android:gravity="center"
         android:layout_marginTop="60dp"
-        style="@style/SquareButton"/>
+        style="@style/SquareButton"
+        android:background="@color/grey"/>
 
 </LinearLayout>

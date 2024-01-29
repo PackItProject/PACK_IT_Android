@@ -39,24 +39,14 @@ class SideMenuRVAdapter(private val menus: List<Menu>) : RecyclerView.Adapter<Si
     inner class ViewHolder(val binding: ItemSideMenuBinding) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(menu: Menu) {
-            if (menu.category == 1){
+
                 binding.itemSideTitleTv.text = menu.menu_name
-                binding.itemSidePriceTv.text = menu.price.toString()
+                binding.itemSidePriceTv.text = menu.price.toString()+"원"
                 binding.itemSideSizeTv.text = menu.containers
 
                 menu.menuImg?.let {
                     binding.itemSideImgIv.setImageResource(it)
                 }
-            }
-            else {
-                binding.itemSideTitleTv.text = menu.menu_name
-                binding.itemSidePriceTv.text = menu.price.toString()
-                binding.itemSideSizeTv.text = menu.containers
-
-                menu.menuImg?.let {
-                    binding.itemSideImgIv.setImageResource(it)
-                }
-            }
 
         }
     }

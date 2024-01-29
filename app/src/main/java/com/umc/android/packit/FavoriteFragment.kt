@@ -1,6 +1,7 @@
 package com.umc.android.packit
-
+import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -46,13 +47,18 @@ class FavoriteFragment : Fragment(), FavoriteRVAdapter.MyItemClickListener {
     }
 
     override fun onStarClick(store: Store) {
+        store.star = !store.star!! // Toggle the value
+        updateStoreStarImage(store)
+
         val favoriteRVAdapter = FavoriteRVAdapter(getFavoriteStores())
         favoriteRVAdapter.setMyItemClickListener(this)
         binding.favoriteMainRecyclerView.adapter = favoriteRVAdapter
     }
 
-//    private fun updateStoreStarImage(store: Store) {
-//        val adapter = binding.favoriteMainRecyclerView.adapter as? FavoriteRVAdapter
-//        adapter?.updateStoreStarImage(store)
-//    }
+
+    private fun updateStoreStarImage(store: Store) {
+        val adapter = binding.favoriteMainRecyclerView.adapter as? FavoriteRVAdapter
+        adapter?.updateStoreStarImage(store)
+    }
+
 }
