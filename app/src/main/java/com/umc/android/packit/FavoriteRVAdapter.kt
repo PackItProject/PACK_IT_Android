@@ -34,7 +34,7 @@ class FavoriteRVAdapter(private val stores: List<Store>) : RecyclerView.Adapter<
             mItemClickListener.onItemClick(stores[position])
         }
 
-        holder.binding.itemFavoriteSelectStarIv.setOnClickListener {
+        holder.binding.itemFavoriteStarIv.setOnClickListener {
             mItemClickListener.onStarClick(stores[position])
         }
     }
@@ -42,7 +42,7 @@ class FavoriteRVAdapter(private val stores: List<Store>) : RecyclerView.Adapter<
     override fun getItemCount(): Int = stores.size
 
     @SuppressLint("NotifyDataSetChanged")
-    fun addStores(stores: ArrayList<Store>) {
+ /*   fun addStores(stores: ArrayList<Store>) {
         this.stores.clear()
         this.stores.addAll(stores)
 
@@ -55,7 +55,7 @@ class FavoriteRVAdapter(private val stores: List<Store>) : RecyclerView.Adapter<
         notifyDataSetChanged()
     }
 
-    @SuppressLint("NotifyDataSetChanged")
+    @SuppressLint("NotifyDataSetChanged")*/
     fun updateStoreStarImage(store: Store) {
         val position = stores.indexOf(store)
         if (position != -1) {
@@ -68,14 +68,14 @@ class FavoriteRVAdapter(private val stores: List<Store>) : RecyclerView.Adapter<
         fun bind(store: Store) {
             binding.itemFavoriteNameTv.text = store.name
             binding.itemFavoriteAddressTv.text = store.address
-            binding.itemFavoriteCloseTv.text = store.state
+            binding.itemFavoriteCloseTv.text = "("+store.state+")"
             binding.itemFavoriteRateTv.text = store.rate
             binding.itemFavoriteStateTv.text = store.state
             if (store.star==true){
-                binding.itemFavoriteSelectStarIv.setImageResource(R.drawable.btn_star_select)
+                binding.itemFavoriteStarIv.setImageResource(R.drawable.btn_star_select)
             }
             else {
-                binding.itemFavoriteSelectStarIv.setImageResource(R.drawable.btn_star_no_select)
+                binding.itemFavoriteStarIv.setImageResource(R.drawable.btn_star_no_select)
             }
             store.storeImg?.let {
                 binding.itemFavoriteImgIv.setImageResource(it)

@@ -23,9 +23,9 @@
 
             <LinearLayout
                 android:id="@+id/linearLayout"
-                android:layout_width="wrap_content"
-                android:layout_height="200dp"
-                android:layout_margin="30dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
                 android:background="@color/white_text"
                 android:orientation="vertical"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -40,34 +40,57 @@
                     android:orientation="horizontal">
 
                     <ImageView
-                        android:id="@+id/profile_imageview"
+                        android:id="@+id/profile_img_iv"
                         android:layout_width="100dp"
                         android:layout_height="100dp"
-                        android:layout_margin="30dp"
-                        android:background="@color/grey"
+                        android:layout_margin="20dp"
+                        android:background="@color/background_grey"
                         app:layout_constraintBottom_toTopOf="@+id/profile_textview_email"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:outlineProvider="background"
+                        android:clipToOutline="true"/>
 
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
 
-                        <TextView
-                            android:id="@+id/profile_textview_name"
+                        <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="30dp"
-                            android:gravity="center"
-                            android:inputType="textPersonName"
-                            android:text="강희정"
-                            android:textSize="25sp"
-                            android:textStyle="bold"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/profile_textview_email" />
+                            android:orientation="horizontal">
+                            <TextView
+                                android:id="@+id/profile_name_tv"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="30dp"
+                                android:gravity="center"
+                                android:inputType="textPersonName"
+                                android:text="강희정"
+                                android:textSize="25sp"
+                                android:textStyle="bold"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/profile_textview_email" />
+                            <TextView
+                                android:id="@+id/profile_edit_tv"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="30dp"
+                                android:layout_marginLeft="70dp"
+                                android:gravity="center"
+                                android:inputType="textPersonName"
+                                android:text="편집"
+                                android:textSize="16sp"
+                                android:textColor="@color/grey"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/profile_textview_email" />
+
+                        </LinearLayout>
+
 
                         <TextView
                             android:id="@+id/profile_textview_email"
@@ -85,21 +108,23 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="20dp">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="40dp"
-                        android:layout_marginRight="80dp"
+                        android:layout_marginRight="60dp"
                         android:text="즐겨찾기" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="80dp"
+                        android:layout_marginRight="60dp"
                         android:text="쿠폰" />
 
                     <TextView
@@ -129,8 +154,8 @@
                 android:id="@+id/linearLayout2"
                 android:layout_width="match_parent"
                 android:layout_height="300dp"
-                android:layout_margin="30dp"
-                android:layout_marginTop="40dp"
+                android:layout_margin="20dp"
+
                 android:background="@color/white_text"
                 android:orientation="vertical"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -217,7 +242,7 @@
                 app:menu="@menu/bottom_nav_menu"
                 app:itemIconTint="@color/grey"
                 app:itemTextColor="@color/grey"/>
-        </LinearLayout>
+    </LinearLayout>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>
 
