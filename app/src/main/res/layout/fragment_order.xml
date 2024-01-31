@@ -199,6 +199,7 @@
             android:id="@+id/order_coupon_background_view"
             android:layout_width="0dp"
             android:layout_height="130dp"
+            android:layout_marginTop="7dp"
             app:layout_constraintStart_toStartOf="@id/order_coupon_selected_btn"
             app:layout_constraintEnd_toEndOf="@id/order_coupon_selected_btn"
             app:layout_constraintTop_toTopOf="@id/order_coupon_selected_btn"
@@ -209,7 +210,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:paddingTop="30dp"
+                android:layout_marginTop="10dp"
                 android:background="@color/white_text"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 tools:listitem="@layout/item_order_coupon"/>

@@ -31,6 +31,8 @@ class OrderFragment : AppCompatActivity() {
         val profileList = ArrayList<OrderCoupon>()
         profileList.add(OrderCoupon("[첫 주문] 5% 할인"))
         profileList.add(OrderCoupon("[누적 주문 10회] 5% 할인"))
+        profileList.add(OrderCoupon("[누적 주문 10회] 15% 할인"))
+        profileList.add(OrderCoupon("[누적 주문 10회] 20% 할인"))
         profileList.add(OrderCoupon("쿠폰 미사용"))
 
 
@@ -63,8 +65,8 @@ class OrderFragment : AppCompatActivity() {
 
     private fun showCouponList() {
         isClicked = !isClicked // 상태 전환
-        val slideDown = ObjectAnimator.ofFloat(couponBackground, "translationY", 0f, 30f)
-        val slideUp = ObjectAnimator.ofFloat(couponBackground, "translationY", 30f, 0f)
+        val slideDown = ObjectAnimator.ofFloat(couponBackground, "translationY", 0f, 55f)
+        val slideUp = ObjectAnimator.ofFloat(couponBackground, "translationY", 55f, 0f)
 
         if (isClicked) {
                 couponBackground.visibility = View.VISIBLE
