@@ -1,17 +1,27 @@
 package com.umc.android.packit
 
+import android.Manifest
+import android.content.Intent
+import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
+import android.provider.MediaStore
 import android.text.Editable
 import android.text.InputFilter
 import android.text.TextWatcher
+import android.util.Log
 import android.view.View
+import android.widget.Toast
+import androidx.activity.result.PickVisualMediaRequest
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.umc.android.packit.databinding.ActivityProfileBinding
 
-class ProfileActivity : AppCompatActivity() {
+class ProfileActivity : ProfilePermissionActivity() {
     // 변수 선언
     private lateinit var binding: ActivityProfileBinding
+    val PERM_GALLERY = 1 // 갤러리 접근권한 코드
 
     override fun onCreate(savedInstanceState: Bundle?) {
         // xml 바인딩 작업
@@ -47,6 +57,14 @@ class ProfileActivity : AppCompatActivity() {
         binding.profileConfirmBtn.setOnClickListener {
             checkNicknameValidity()
         }
+
+        // 프로필 사진 버튼
+        binding.profilePhotoIv.setOnClickListener {
+            // 갤러리 권한 요청
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU)
+                requirePermission(arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), PERM_GALLERY)
+            else requirePermission(arrayOf(Manifest.permission.READ_MEDIA_IMAGES), PERM_GALLERY)
+        }
     }
 
     // editText 효과 초기화 함수
@@ -70,7 +88,7 @@ class ProfileActivity : AppCompatActivity() {
         }
     }
 
-    // 닉네임 유효성 검증 함수
+    // 닉네임 검증 에러 처리
     private fun checkNicknameValidity() {
         // editText의 내용을 가져옴
         val nickname = binding.profileNicknameEt.text.toString()
@@ -90,5 +108,41 @@ class ProfileActivity : AppCompatActivity() {
         // 닉네임과 정규표현식(영어, 숫자, 한글)과의 매치작업
         val regex = Regex("[a-zA-Z0-9가-힣]+")
         return nickname.matches(regex)
+    }
+
+    // 권한 요청 허용
+    override fun grantPermission(requestCode: Int) {
+        when(requestCode){
+            PERM_GALLERY -> openGallery()
+        }
+    }
+
+    // 권한 요청 거부
+    override fun denyPermission(requestCode: Int) {
+        when(requestCode){
+            PERM_GALLERY ->
+                Toast.makeText(this, "갤러리 접근 권한을 승인해야 합니다", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun openGallery() {
+        val intent = Intent(Intent.ACTION_PICK)
+        intent.type = MediaStore.Images.Media.CONTENT_TYPE // 이미지만을 선택
+        startActivityForResult(intent, PERM_GALLERY)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == RESULT_OK) {
+            when (requestCode) {
+                PERM_GALLERY -> {
+                    // 이미지 주소를 그냥 가져옴
+                    data?.data?.let { uri ->
+                        binding.profileUserIv.setImageURI(uri)
+
+                    }
+                }
+            }
+        }
     }
 }

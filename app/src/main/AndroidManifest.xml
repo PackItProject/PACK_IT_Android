@@ -5,7 +5,9 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
-    <!-- 갤러리 접근 권한 -->
+    <!-- 갤러리 접근 권한 (타겟 sdk 33 미만)-->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <!-- 갤러리 접근 권한 (타겟 sdk 33 이상)-->
     <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
 
     <application
@@ -43,7 +45,7 @@
             android:exported="true" >
         </activity>
         <activity
-            android:name=".OrderFragment"
+            android:name=".ProfileActivity"
             android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
