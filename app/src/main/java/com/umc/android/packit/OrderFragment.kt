@@ -6,6 +6,7 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import androidx.core.animation.doOnEnd
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.umc.android.packit.databinding.FragmentOrderBinding
 
 
@@ -18,6 +19,7 @@ class OrderFragment : AppCompatActivity() {
     private lateinit var couponBackground: CardView // 쿠폰 배경
 
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -25,7 +27,18 @@ class OrderFragment : AppCompatActivity() {
         binding = FragmentOrderBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // couponBackground 초기화 -> init으로 묶ㄱ기
+        // 더미 데이터
+        val profileList = ArrayList<OrderCoupon>()
+        profileList.add(OrderCoupon("[첫 주문] 5% 할인"))
+        profileList.add(OrderCoupon("[누적 주문 10회] 5% 할인"))
+        profileList.add(OrderCoupon("쿠폰 미사용"))
+
+
+        binding.orderCouponRecyclerView.adapter = OrderCouponRVAdapter(profileList)
+        binding.orderCouponRecyclerView.layoutManager= LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+
+
+        // couponBackground 초기화 -> init으로 묶을것
         couponBackground = binding.orderCouponBackgroundView
 
 
@@ -51,7 +64,7 @@ class OrderFragment : AppCompatActivity() {
     private fun showCouponList() {
         isClicked = !isClicked // 상태 전환
         val slideDown = ObjectAnimator.ofFloat(couponBackground, "translationY", 0f, 30f)
-         val slideUp = ObjectAnimator.ofFloat(couponBackground, "translationY", 30f, 0f)
+        val slideUp = ObjectAnimator.ofFloat(couponBackground, "translationY", 30f, 0f)
 
         if (isClicked) {
                 couponBackground.visibility = View.VISIBLE
