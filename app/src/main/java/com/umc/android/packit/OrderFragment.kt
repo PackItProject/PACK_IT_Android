@@ -1,11 +1,11 @@
 package com.umc.android.packit
 
-import android.R
+import android.animation.ObjectAnimator
 import android.os.Bundle
 import android.view.View
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
+import androidx.cardview.widget.CardView
+import androidx.core.animation.doOnEnd
 import com.umc.android.packit.databinding.FragmentOrderBinding
 
 
@@ -13,21 +13,31 @@ class OrderFragment : AppCompatActivity() {
 
     // 변수 선언
     private lateinit var binding: FragmentOrderBinding
-    private var isChecked = false // 초기 상태: 언체크
-    private var couponOptions = arrayOf<String>()
+    private var isClicked = false // 쿠폰 버튼
+    private var isChecked = false // 체크 버튼
+    private lateinit var couponBackground: CardView // 쿠폰 배경
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
         // xml 바인딩 작업
         binding = FragmentOrderBinding.inflate(layoutInflater)
-
-        super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        // 쿠폰 데이터 가져옴
-        /*couponOptions = arrayOf("쿠폰 미사용", "[첫 주문] 5% 할인", "[누적 주문 10회] 5% 할인")
-        // 스피너 설정
-        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, couponOptions)
-        binding.orderCouponSpinner.adapter = adapter*/
+        // couponBackground 초기화 -> init으로 묶ㄱ기
+        couponBackground = binding.orderCouponBackgroundView
+
+
+        couponBackground.visibility = View.INVISIBLE
+
+        binding.orderCheckOffBtnIv.visibility = View.VISIBLE
+        binding.orderCheckOnBtnIv.visibility = View.GONE
+
+
+        binding.orderCouponSelectedBtn.setOnClickListener {
+            showCouponList()
+        }
 
         // 하단 체크 버튼
         binding.orderCheckOffBtnIv.setOnClickListener {
@@ -38,6 +48,28 @@ class OrderFragment : AppCompatActivity() {
         }
     }
 
+    private fun showCouponList() {
+        isClicked = !isClicked // 상태 전환
+        val slideDown = ObjectAnimator.ofFloat(couponBackground, "translationY", 0f, 30f)
+         val slideUp = ObjectAnimator.ofFloat(couponBackground, "translationY", 30f, 0f)
+
+        if (isClicked) {
+                couponBackground.visibility = View.VISIBLE
+
+            slideDown.duration = 300
+            slideDown.start()
+        } else {
+            // 위로 슬라이드
+            slideUp.duration = 300
+            slideUp.start()
+//            // 체크되지 않은 상태로 변경
+            slideUp.doOnEnd {
+                couponBackground.visibility = View.GONE
+            }
+        }
+    }
+
+    // 체크 버튼 on/off 함수
     private fun checkButtonState() {
         isChecked = !isChecked // 상태 전환
 
