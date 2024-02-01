@@ -1,6 +1,6 @@
-<!-- res/drawable/rounded_button_bg.xml -->
+<?xml version="1.0" encoding="utf-8"?>
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
-    <solid android:color="@android:color/white" />
+    <solid android:color="@color/grey" />
     <corners android:radius="8dp" />
     <stroke
         android:color="@color/grey"

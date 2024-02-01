@@ -120,6 +120,7 @@ class MapFragment : Fragment(), OnMapReadyCallback,StoreListRVAdapter.MyItemClic
         // 아이템 클릭 시 StoreActivity를 시작
         val intent = Intent(requireContext(), StoreActivity::class.java)
         intent.putExtra("storeImg", store.storeImg ?: -1) // storeImg가 null이 아니면 해당 값, null이면 -1을 전달
+        intent.putExtra("star", store.star ?: false) // storeImg가 null이 아니면 해당 값, null이면 -1을 전달
 
         // 새로운 Bundle 생성하고 데이터 추가
         val bundle = Bundle()
