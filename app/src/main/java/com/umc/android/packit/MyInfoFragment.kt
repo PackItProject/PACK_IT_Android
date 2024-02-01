@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewOutlineProvider
+import android.widget.Button
 import android.widget.ImageView
 
 // TODO: Rename parameter arguments, choose names that match
@@ -29,6 +30,7 @@ class MyInfoFragment : Fragment() {
         fun newInstance(): MyInfoFragment {
             return MyInfoFragment()
         }
+
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,6 +49,8 @@ class MyInfoFragment : Fragment() {
         val rootView = inflater.inflate(R.layout.fragment_my_info, container, false) // Replace with your fragment layout XML file
 
         val profileImageView: ImageView = rootView.findViewById(R.id.profile_img_iv)
+        val favoriteButton: Button = rootView.findViewById(R.id.favorite_btn)
+        val myRateButton: Button = rootView.findViewById(R.id.myRate_btn)
 
         // Set the ViewOutlineProvider for rounded corners
         profileImageView.outlineProvider = object : ViewOutlineProvider() {
@@ -58,8 +62,37 @@ class MyInfoFragment : Fragment() {
 
         profileImageView.clipToOutline = true
 
+
+        favoriteButton.setOnClickListener {
+            // 즐겨찾기 버튼을 클릭했을 때 FavoriteFragment로 이동하는 코드
+            navigateToFavoriteFragment()
+        }
+
+        myRateButton.setOnClickListener {
+            // 내 평점 버튼을 클릭했을 때 RateFragment로 이동하는 코드
+            navigateToRateFragment()
+        }
+
         return rootView
 
+    }
+    private fun navigateToRateFragment() {
+        val fragmentTransaction = requireActivity().supportFragmentManager.beginTransaction()
+        val rateFragment = RateFragment.newInstance()
+
+        // Replace the current fragment with RateFragment
+        fragmentTransaction.replace(R.id.fragment_container, rateFragment)
+        fragmentTransaction.addToBackStack(null)
+        fragmentTransaction.commit()
+    }
+    private fun navigateToFavoriteFragment() {
+        val fragmentTransaction = requireActivity().supportFragmentManager.beginTransaction()
+        val favoriteFragment = FavoriteFragment.newInstance()
+
+        // Replace the current fragment with FavoriteFragment
+        fragmentTransaction.replace(R.id.fragment_container, favoriteFragment)
+        fragmentTransaction.addToBackStack(null)
+        fragmentTransaction.commit()
     }
 
 
