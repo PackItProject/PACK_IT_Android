@@ -25,9 +25,9 @@ class ProfileActivity : ProfilePermissionActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         // xml 바인딩 작업
-        binding = ActivityProfileBinding.inflate(layoutInflater)
-
         super.onCreate(savedInstanceState)
+
+        binding = ActivityProfileBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         // editText 내용에 따른 이벤트 처리
