@@ -1,5 +1,6 @@
 package com.umc.android.packit
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -34,6 +35,8 @@ class FavoriteFragment : Fragment(), FavoriteRVAdapter.MyItemClickListener {
         favoriteRVAdapter.setMyItemClickListener(this)
         binding.favoriteMainRecyclerView.adapter = favoriteRVAdapter
 
+        updateFavoriteCount()
+
         return binding.root
     }
 
@@ -42,8 +45,17 @@ class FavoriteFragment : Fragment(), FavoriteRVAdapter.MyItemClickListener {
         return storeDatas.filter { it.star == true }
     }
 
-    override fun onItemClick(store: Store) {
+    private fun updateFavoriteCount() {
+        val favoriteCount = (binding.favoriteMainRecyclerView.adapter as? FavoriteRVAdapter)?.getFavoriteCount() ?: 0
+        binding.favoriteSumTv.text = getString(R.string.favorite_sum, favoriteCount)
+    }
 
+    override fun onItemClick(store: Store) {
+        // 아이템 클릭 시 StoreActivity를 시작
+        val intent = Intent(requireContext(), StoreActivity::class.java)
+        intent.putExtra("storeImg", store.storeImg ?: -1) // storeImg가 null이 아니면 해당 값, null이면 -1을 전달
+
+        startActivity(intent)
     }
 
     override fun onStarClick(store: Store) {
@@ -53,6 +65,8 @@ class FavoriteFragment : Fragment(), FavoriteRVAdapter.MyItemClickListener {
         val favoriteRVAdapter = FavoriteRVAdapter(getFavoriteStores())
         favoriteRVAdapter.setMyItemClickListener(this)
         binding.favoriteMainRecyclerView.adapter = favoriteRVAdapter
+
+        updateFavoriteCount()
     }
 
 

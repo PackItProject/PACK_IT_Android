@@ -63,6 +63,11 @@ class FavoriteRVAdapter(private val stores: List<Store>) : RecyclerView.Adapter<
         }
     }
 
+    @SuppressLint("NotifyDataSetChanged")
+    fun getFavoriteCount(): Int {
+        return stores.count { it.star == true }
+    }
+
     inner class ViewHolder(val binding: ItemFavoriteBinding) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(store: Store) {
