@@ -9,6 +9,7 @@ import com.umc.android.packit.databinding.ItemStoreListBinding
 class StoreListRVAdapter(private val stores: ArrayList<Store>) : RecyclerView.Adapter<StoreListRVAdapter.ViewHolder>() {
 
     interface MyItemClickListener {
+
         fun onItemClick(store: Store)
 
         fun onStarClick(store: Store)

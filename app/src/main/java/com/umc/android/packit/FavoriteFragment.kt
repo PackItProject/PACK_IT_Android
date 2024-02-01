@@ -1,7 +1,5 @@
 package com.umc.android.packit
-import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,7 +10,13 @@ class FavoriteFragment : Fragment(), FavoriteRVAdapter.MyItemClickListener {
 
     lateinit var binding: FragmentFavoriteBinding
     private var storeDatas = ArrayList<Store>()
+    companion object {
+        fun newInstance(): FavoriteFragment {
+            return FavoriteFragment()
+        }
 
+
+    }
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

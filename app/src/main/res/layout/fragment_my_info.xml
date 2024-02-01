@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background_grey"
-    tools:context=".MyInfoFragment">
+    tools:context=".MyInfoFragment"
+    android:id="@+id/fragment_container">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -114,23 +115,29 @@
                     android:layout_marginTop="20dp"
                     android:layout_marginBottom="20dp">
 
-                    <TextView
+                    <Button
+                        android:id="@+id/favorite_btn"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="40dp"
-                        android:layout_marginRight="60dp"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginRight="30dp"
+                        android:background="@color/transparent"
                         android:text="즐겨찾기" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="60dp"
-                        android:text="쿠폰" />
-
-                    <TextView
+                    <Button
+                        android:id="@+id/coupon_btn"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="30dp"
+                        android:background="@color/transparent"
+                        android:text="쿠폰" />
+
+                    <Button
+                        android:id="@+id/myRate_btn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="30dp"
+                        android:background="@color/transparent"
                         android:text="내 평점" />
                 </LinearLayout>
 
@@ -138,12 +145,10 @@
 
             <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="150dp"
-                android:layout_marginTop="10dp"
-                android:background="@color/grey"
+                android:layout_height="80dp"
+                android:src="@drawable/img_banner"
                 app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.533"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/linearLayout">
 
@@ -155,8 +160,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="300dp"
                 android:layout_margin="20dp"
-
                 android:background="@color/white_text"
+
                 android:orientation="vertical"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -164,41 +169,46 @@
                 app:layout_constraintTop_toBottomOf="@+id/linearLayout"
                 app:layout_constraintVertical_bias="1.0">
 
-                <TextView
+                <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="40dp"
-                    android:layout_marginTop="40dp"
-                    android:text="공지사항" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="40dp"
+                    android:layout_marginLeft="30dp"
                     android:layout_marginTop="30dp"
-                    android:text="서비스 정책 및 약관" />
+                    android:text="공지사항"
+                    android:background="@color/transparent"/>
 
-                <TextView
+                <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="40dp"
+                    android:layout_marginLeft="30dp"
                     android:layout_marginTop="30dp"
+                    android:text="서비스 정책 및 약관"
+                    android:background="@color/transparent"/>
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="30dp"
+                    android:background="@color/transparent"
                     android:text="결제수단 관리" />
 
-                <TextView
+                <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="40dp"
+                    android:layout_marginLeft="30dp"
                     android:layout_marginTop="30dp"
-                    android:text="가게 입점 문의" />
+                    android:text="가게 입점 문의"
+                    android:background="@color/transparent"/>
 
 
-                <TextView
+                <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="40dp"
+                    android:layout_marginLeft="30dp"
                     android:layout_marginTop="30dp"
                     android:text="계정 탈퇴"
+                    android:background="@color/transparent"
                     android:textColor="#FF0000" />
 
 

@@ -4,6 +4,7 @@ package com.umc.android.packit
 
 import android.content.Context
 import android.content.Intent
+import android.location.Geocoder
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -17,13 +18,18 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
+import android.location.Address
+import android.widget.Toast
+import com.google.android.gms.common.api.Status
+import com.google.android.libraries.places.api.Places
+import com.google.android.libraries.places.api.model.Place
+import com.google.android.libraries.places.widget.AutocompleteSupportFragment
+import com.google.android.libraries.places.widget.listener.PlaceSelectionListener
 import com.google.android.material.bottomsheet.BottomSheetDialog
-import com.umc.android.packit.databinding.ActivityMainBinding
 import com.umc.android.packit.databinding.FragmentMapBinding
 import com.umc.android.packit.databinding.FragmentStoreListBinding
+import java.io.IOException
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
@@ -34,11 +40,10 @@ class MapFragment : Fragment(), OnMapReadyCallback,StoreListRVAdapter.MyItemClic
     private var param2: String? = null
 
     private lateinit var binding: FragmentMapBinding
-
+    private lateinit var autocompleteFragment:AutocompleteSupportFragment
     private lateinit var mapView: MapView //지도용 변수
     private lateinit var googleMap: GoogleMap
     private var currentMarker: Marker? = null
-    private lateinit var searchEditText: EditText
 
     private var storeDatas = ArrayList<Store>()
     private lateinit var dialog: BottomSheetDialog
@@ -46,12 +51,7 @@ class MapFragment : Fragment(), OnMapReadyCallback,StoreListRVAdapter.MyItemClic
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-
-
+        Places.initialize(requireContext(),"AIzaSyAIiKuJ8RTp54prSp0lyIUw15lUVftR-6s")
     }
 
     override fun onCreateView(
@@ -60,13 +60,32 @@ class MapFragment : Fragment(), OnMapReadyCallback,StoreListRVAdapter.MyItemClic
     ): View? {
         binding = FragmentMapBinding.inflate(inflater, container, false)
 
-
         //배경에 지도 띄우기
         this.mapView = binding.mapView
         mapView.onCreate(savedInstanceState)
         mapView.getMapAsync(this@MapFragment)
 
+        //지도검색 칸 초기화
+        autocompleteFragment = (childFragmentManager.findFragmentById(R.id.autocomplete_fragment) as AutocompleteSupportFragment?)!!
 
+        autocompleteFragment.setPlaceFields(listOf(Place.Field.ID,Place.Field.ADDRESS, Place.Field.LAT_LNG ))
+        autocompleteFragment.setOnPlaceSelectedListener(object: PlaceSelectionListener{
+            //장소 검색 시 오류 처리
+            override fun onError(p0: Status) {
+                Toast.makeText(requireContext(), "잠시 후 다시 검색해주세요.", Toast.LENGTH_SHORT).show()
+            }
+
+            //에러 없다면 검색된 장소 보여주기
+            override fun onPlaceSelected(place: Place) {
+                val latLng= place.latLng!! //위치 찾아서
+         /*       val placeName=place.name!!*/
+                zoonOnMap(latLng) //지도에서 줌 인
+                autocompleteFragment.setText("") //장소가 선택되면 입력창의 input은 초기화
+                /*addMarker(latLng, placeName)*/
+                addMarker(latLng)
+            }
+
+        })
 
         storeDatas . apply {
             add(Store(1, "가게 이름", "address 1", "영업 중", "평점 4.5", true, R.drawable.store_img_1))
@@ -137,7 +156,11 @@ class MapFragment : Fragment(), OnMapReadyCallback,StoreListRVAdapter.MyItemClic
         currentMarker?.showInfoWindow()
     }
 
-
+    //검색한 장소를 찾은 후에 지도에서 확대해서 보여주기
+    private fun zoonOnMap(latLng: LatLng){
+        val newLatLngZoom=CameraUpdateFactory.newLatLngZoom(latLng, 16f)
+        googleMap?.animateCamera(newLatLngZoom)
+    }
 
     private fun setupMarker(locationLatLngEntity: MapFragment.LatLngEntity): Marker? {
 
@@ -155,6 +178,25 @@ class MapFragment : Fragment(), OnMapReadyCallback,StoreListRVAdapter.MyItemClic
         return googleMap.addMarker(markerOption)
 
     }
+
+    // addMarker 메서드 추가
+    private fun addMarker(location: LatLng) {
+        // 기존 마커 삭제
+        currentMarker?.remove()
+
+        // 새로운 마커 추가
+        currentMarker = googleMap.addMarker(
+            MarkerOptions()
+                .position(location)
+                .title("검색 결과")
+                .snippet("추가 정보")
+        )
+
+        // 지도 이동 및 줌 조절
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 15f))
+        currentMarker?.showInfoWindow()
+    }
+
 
     override fun onStart() {
         super.onStart()
