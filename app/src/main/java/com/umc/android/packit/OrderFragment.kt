@@ -3,6 +3,7 @@ package com.umc.android.packit
 import android.animation.ObjectAnimator
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import androidx.core.animation.doOnEnd
@@ -61,6 +62,11 @@ class OrderFragment() : AppCompatActivity() {
         binding.orderCheckOnBtnIv.setOnClickListener {
             checkButtonState()
         }
+
+        // 주문하기 버튼
+        binding.orderPaidBtn.setOnClickListener {
+            checkStateValidity()
+        }
     }
 
     // 화면 초기화 함수
@@ -110,6 +116,23 @@ class OrderFragment() : AppCompatActivity() {
         } else {            // 체크되지 않은 상태로 변경
             binding.orderCheckOffBtnIv.visibility = View.VISIBLE
             binding.orderCheckOnBtnIv.visibility = View.GONE
+        }
+    }
+
+    // 주문하기 버튼 유효성 검사
+    private fun checkStateValidity() {
+        if (binding.orderRadioGroup.checkedRadioButtonId == -1) {
+            // 토글 버튼이 눌려있지 않은 경우
+            Toast.makeText(this, "토글 버튼을 눌러주세요.", Toast.LENGTH_SHORT).show()
+        } else if (binding.orderCouponSelectedBtn.text == "쿠폰 선택") {
+            // 쿠폰 선택의 텍스트가 "쿠폰 선택"인 경우
+            Toast.makeText(this, "쿠폰을 선택해주세요.", Toast.LENGTH_SHORT).show()
+        } else if (!isChecked) {
+            // 아래 체크 박스가 visible이 아닌 경우
+            Toast.makeText(this, "체크 박스를 확인해주세요.", Toast.LENGTH_SHORT).show()
+        } else {
+            // 모든 유효성 검사를 통과한 경우, 페이지 이동
+            Toast.makeText(this, "페이지 이동", Toast.LENGTH_SHORT).show()
         }
     }
 }
