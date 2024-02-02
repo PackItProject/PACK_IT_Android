@@ -1,0 +1,87 @@
+<!-- res/layout/activity_terms_and_conditions.xml -->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:background="@color/background_grey">
+
+    <!-- 서비스 이름 -->
+    <TextView
+        android:id="@+id/textViewServiceName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:text="Pack it! 가입"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        android:layout_marginTop="50dp"
+        android:layout_marginBottom="30dp"
+        android:layout_gravity="start|top"
+        android:layout_marginLeft="60dp"
+        />
+
+    <!-- 서비스 가입, 이용 동의 텍스트 -->
+    <TextView
+        android:id="@+id/textViewTerms"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textViewServiceName"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:text="서비스 가입, 이용을 위해\n 아래 이용약관, 정보 제공에 동의해 주세요."
+        android:textSize="16sp"
+        android:layout_gravity="start|top"
+        android:layout_marginLeft="60dp"
+        android:layout_marginBottom="30dp"/>
+
+    <!-- 동의 체크박스 -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="start"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="200dp">
+
+        <!-- 동의 체크박스 -->
+        <!--<CheckBox
+            android:id="@+id/checkboxAgree"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:text="[필수]서비스 이용 약관 전체동의" />
+
+
+        <CheckBox
+            android:id="@+id/checkboxAgree2"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:layout_marginTop="4dp"
+            android:text="[필수]개인정보 제3자 제공 동의" />
+
+        <CheckBox
+            android:id="@+id/checkboxAgree3"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:layout_marginTop="4dp"
+            android:text="[필수]위치정보 제공 동의" />-->
+
+    </LinearLayout>
+
+    <!-- 확인 버튼 -->
+    <!--<android.widget.Button
+        android:id="@+id/buttonConfirm"
+        android:layout_width="300dp"
+        android:layout_height="80dp"
+        android:layout_below="@id/checkboxAgree"
+        android:layout_margin="16dp"
+        android:text="확인"
+        android:textColor="@color/white"
+        android:gravity="center"
+        android:layout_marginTop="60dp"
+        style="@style/SquareButton"
+        android:background="@color/grey"/>-->
+
+</LinearLayout>

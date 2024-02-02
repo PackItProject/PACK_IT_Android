@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- fragment_accumulation.xml -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@color/background_grey"
+    android:padding="18dp">
+
+    <TextView
+        android:id="@+id/textMyPackit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="My packIt!"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="16dp"
+        />
+
+    <!-- 적립 정보를 보여주는 박스 -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:background="@color/white">
+
+        <!-- 이름 -->
+        <TextView
+            android:id="@+id/textViewName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="이름 님이 \n 지금까지 지구를 지킨 횟수"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/guideline"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <!-- 가이드라인 -->
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_end="141dp" />
+
+        <!-- 주문 횟수 -->
+        <TextView
+            android:id="@+id/textViewOrderCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="00회"
+            android:textSize="16sp"
+            app:layout_constraintStart_toEndOf="@+id/guideline"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- 이미지 -->
+
+    <!-- 스탬프 -->
+
+    <ImageView
+        android:id="@+id/imageViewStamp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="0dp"
+        android:src="@drawable/mypackit_map"
+        android:layout_marginTop="-25dp"
+        android:layout_marginBottom="-30dp"
+        android:scaleType="centerCrop"
+        />
+
+    <TextView
+        android:id="@+id/textStampCard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="스탬프카드"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="5dp"
+        />
+
+    <GridLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:columnCount="5"
+        android:rowCount="2"
+
+        >
+
+        <!-- 도장판 이미지 -->
+        <ImageView
+            android:id="@+id/stampFrame"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/mypackit_stamp_pad"
+            android:layout_columnSpan="5"
+            android:layout_rowSpan="2"
+            android:scaleType="centerCrop"/>
+
+        <!-- 도장 1 -->
+        <ImageView
+            android:id="@+id/stamp1"
+            android:src="@drawable/mypack_stamp_no"
+            android:layout_column="0"
+            android:layout_row="0"
+            android:layout_marginLeft="35dp"
+            android:layout_marginTop="15dp"
+            android:padding="5dp"
+            android:layout_gravity="center"
+
+            />
+
+        <ImageView
+            android:id="@+id/stamp2"
+            android:src="@drawable/mypack_stamp_no"
+            android:layout_column="1"
+            android:layout_row="0"
+            android:padding="5dp"
+            android:layout_marginTop="15dp"/>
+
+        <ImageView
+            android:id="@+id/stamp3"
+            android:src="@drawable/mypack_stamp_no"
+            android:layout_column="2"
+            android:layout_row="0"
+            android:padding="5dp"
+            android:layout_marginTop="15dp"/>
+
+        <ImageView
+            android:id="@+id/stamp4"
+            android:src="@drawable/mypack_stamp_no"
+            android:layout_column="3"
+            android:layout_row="0"
+            android:padding="5dp"
+            android:layout_marginTop="15dp"/>
+
+        <ImageView
+            android:id="@+id/stamp5"
+            android:src="@drawable/mypack_stamp_no"
+            android:layout_column="4"
+            android:layout_row="0"
+            android:padding="5dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginRight="35dp"/>
+
+        <ImageView
+            android:id="@+id/stamp6"
+            android:src="@drawable/mypack_stamp_no"
+            android:layout_column="0"
+            android:layout_row="1"
+            android:padding="5dp"
+            android:layout_marginLeft="35dp"
+            />
+
+        <ImageView
+            android:id="@+id/stamp7"
+
+            android:src="@drawable/mypack_stamp_no"
+            android:layout_column="1"
+            android:layout_row="1"
+            android:padding="5dp"/>
+
+        <ImageView
+            android:id="@+id/stamp8"
+            android:src="@drawable/mypack_stamp_no"
+            android:layout_column="2"
+            android:layout_row="1"
+            android:padding="5dp"/>
+
+        <ImageView
+            android:id="@+id/stamp9"
+            android:src="@drawable/mypack_stamp_no"
+            android:layout_column="3"
+            android:layout_row="1"
+            android:padding="5dp"/>
+
+        <ImageView
+            android:id="@+id/stamp10"
+            android:src="@drawable/mypack_stamp_no"
+            android:layout_column="4"
+            android:layout_row="1"
+            android:padding="5dp"
+            android:layout_marginRight="35dp"/>
+
+    </GridLayout>
+
+    <TextView
+        android:id="@+id/textPin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="뱃지"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="5dp"
+        />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/badgeRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+</LinearLayout>

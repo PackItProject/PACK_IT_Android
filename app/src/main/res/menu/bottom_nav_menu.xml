@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/mapFragment"
+        android:icon="@drawable/ic_navigation"
+        android:title="주변"/>
+
+    <item
+        android:id="@+id/favoriteFragment"
+        android:icon="@drawable/ic_star"
+        android:title="즐겨찾기"/>
+
+    <item
+        android:id="@+id/myPackitFragment"
+        android:icon="@drawable/ic_my_packit"
+        android:title="MY 패킷"/>
+
+    <item
+        android:id="@+id/orderHistoryFragment"
+        android:icon="@drawable/ic_order_list"
+        android:title="주문내역"/>
+
+    <item
+        android:id="@+id/myInfoFragment"
+        android:icon="@drawable/ic_my_info"
+        android:title="내 정보"/>
+
+</menu>
+
+    <!--app:showAsAction="always"-->

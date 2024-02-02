@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/mapFragment">
+
+    <fragment
+        android:id="@+id/mapFragment"
+        android:name="com.umc.android.packit.MapFragment"
+        android:label="@string/first_fragment_label"
+        tools:layout="@layout/fragment_map"/>
+
+    <fragment
+        android:id="@+id/favoriteFragment"
+        android:name="com.umc.android.packit.FavoriteFragment"
+        android:label="Second Fragment"
+        tools:layout="@layout/fragment_favorite"/>
+
+<!--    <fragment
+        android:id="@+id/myPackitFragment"
+        android:name="com.umc.android.packit.MyPackitFragment"
+        android:label="three Fragment"
+        tools:layout="@layout/fragment_mypackit"/>-->
+
+    <fragment
+        android:id="@+id/orderHistoryFragment"
+        android:name="com.umc.android.packit.OrderHistoryFragment"
+        android:label="Four Fragment"
+        tools:layout="@layout/fragment_order_history"/>
+    <fragment
+        android:id="@+id/myInfoFragment"
+        android:name="com.umc.android.packit.MapFragment"
+        android:label="Five Fragment"
+        tools:layout="@layout/fragment_my_info"/>
+</navigation>

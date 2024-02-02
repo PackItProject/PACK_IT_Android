@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- 여백 조정 -->
+    <item
+        android:bottom="7dp"
+        android:top="7dp">
+        <!-- 기본 모양 -->
+        <shape android:shape="rectangle">
+            <!-- 색상 -->
+            <solid android:color="@color/background_grey" />
+            <!-- 모서리 -->
+            <corners android:radius="4dp"/>
+        </shape>
+    </item>
+</layer-list>

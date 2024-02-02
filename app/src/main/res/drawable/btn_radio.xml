@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 커스텀 라디오 버튼 -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- 체크 상태 이미지 -->
+    <item
+        android:state_checked="true"
+        android:drawable="@drawable/img_toggle_on" />
+    <!-- 체크 해제 이미지 -->
+    <item
+        android:state_checked="false"
+        android:drawable="@drawable/img_toggle_off" />
+</selector>
