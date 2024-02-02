@@ -22,27 +22,27 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/menu_main_title_tv"
+            <Button
+                android:id="@+id/menu_main_title_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="식사류"
-                android:textColor="@color/grey"
+                android:textColor="@drawable/button_text_color_selector"
                 android:paddingVertical="8dp"
                 android:paddingHorizontal="15dp"
                 android:layout_marginEnd="15dp"
-                android:background="@drawable/rounded_button_bg"/>
+                android:background="@drawable/selector_button"/>
 
-            <TextView
-                android:id="@+id/menu_side_title_tv"
+            <Button
+                android:id="@+id/menu_side_title_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="사이드 메뉴"
-                android:textColor="@color/grey"
+                android:textColor="@drawable/button_text_color_selector"
                 android:paddingVertical="8dp"
                 android:paddingHorizontal="15dp"
                 android:layout_marginEnd="15dp"
-                android:background="@drawable/rounded_button_bg"/>
+                android:background="@drawable/selector_button"/>
 
         </LinearLayout>
     </HorizontalScrollView>
@@ -103,33 +103,6 @@
         android:orientation="vertical"
         android:visibility="visible"/>
 
-    <LinearLayout
-        android:id="@+id/menu_cart_background"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:background="@color/white"
-        android:elevation="10dp"
-        android:visibility="gone">
-
-        <Button
-            android:id="@+id/menu_cart_btn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="14sp"
-            android:paddingVertical="23dp"
-            android:textSize="16sp"
-            android:text="장바구니 보기"
-            android:textColor="@color/white"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            android:background="@color/grey"
-            android:visibility="gone"/>
-    </LinearLayout>
-
     <TextView
         android:id="@+id/menu_notice_tv"
         android:layout_width="0dp"
@@ -140,5 +113,13 @@
         android:text="&lt;유의사항&gt;\n1. 메뉴 사진은 연출된 이미지로, 실제 조리된 음식과 다를 수 있습니다. \n2. 상단의 메뉴 정보, 가격은 업소에서 제공한 정보를 기준으로 작성된 것이며, 변동될 수 있습니다."
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/menu_side_rv"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintBottom_toTopOf="@+id/menu_empty_view"/>
+    
+    <View
+        android:id="@+id/menu_empty_view"
+        android:layout_width="match_parent"
+        android:layout_height="90dp"
+        app:layout_constraintTop_toBottomOf="@id/menu_notice_tv"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
 </androidx.constraintlayout.widget.ConstraintLayout>

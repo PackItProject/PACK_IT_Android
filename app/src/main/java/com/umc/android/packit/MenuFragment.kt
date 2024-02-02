@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.umc.android.packit.databinding.FragmentMenuBinding
 
@@ -29,17 +31,6 @@ class MenuFragment : Fragment(), MainMenuRVAdapter.MyItemClickListener, SideMenu
         sidemenuRVAdapter.setMyItemClickListener(this)
         binding.menuSideRv.adapter = sidemenuRVAdapter
 
-
-//        // Main Menu 데이터 설정
-//        val mainMenuList = listOf("아이템 1", "아이템 2", "아이템 3") // TODO: 실제 데이터로 대체
-//        val mainMenuAdapter = MainMenuAdapter(mainMenuList)
-//        binding.menuMainRecyclerView.adapter = mainMenuAdapter
-//
-//        // Side Menu 데이터 설정
-//        val sideMenuList = listOf("사이드 아이템 1", "사이드 아이템 2", "사이드 아이템 3") // TODO: 실제 데이터로 대체
-//        val sideMenuAdapter = SideMenuAdapter(sideMenuList)
-//        binding.menuSideRecyclerView.adapter = sideMenuAdapter
-//
           // TODO: 장바구니에 물품이 있을 경우 장바구니 보러가기 버튼 표시
 //        // 장바구니 버튼 클릭 이벤트 처리
 //        binding.menuCartBtn.setOnClickListener {
@@ -51,7 +42,38 @@ class MenuFragment : Fragment(), MainMenuRVAdapter.MyItemClickListener, SideMenu
 //            Toast.makeText(requireContext(), "장바구니를 보여줍니다.", Toast.LENGTH_SHORT).show()
 //        }
 
+        binding.menuMainTitleBtn.setOnClickListener {
+            it.isSelected = !it.isSelected
+            updateButtonUI(it as Button,1)
+        }
+
+        binding.menuSideTitleBtn.setOnClickListener {
+            it.isSelected = !it.isSelected
+            updateButtonUI(it as Button,2)
+        }
+
         return binding.root
+    }
+
+    private fun updateButtonUI(button: Button, category: Int) {
+        var btn: Button = if (category == 1){
+            binding.menuSideTitleBtn
+        } else {
+            binding.menuMainTitleBtn
+        }
+
+        if (button.isSelected) {
+            button.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
+            button.setBackgroundResource(R.drawable.rounded_button_bg_pressed)
+            if (btn.isSelected){
+                btn.isSelected = !btn.isSelected
+                btn.setTextColor(ContextCompat.getColor(requireContext(), R.color.grey))
+                btn.setBackgroundResource(R.drawable.rounded_button_bg)
+            }
+        } else {
+            button.setTextColor(ContextCompat.getColor(requireContext(), R.color.grey))
+            button.setBackgroundResource(R.drawable.rounded_button_bg)
+        }
     }
 
     private fun getMainMenus(): List<Menu> {

@@ -3,7 +3,6 @@ package com.umc.android.packit
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import java.util.*
-
 data class Store(
     var id: Int = 0,
     var name: String? = "",

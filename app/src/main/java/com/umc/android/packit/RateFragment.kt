@@ -20,4 +20,10 @@ class RateFragment : Fragment() {
 
         return binding.root
     }
+
+    companion object {
+        fun newInstance(): RateFragment { //MyInfoFragment에서 화면 이동 목적
+            return RateFragment()
+        }
+    }
 }
