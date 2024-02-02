@@ -1,22 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-
-    <!-- 배경색 -->
-    <View
-        android:id="@+id/profile_basic_background_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/background_grey" />
+    android:background="@color/background_grey">
 
     <!-- 프로필 사진 및 사진 버튼 -->
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/profile_user_iv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/profile_img_user"
+        android:layout_width="156dp"
+        android:layout_height="156dp"
+        android:src="@drawable/img_user"
+        app:civ_border_width="1dp"
+        app:civ_border_overlay="true"
+        app:civ_border_color="@color/dark_grey"
         android:layout_marginTop="150dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -26,7 +24,7 @@
         android:id="@+id/profile_photo_iv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/profile_img_photo"
+        android:src="@drawable/img_photo"
         app:layout_constraintBottom_toBottomOf="@id/profile_user_iv"
         app:layout_constraintEnd_toEndOf="@id/profile_user_iv" />
 
@@ -44,7 +42,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:background="@drawable/profile_btn_white"
+        android:background="@drawable/btn_square_border"
 
         style="@style/SquareButton"/>
 
@@ -67,7 +65,7 @@
         android:inputType="text"
         android:hint="입력"
         android:textColorHint="@color/grey"
-        android:background="@drawable/profile_et_white"
+        android:background="@drawable/et_valid"
         android:textSize="16sp"
         android:textColor="@color/dark_grey"
         android:layout_marginHorizontal="30dp"

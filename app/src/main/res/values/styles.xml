@@ -1,10 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- 로그인 초반 사각버튼 -->
+    <!-- 로그인 초반 사각 버튼 -->
     <style name="SquareButton" parent="Widget.AppCompat.Button">
         <item name="android:radius">0dp</item>
         <item name="android:background">@color/grey</item>
-        <!-- 버튼 그림자 삭제 -->
-        <item name="android:outlineProvider">none</item>
+    </style>
+
+    <!-- 하단 둥근 사각 버튼 기본 설정 -->
+    <style name="BottomRoundButton" parent="Widget.AppCompat.Button">
+        <item name="android:background">@drawable/btn_round</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/white_text</item>
+    </style>
+
+    <!-- 회색 텍스트 -->
+    <style name="GreyText" parent="Widget.AppCompat.TextView">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/grey</item>
+    </style>
+
+    <!-- 두껍고 어두운 회색 텍스트 -->
+    <style name="BoldDrakGreyText" parent="Widget.AppCompat.TextView">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/dark_grey</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <!-- 둥근 모서리 카드뷰 -->
+    <style name="RoundCardView" parent="CardView">
+        <item name="cardBackgroundColor">@color/white_text</item>
+        <item name="android:elevation">0dp</item>
+        <item name="cardCornerRadius">4dp</item>
     </style>
 </resources>

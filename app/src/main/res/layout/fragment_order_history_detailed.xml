@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_grey">
+
+    <!-- 중간 부분 -->
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nested_scroll_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@id/action_bar_layout"
+        app:layout_constraintBottom_toBottomOf="@id/button_background_iv">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <!-- 가게 이름 -->
+            <TextView
+                android:id="@+id/store_name_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="가게이름"
+                android:textSize="22sp"
+                android:textColor="@color/dark_grey"
+                android:textStyle="bold"
+                android:layout_marginStart="30dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <!-- 주문한 메뉴 리스트 (리사이클러 뷰 사용) -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/menu_list_view"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginHorizontal="16dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/store_name_tv"
+                style="@style/RoundCardView">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/menu_list_recycler_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:overScrollMode="never"
+                    android:nestedScrollingEnabled="false"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:listitem="@layout/item_order_detailed_menu"/>
+            </androidx.cardview.widget.CardView>
+
+            <!-- 주문 내역 정보 -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/receipt_view"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginBottom="140dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/menu_list_view"
+                app:layout_constraintBottom_toBottomOf="parent"
+                style="@style/RoundCardView">
+
+                <LinearLayout
+                    android:id="@+id/receipt_vertical_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <!-- 결제 수단 -->
+                    <RelativeLayout
+                        android:id="@+id/receipt_payment_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="30dp"
+                        android:paddingHorizontal="16dp" >
+
+                        <TextView
+                            android:id="@+id/receipt_payment_01_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="결제 수단"
+                            android:layout_alignParentStart="true"
+                            android:layout_centerVertical="true"
+                            style="@style/GreyText"/>
+
+                        <TextView
+                            android:id="@+id/receipt_payment_02_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="신용/체크카드"
+                            android:textColor="@color/dark_grey"
+                            android:textSize="18sp"
+                            android:textStyle="bold"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"/>
+                    </RelativeLayout>
+
+                    <!-- 픽업 시간 -->
+                    <RelativeLayout
+                        android:id="@+id/receipt_pick_up_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="90dp"
+                        android:paddingHorizontal="16dp">
+
+                        <TextView
+                            android:id="@+id/receipt_pick_up_01_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="픽업 시간"
+                            android:layout_alignParentStart="true"
+                            android:layout_centerVertical="true"
+                            style="@style/GreyText" />
+
+                        <TextView
+                            android:id="@+id/receipt_pick_up_02_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="오후 12:30"
+                            android:textColor="@color/dark_grey"
+                            android:textSize="18sp"
+                            android:textStyle="bold"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"/>
+                    </RelativeLayout>
+
+                    <!-- 총 결제 금액 -->
+                    <RelativeLayout
+                        android:id="@+id/receipt_total_price_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="40dp"
+                        android:layout_marginBottom="30dp"
+                        android:paddingHorizontal="16dp">
+
+                        <TextView
+                            android:id="@+id/receipt_total_price_01_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="총 결제 금액"
+                            android:layout_alignParentStart="true"
+                            android:layout_centerVertical="true"
+                            style="@style/GreyText" />
+
+                        <TextView
+                            android:id="@+id/receipt_total_price_02_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="35,000원"
+                            android:textColor="@color/dark_grey"
+                            android:textSize="18sp"
+                            android:textStyle="bold"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"/>
+                    </RelativeLayout>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <!-- 상단부 (백버튼) -->
+    <LinearLayout
+        android:id="@+id/action_bar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center|start"
+        android:background="@color/background_grey"
+        android:paddingVertical="20dp"
+        android:paddingStart="25dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/back_btn_iv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/img_back_grey" />
+    </LinearLayout>
+
+    <!-- 하단부 -->
+    <ImageView
+        android:id="@+id/button_background_iv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/img_upper_shadow"
+        android:scaleType="fitXY"
+        android:elevation="2dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/order_btn"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_marginHorizontal="30dp"
+        android:text="주문하기"
+        android:layout_marginBottom="18dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/button_background_iv"
+        style="@style/BottomRoundButton" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
