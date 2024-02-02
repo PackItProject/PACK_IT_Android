@@ -91,30 +91,32 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1">
 
-                        <Button
+                        <Spinner
                             android:id="@+id/reservation_am_pm_btn"
                             android:layout_width="60dp"
                             android:layout_height="48dp"
-                            android:text="오후"
+                            android:layout_marginRight="10dp"
+                            android:background="@drawable/spn_bar_left"
                             android:layout_toStartOf="@id/reservation_hour_btn"
                             android:layout_alignBottom="@id/reservation_hour_btn"
                             style="@style/BoldDrakGreyText" />
 
-                        <Button
+                        <Spinner
                             android:id="@+id/reservation_hour_btn"
                             android:layout_width="60dp"
                             android:layout_height="48dp"
-                            android:text="12"
+                            android:background="@drawable/spn_bar_center"
                             android:layout_marginBottom="30dp"
                             android:layout_centerHorizontal="true"
                             android:layout_alignParentBottom="true"
                             style="@style/BoldDrakGreyText" />
 
-                        <Button
+                        <Spinner
                             android:id="@+id/reservation_minute_brn"
                             android:layout_width="60dp"
                             android:layout_height="48dp"
-                            android:text="30"
+                            android:layout_marginLeft="10dp"
+                            android:background="@drawable/spn_bar_right"
                             android:layout_toEndOf="@id/reservation_hour_btn"
                             android:layout_alignBottom="@id/reservation_hour_btn"
                             style="@style/BoldDrakGreyText" />
