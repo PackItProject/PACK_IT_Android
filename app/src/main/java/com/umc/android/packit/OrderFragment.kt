@@ -41,9 +41,9 @@ class OrderFragment() : AppCompatActivity() {
         binding.orderCouponRecyclerView.layoutManager= LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 
         // 아이템 클릭 이벤트 설정
-        adapter.itemClick  = object : OrderCouponRVAdapter.ItemClick {  //클릭이벤트추가부분
-            override fun onClick(position: Int) {
-                // 클릭한 쿠폰으로 텍스트 변경
+        // 클릭한 쿠폰으로 텍스트 변경
+        adapter.itemClick  = object : OrderCouponRVAdapter.ItemClick {
+            override fun onSelectCopon(position: Int) {
                 binding.orderCouponSelectedBtn.text = couponList[position].name
                 isClicked=false  // 클릭 버튼 상태 바꿔 주면서 쿠폰 리스트 숨기기
                 hideCouponList()

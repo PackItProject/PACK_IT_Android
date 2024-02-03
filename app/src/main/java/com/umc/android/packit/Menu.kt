@@ -6,6 +6,6 @@ data class Menu(
     var menu_name: String? = "",
     var containers: String? = "",
     var price: Int = 0,
-    var category: Int =0,
-    var menuImg: Int? =null,
+    var category: Int = 0,
+    var menuImg: Int? = null,
 )

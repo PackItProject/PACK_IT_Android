@@ -9,7 +9,7 @@ import com.umc.android.packit.databinding.ItemOrderCouponBinding
 class OrderCouponRVAdapter(private val couponList: List<OrderCoupon>)
     :RecyclerView.Adapter<OrderCouponRVAdapter.ViewHolder>() {
     interface ItemClick {  //클릭이벤트추가부분
-        fun onClick(position : Int)
+        fun onSelectCopon(position : Int) // 쿠폰 클릭하면 텍스트 반영
     }
 
 //    private lateinit var itemClick : ItemClick  //클릭이벤트추가부분
@@ -32,7 +32,7 @@ class OrderCouponRVAdapter(private val couponList: List<OrderCoupon>)
         holder.bind(couponList[position])
         holder.binding.itemCoupon.setOnClickListener {
             itemClick?.let {
-                it.onClick(position)
+                it.onSelectCopon(position)
             }
         }
     }
@@ -41,8 +41,6 @@ class OrderCouponRVAdapter(private val couponList: List<OrderCoupon>)
     inner class ViewHolder(val binding: ItemOrderCouponBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(coupon: OrderCoupon){
             binding.itemCouponNameTv.text = coupon.name
-
-
         }
     }
 }
