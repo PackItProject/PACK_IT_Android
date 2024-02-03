@@ -14,6 +14,14 @@ class CartFragment:AppCompatActivity() {
     private var pickUpHour : Int = 0
     private var pickUpminute : Int = 0
 
+    private val menuList = listOf(
+        OrderMenu("힘", 1, 1),
+        OrderMenu("내", 2200, 2),
+        OrderMenu("자", 3, 3),
+        OrderMenu("파이", 40000000, 4),
+        OrderMenu("팅!", 90, 5)
+    )
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -23,15 +31,17 @@ class CartFragment:AppCompatActivity() {
 
         // 초기화
 
-        init()
+        initView()
         reservePickUp()
 
         // TODO: 메뉴아이템 어댑터 연결
+        val adapter = CartRVAdapter(menuList)
+        binding.menuListRecyclerView.adapter = adapter
         // 메뉴아이템 개수
     }
 
     // 현재 시각 기준으로 및 픽업 시간 초기화
-    private fun init() {
+    private fun initView() {
         // timePicker 초기화
         timePicker = binding.reservationTp
 
@@ -72,4 +82,5 @@ class CartFragment:AppCompatActivity() {
             binding.receiptPickUp02Tv.text = String.format("%s %02d:%02d", pickUpAmPm, pickUpHour, pickUpminute)
         }
     }
+
 }

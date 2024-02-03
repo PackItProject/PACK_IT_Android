@@ -46,7 +46,7 @@
         </activity>
 
         <activity
-            android:name=".CartFragment"
+            android:name=".OrderFragment"
             android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
