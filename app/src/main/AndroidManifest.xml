@@ -54,6 +54,9 @@
             android:exported="true" >
         </activity>
 
+        <activity android:name=".MenuInfoActivity"
+            android:exported="true"/>
+
     </application>
 
 </manifest>

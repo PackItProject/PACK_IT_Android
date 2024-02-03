@@ -50,9 +50,7 @@ class StoreActivity : AppCompatActivity() {
         }
 
         binding.menuCartBtn.setOnClickListener {
-//            val intent = Intent(this, CartActivity::class.java)
-//
-//            startActivity(intent)
+
         }
 
     }
