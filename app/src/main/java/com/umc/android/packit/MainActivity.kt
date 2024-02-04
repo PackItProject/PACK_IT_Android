@@ -54,25 +54,18 @@ class MainActivity : AppCompatActivity() {
                              .commit()
                 }
 
+
                 R.id.orderHistoryFragment -> {
                     supportFragmentManager.beginTransaction()
                         .replace(R.id.container, OrderHistoryFragment())
                         .commit()
                 }
-
                 R.id.myInfoFragment -> {
                     supportFragmentManager.beginTransaction()
                         .replace(R.id.container, MyInfoFragment())
                         .commit()
                 }
-
-
-                /*    R.id.favoriteFragment -> {
-                        // If you have a destination with id "favoriteFragment" in your navigation graph
-                        navController.navigate(R.id.favoriteFragment)
-                    }*/
-
-            }
+                            }
             true
         }
 
@@ -99,32 +92,6 @@ class MainActivity : AppCompatActivity() {
         }
 
 
-        /*if (home != null){
-            fragTransaction.hide(home)
-        }
-
-        if (myPage != null) {
-            fragTransaction.hide(myPage)
-        }*/
-
-        /*
-                if (tag == TAG_CALENDER) {
-                    if (calender!=null){
-                        fragTransaction.show(calender)
-                    }
-                }
-                else if (tag == TAG_HOME) {
-                    if (home != null) {
-                        fragTransaction.show(home)
-                    }
-                }
-
-                else if (tag == TAG_MY_PAGE){
-                    if (myPage != null){
-                        fragTransaction.show(myPage)
-                    }
-                }
-        */
         fragTransaction.commitAllowingStateLoss()
     }
 }
