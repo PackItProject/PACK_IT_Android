@@ -48,11 +48,11 @@ class MainActivity : AppCompatActivity() {
                         .commit()
                 }
 
-                /*     R.id.myPackitFragment -> {
+                R.id.myPackitFragment -> {
                          supportFragmentManager.beginTransaction()
-                             .replace(R.id.container, myPackitFragment() )
+                             .replace(R.id.container, MypackitFragment() )
                              .commit()
-                     }*/
+                }
 
                 R.id.orderHistoryFragment -> {
                     supportFragmentManager.beginTransaction()

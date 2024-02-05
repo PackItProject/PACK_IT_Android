@@ -50,8 +50,10 @@
         <!--<CheckBox
             android:id="@+id/checkboxAgree"
             android:layout_width="wrap_content"
+
             android:layout_height="48dp"
             android:text="[필수]서비스 이용 약관 전체동의" />
+
 
 
         <CheckBox

@@ -118,16 +118,23 @@ class MapFragment : Fragment(), OnMapReadyCallback,StoreListRVAdapter.MyItemClic
 
     override fun onItemClick(store: Store) {
         // 아이템 클릭 시 StoreActivity를 시작
-        val intent = Intent(requireContext(), StoreActivity::class.java)
-        intent.putExtra("storeImg", store.storeImg ?: -1) // storeImg가 null이 아니면 해당 값, null이면 -1을 전달
-        intent.putExtra("star", store.star ?: false) // storeImg가 null이 아니면 해당 값, null이면 -1을 전달
-
         // 새로운 Bundle 생성하고 데이터 추가
         val bundle = Bundle()
         bundle.putInt("storeId", store.id)
         // MenuFragment 인스턴스 생성하고 Bundle 전달
         val menuFragment = MenuFragment()
         menuFragment.arguments = bundle
+        
+        val intent = Intent(requireContext(), StoreActivity::class.java)
+        intent.putExtra("storeImg", store.storeImg ?: -1) // storeImg가 null이 아니면 해당 값, null이면 -1을 전달
+        intent.putExtra("star", store.star ?: false) // storeImg가 null이 아니면 해당 값, null이면 -1을 전달
+
+
+
+//        requireActivity().supportFragmentManager.beginTransaction()
+//            .replace(R.id.fragment_container, menuFragment)
+//            .addToBackStack(null)
+//            .commit()
 
 
         startActivity(intent)
