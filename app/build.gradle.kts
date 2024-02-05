@@ -77,5 +77,4 @@ dependencies {
 
     // Circle Image View
     implementation ("de.hdodenhof:circleimageview:3.1.0")
-
 }

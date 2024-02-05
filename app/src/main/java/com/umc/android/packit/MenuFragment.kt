@@ -1,5 +1,6 @@
 package com.umc.android.packit
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -19,7 +20,7 @@ class MenuFragment : Fragment(), MainMenuRVAdapter.MyItemClickListener, SideMenu
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentMenuBinding.inflate(inflater,container,false)
+        binding = FragmentMenuBinding.inflate(inflater, container, false)
 
         inputDummyMenu()
 
@@ -31,7 +32,7 @@ class MenuFragment : Fragment(), MainMenuRVAdapter.MyItemClickListener, SideMenu
         sidemenuRVAdapter.setMyItemClickListener(this)
         binding.menuSideRv.adapter = sidemenuRVAdapter
 
-          // TODO: 장바구니에 물품이 있을 경우 장바구니 보러가기 버튼 표시
+        // TODO: 장바구니에 물품이 있을 경우 장바구니 보러가기 버튼 표시
 //        // 장바구니 버튼 클릭 이벤트 처리
 //        binding.menuCartBtn.setOnClickListener {
 //            // TODO: 장바구니 화면으로 이동하면서 필요한 데이터 전달
@@ -44,19 +45,19 @@ class MenuFragment : Fragment(), MainMenuRVAdapter.MyItemClickListener, SideMenu
 
         binding.menuMainTitleBtn.setOnClickListener {
             it.isSelected = !it.isSelected
-            updateButtonUI(it as Button,1)
+            updateButtonUI(it as Button, 1)
         }
 
         binding.menuSideTitleBtn.setOnClickListener {
             it.isSelected = !it.isSelected
-            updateButtonUI(it as Button,2)
+            updateButtonUI(it as Button, 2)
         }
 
         return binding.root
     }
 
     private fun updateButtonUI(button: Button, category: Int) {
-        var btn: Button = if (category == 1){
+        var btn: Button = if (category == 1) {
             binding.menuSideTitleBtn
         } else {
             binding.menuMainTitleBtn
@@ -65,7 +66,7 @@ class MenuFragment : Fragment(), MainMenuRVAdapter.MyItemClickListener, SideMenu
         if (button.isSelected) {
             button.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
             button.setBackgroundResource(R.drawable.rounded_button_bg_pressed)
-            if (btn.isSelected){
+            if (btn.isSelected) {
                 btn.isSelected = !btn.isSelected
                 btn.setTextColor(ContextCompat.getColor(requireContext(), R.color.grey))
                 btn.setBackgroundResource(R.drawable.rounded_button_bg)
@@ -88,19 +89,26 @@ class MenuFragment : Fragment(), MainMenuRVAdapter.MyItemClickListener, SideMenu
 
     private fun inputDummyMenu() {
         // val storeId = arguments?.getInt("storeId", -1)!!
-        val storeId:Int = 1
-        menuDatas.apply{
-            add(Menu(1, storeId, "메뉴 1", "권장용량/크기",22000,1, R.drawable.store_img_1))
-            add(Menu(2, storeId,"메뉴 2", "권장용량/크기", 11000,1,R.drawable.store_img_2))
-            add(Menu(3, storeId,"메뉴 3", "권장용량/크기", 13000,1, R.drawable.store_img_3))
-            add(Menu(4, storeId,"메뉴 4", "권장용량/크기", 6000,2, R.drawable.store_img_1))
-            add(Menu(5, storeId, "메뉴 5", "권장용량/크기", 4000,2,R.drawable.store_img_2))
-            add(Menu(6, storeId, "메뉴 6", "권장용량/크기", 3000,2, R.drawable.store_img_3))
+        val storeId: Int = 1
+        menuDatas.apply {
+            add(Menu(1, storeId, "메뉴 1" ,"abcdefghijklmnopqrstuvwxyz","270 * 130 mm", 22000,0,0, "더운 날씨에 상할 수 있으므로 바로 드시는 것을\n" +
+                    "권장드립니다.",1, 1,R.drawable.store_img_1))
+            add(Menu(2, storeId, "메뉴 2", "dgq","250 * 130 mm", 11000,0,0, "더운 날씨에 상할 수 있으므로 바로 드시는 것을\n" +
+                    "권장드립니다.",1, 1, R.drawable.store_img_2))
+            add(Menu(3, storeId, "메뉴 3", "ddkfja","270 * 150 mm", 13000, 0,0, "더운 날씨에 상할 수 있으므로 바로 드시는 것을\n" +
+                    "권장드립니다.",1,1, R.drawable.store_img_3))
+            add(Menu(4, storeId, "메뉴 4", "dbsddbsb","권장용량/크기", 6000, 0,0, "더운 날씨에 상할 수 있으므로 바로 드시는 것을\n" +
+                    "권장드립니다.",1,2, R.drawable.store_img_1))
+            add(Menu(5, storeId, "메뉴 5", "dgeg","권장용량/크기", 4000, 0,0, "더운 날씨에 상할 수 있으므로 바로 드시는 것을\n" +
+                    "권장드립니다.",1,2, R.drawable.store_img_2))
+            add(Menu(6, storeId, "메뉴 6", "dddd","권장용량/크기", 3000, 0,0, "더운 날씨에 상할 수 있으므로 바로 드시는 것을\n" +
+                    "권장드립니다.",1,2, R.drawable.store_img_3))
         }
     }
 
     override fun onItemClick(menu: Menu) {
-        TODO("Not yet implemented")
+        val intent = Intent(requireContext(), MenuInfoActivity::class.java)
+        intent.putExtra("MenuData", menu)
+        startActivity(intent)
     }
-
 }
