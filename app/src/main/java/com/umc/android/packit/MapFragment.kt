@@ -2,15 +2,12 @@
 
 package com.umc.android.packit
 
-import android.content.Context
 import android.content.Intent
-import android.location.Geocoder
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.MapView
@@ -18,7 +15,6 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
-import android.location.Address
 import android.widget.Toast
 import com.google.android.gms.common.api.Status
 import com.google.android.libraries.places.api.Places
@@ -28,7 +24,6 @@ import com.google.android.libraries.places.widget.listener.PlaceSelectionListene
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.umc.android.packit.databinding.FragmentMapBinding
 import com.umc.android.packit.databinding.FragmentStoreListBinding
-import java.io.IOException
 
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
