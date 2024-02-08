@@ -97,7 +97,7 @@
         android:textStyle="bold"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:visibility="invisible"/>
+        android:visibility="visible"/>
 
     <Button
         android:id="@+id/item_history_detail_btn"

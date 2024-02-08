@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.umc.android.packit.databinding.ItemCartMenuBinding
 
 
-class CartRVAdapter(private val menuList: List<OrderMenu>):RecyclerView.Adapter<CartRVAdapter.ViewHolder>() {
+class CartRVAdapter(private val menuList: ArrayList<Menu>):RecyclerView.Adapter<CartRVAdapter.ViewHolder>() {
 
     // 클릭 이벤트 등록
     interface ItemClick {
@@ -54,7 +54,8 @@ class CartRVAdapter(private val menuList: List<OrderMenu>):RecyclerView.Adapter<
 
 
     inner class ViewHolder(val binding: ItemCartMenuBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(menu: OrderMenu){
+        fun bind(menu: Menu){
+            binding.itemCartMenuImageIv.setImageResource(menu.menuImg!!)
             binding.itemCartMenuNameTv.text = menu.menu_name
             binding.itemCartMenuPriceTv.text = menu.price.toString() + " 원"
             binding.itemCartCountBtn.text = menu.count.toString()

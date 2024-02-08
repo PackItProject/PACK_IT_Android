@@ -2,6 +2,7 @@ package com.umc.android.packit
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,9 +21,14 @@ class MenuFragment : Fragment(), MainMenuRVAdapter.MyItemClickListener, SideMenu
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+        val storeId = arguments?.getInt("storeId", -1) ?: -1
+        Log.d("MenuFragment", "New Menu's store_id: $storeId")
+
+
         binding = FragmentMenuBinding.inflate(inflater, container, false)
 
-        inputDummyMenu()
+        inputDummyMenu(storeId)
 
         val mainmenuRVAdapter = MainMenuRVAdapter(getMainMenus())
         mainmenuRVAdapter.setMyItemClickListener(this)
@@ -87,9 +93,9 @@ class MenuFragment : Fragment(), MainMenuRVAdapter.MyItemClickListener, SideMenu
         return menuDatas.filter { it.category == 2 }
     }
 
-    private fun inputDummyMenu() {
-        // val storeId = arguments?.getInt("storeId", -1)!!
-        val storeId: Int = 1
+    private fun inputDummyMenu(storeId: Int) {
+//        var storeId = arguments?.getInt("storeId", -1)!!
+        //var storeId = 1
         menuDatas.apply {
             add(Menu(1, storeId, "메뉴 1" ,"abcdefghijklmnopqrstuvwxyz","270 * 130 mm", 22000,0,0, "더운 날씨에 상할 수 있으므로 바로 드시는 것을\n" +
                     "권장드립니다.",1, 1,R.drawable.store_img_1))

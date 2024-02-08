@@ -76,6 +76,7 @@
             app:tabRippleColor="@color/grey"
             app:layout_constraintTop_toBottomOf="@id/store_background_view"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/store_content_vp"
             app:layout_constraintEnd_toEndOf="parent"/>
 
 
@@ -86,7 +87,8 @@
             app:layout_constraintTop_toBottomOf="@id/store_content_tb"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>

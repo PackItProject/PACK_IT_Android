@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingHorizontal="33dp"
+    android:paddingVertical="10dp"
+    android:background="@drawable/item_border_drawble">
+
+    <TextView
+        android:id="@+id/item_rate_username_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="사용자 1"
+        android:textSize="18sp"
+        android:textColor="@color/black"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/item_rate_content_tv"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <ImageView
+        android:id="@+id/item_rate_star_iv"
+        android:layout_width="22dp"
+        android:layout_height="22dp"
+        android:src="@drawable/btn_star_no_select"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/item_rate_num_tv"
+        android:layout_gravity="center_vertical"
+        android:background="@color/white"
+        android:layout_marginEnd="5dp"/>
+
+    <TextView
+        android:id="@+id/item_rate_num_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="4.5"
+        android:textSize="18sp"
+        android:textColor="@color/dark_grey"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/item_rate_username_tv"
+        app:layout_constraintBottom_toBottomOf="@id/item_rate_star_iv"/>
+
+
+    <TextView
+        android:id="@+id/item_rate_content_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="지난 번에 주문했던 메뉴 A가 정말 맛있었어요. 다음에 또 주문해보고 싶습니다."
+        android:textSize="17sp"
+        android:textColor="@color/dark_grey"
+        app:layout_constraintEnd_toEndOf="@id/item_rate_num_tv"
+        app:layout_constraintTop_toBottomOf="@id/item_rate_username_tv"
+        app:layout_constraintBottom_toTopOf="@id/item_rate_horizontal_sv"
+        app:layout_constraintStart_toStartOf="@id/item_rate_username_tv"/>
+
+
+
+    <HorizontalScrollView
+        android:id="@+id/item_rate_horizontal_sv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        app:layout_constraintStart_toStartOf="@id/item_rate_username_tv"
+        app:layout_constraintTop_toBottomOf="@id/item_rate_content_tv"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/item_rate_img1_cardView"
+            android:layout_width="113dp"
+            android:layout_height="80dp"
+            android:layout_marginTop="7dp"
+            android:layout_marginRight="10dp"
+            app:cardCornerRadius="7dp"
+            app:cardElevation="0dp">
+            <ImageView
+                android:id="@+id/item_rate_img1_iv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="fitCenter"
+                android:src="@color/grey"/>
+        </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/item_rate_img2_cardView"
+                android:layout_width="113dp"
+                android:layout_height="80dp"
+                android:layout_marginTop="7dp"
+                android:layout_marginRight="10dp"
+                app:cardCornerRadius="7dp"
+                app:cardElevation="0dp">
+                <ImageView
+                    android:id="@+id/item_rate_img2_iv"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="fitCenter"
+                    android:src="@color/grey"/>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/item_rate_img3_cardView"
+                android:layout_width="113dp"
+                android:layout_height="80dp"
+                android:layout_marginTop="7dp"
+                android:layout_marginRight="10dp"
+                app:cardCornerRadius="7dp"
+                app:cardElevation="0dp">
+                <ImageView
+                    android:id="@+id/item_rate_img3_iv"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="fitCenter"
+                    android:src="@color/grey"/>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/item_rate_img4_cardView"
+                android:layout_width="113dp"
+                android:layout_height="80dp"
+                android:layout_marginTop="7dp"
+                android:layout_marginRight="10dp"
+                app:cardCornerRadius="7dp"
+                app:cardElevation="0dp">
+                <ImageView
+                    android:id="@+id/item_rate_img4_iv"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="fitCenter"
+                    android:src="@color/grey"/>
+            </androidx.cardview.widget.CardView>
+        </LinearLayout>
+    </HorizontalScrollView>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
