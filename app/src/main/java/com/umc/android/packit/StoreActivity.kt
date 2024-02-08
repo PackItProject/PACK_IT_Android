@@ -2,6 +2,7 @@ package com.umc.android.packit
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContentProviderCompat.requireContext
@@ -13,6 +14,7 @@ class StoreActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityStoreBinding
     private var isStarSelected:Boolean = false
+    var storeId:Int = 0
 
     private val information = arrayListOf("메뉴", "가게 정보", "평점")
 
@@ -83,7 +85,7 @@ class StoreActivity : AppCompatActivity() {
 
     private fun initStore() {
         val intent = intent
-        if (intent != null) {
+        if (intent != null && storeId == 0) { // storeId가 0일 때만 초기화
             intent.getIntExtra("storeImg", -1).let { storeImg ->
                 if (storeImg != -1) {
                     binding.storeBackgroundView.setImageResource(storeImg)
@@ -91,6 +93,11 @@ class StoreActivity : AppCompatActivity() {
             }
             isStarSelected = intent.getBooleanExtra("star", false)
             binding.storeStarIv.setImageResource(if (isStarSelected) R.drawable.btn_star_select else R.drawable.btn_star_no_select)
-        }
+            storeId = intent.getIntExtra("storeId", 0)
+
+            Log.d("StoreActivity", "New Menu's store_id: $storeId")
+
         }
     }
+
+}

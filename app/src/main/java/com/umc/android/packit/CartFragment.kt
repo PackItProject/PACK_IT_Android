@@ -20,15 +20,25 @@ class CartFragment : AppCompatActivity() {
     var nowPos = 0
     var storeId =0
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        storeId = intent.getIntExtra("store_id", 0)
 
         // binding 초기화
         binding = FragmentCartBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         // SharedPreferences에서 메뉴 리스트를 가져와서 보여줌
+        loadMenuList()
+        initView()
+        reservePickUp()
+
+        // 메뉴 아이템 어댑터 연결
+        val adapter = CartRVAdapter(menuList)
+        binding.menuListRecyclerView.adapter = adapter
+    }
+
+    private fun loadMenuList() {
         val sharedPreferences = getSharedPreferences("Cart", MODE_PRIVATE)
         val menuListJson = sharedPreferences.getString("menuList", null)
 
@@ -38,37 +48,11 @@ class CartFragment : AppCompatActivity() {
         } else {
             ArrayList() // 저장된 데이터가 없을 경우 빈 리스트 생성
         }
-
-        initView()
-        reservePickUp()
-
-        // 메뉴 아이템 어댑터 연결
-        val adapter = CartRVAdapter(menuList)
-        binding.menuListRecyclerView.adapter = adapter
-
-    }
-
-    // 중복된 메뉴가 있는지 확인하고, 있으면 수량 증가
-    private fun addOrUpdateMenu(menu: Menu) {
-        val existingMenu = menuList.find { it.id == menu.id }
-
-        if (existingMenu != null) {
-            // 이미 장바구니에 있는 메뉴일 경우 수량 증가
-            existingMenu.count++
-            // 어댑터 갱신
-            val adapter = CartRVAdapter(menuList)
-            binding.menuListRecyclerView.adapter = adapter
-        } else {
-            // 장바구니에 없는 메뉴일 경우 새로 추가
-            menuList.add(menu)
-            // 어댑터 갱신
-            val adapter = CartRVAdapter(menuList)
-            binding.menuListRecyclerView.adapter = adapter
-        }
     }
 
 
     private fun initView() {
+
         // timePicker 초기화
         timePicker = binding.reservationTp
 
