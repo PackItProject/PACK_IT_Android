@@ -18,7 +18,6 @@ class OrderHistoryFragment : Fragment() {
 
     lateinit var binding: FragmentOrderHistoryBinding
     private var view: View? = null
-    private var detailBtn: Button? = null //StoreInfoFragment로 이동하는 버튼
 
     val dummyList: List<OrderHistoryMenu> = listOf(
         OrderHistoryMenu(
@@ -84,6 +83,9 @@ class OrderHistoryFragment : Fragment() {
 
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.adapter = OrderHistoryRVAdapter(dummyList)
+
+        // 상세 내용 버튼을 XML에서 찾습니다.
+
 
         return rootView
 
