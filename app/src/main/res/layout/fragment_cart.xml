@@ -198,7 +198,7 @@
                             android:id="@+id/receipt_total_price_02_tv"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="13,000원"
+                            android:text="1원"
                             android:layout_alignParentEnd="true"
                             android:layout_centerVertical="true"
                             style="@style/BoldDrakGreyText"/>

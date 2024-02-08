@@ -4,7 +4,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".StoreActivity"
-    android:id="@+id/store_frm"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/fl_basic">

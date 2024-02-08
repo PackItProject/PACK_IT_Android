@@ -8,19 +8,21 @@ import com.umc.android.packit.databinding.FragmentCartBinding
 // 프래그먼트 상속
 class CartFragment:AppCompatActivity() {
     lateinit var binding : FragmentCartBinding
-    lateinit var timePicker: TimePicker
+    lateinit var timePicker : TimePicker
 
     private var pickUpAmPm : String = ""
     private var pickUpHour : Int = 0
     private var pickUpminute : Int = 0
 
-    private val menuList = listOf(
-        OrderMenu("힘", 1, 1),
-        OrderMenu("내", 2200, 2),
-        OrderMenu("자", 3, 3),
-        OrderMenu("파이", 40000000, 4),
-        OrderMenu("팅!", 90, 5)
-    )
+    private var totalPrice : Int = 0
+
+    private var menuList = ArrayList<OrderMenu>().apply {
+        add(OrderMenu("menu1", 10000, 1))
+        add(OrderMenu("menu2", 2000000, 2))
+        add(OrderMenu("menu3", 3000, 3))
+        add(OrderMenu("menu4", 4000, 4))
+        add(OrderMenu("menu5!", 5000, 5))
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,11 +35,33 @@ class CartFragment:AppCompatActivity() {
 
         initView()
         reservePickUp()
+        updateTotalPrice()
 
-        // TODO: 메뉴아이템 어댑터 연결
+
         val adapter = CartRVAdapter(menuList)
         binding.menuListRecyclerView.adapter = adapter
-        // 메뉴아이템 개수
+
+        // 아이템 클릭 이벤트 등록
+        adapter.onItemClickListener(object : CartRVAdapter.ItemClick{
+            // 메뉴 삭제
+            override fun onRemoveMenu(position: Int) {
+                adapter.removeMenu(position)
+                updateTotalPrice() // 메뉴 삭제 후 총 가격 업데이트
+            }
+
+            // 메뉴 수량 추가
+            override fun onAddMenu(position: Int) {
+                adapter.addMenu(position)
+                updateTotalPrice() // 메뉴 수량 추가 후 총 가격 업데이트
+            }
+
+            // 메뉴 수량 빼기
+            override fun onSubMenu(position: Int) {
+                adapter.subMenu(position)
+                updateTotalPrice() // 메뉴 수량 뺀 후 총 가격 업데이트
+            }
+
+        })
     }
 
     // 현재 시각 기준으로 및 픽업 시간 초기화
@@ -62,7 +86,7 @@ class CartFragment:AppCompatActivity() {
 
         // 오전/오후, 시, 분 저장
         pickUpAmPm = if (getHour < 12) "오전" else "오후"
-        pickUpHour = getHour
+        pickUpHour = if (getHour % 12 == 0)  12 else (getHour % 12)
         pickUpminute = getMinute
 
         // "오후 12:30" 꼴
@@ -83,4 +107,13 @@ class CartFragment:AppCompatActivity() {
         }
     }
 
+    // 총 결제금액 업데이트
+    private fun updateTotalPrice() {
+        totalPrice = 0
+        for (menu in menuList) {
+            totalPrice += menu.price * menu.count
+        }
+
+        binding.receiptTotalPrice02Tv.text = String.format("%,d 원", totalPrice)
+    }
 }
