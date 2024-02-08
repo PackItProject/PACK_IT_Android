@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background_grey"
     tools:context=".MyInfoFragment"
-    android:id="@+id/fragment_container">
+    android:id="@+id/cl_my_info">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -36,6 +37,7 @@
                 app:layout_constraintVertical_bias="0.005">
 
                 <LinearLayout
+                    android:id="@+id/profile_ll"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
@@ -94,7 +96,7 @@
 
 
                         <TextView
-                            android:id="@+id/profile_textview_email"
+                            android:id="@+id/profile_email_tv"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="30dp"
@@ -144,6 +146,7 @@
             </LinearLayout>
 
             <ImageView
+                android:id="@+id/banner_iv"
                 android:layout_width="match_parent"
                 android:layout_height="80dp"
                 android:src="@drawable/img_banner"
@@ -158,55 +161,63 @@
             <LinearLayout
                 android:id="@+id/linearLayout2"
                 android:layout_width="match_parent"
-                android:layout_height="300dp"
+                android:layout_height="match_parent"
                 android:layout_margin="20dp"
                 android:background="@color/white_text"
-
                 android:orientation="vertical"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-                app:layout_constraintVertical_bias="1.0">
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout">
 
                 <Button
+                    android:id="@+id/notice_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="30dp"
                     android:layout_marginTop="30dp"
+                    android:gravity="left|center"
                     android:text="공지사항"
                     android:background="@color/transparent"/>
 
                 <Button
+                    android:id="@+id/service_policy_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="30dp"
                     android:layout_marginTop="30dp"
+                    android:gravity="left|center"
                     android:text="서비스 정책 및 약관"
                     android:background="@color/transparent"/>
 
                 <Button
+                    android:id="@+id/manage_pay_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="30dp"
                     android:layout_marginTop="30dp"
+                    android:gravity="left|center"
                     android:background="@color/transparent"
                     android:text="결제수단 관리" />
 
-                <Button
+           <!--     <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="30dp"
                     android:layout_marginTop="30dp"
+                    android:gravity="left|center"
                     android:text="가게 입점 문의"
-                    android:background="@color/transparent"/>
+                    android:background="@color/transparent"/>-->
 
 
                 <Button
+                    android:id="@+id/remove_account_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="30dp"
                     android:layout_marginTop="30dp"
+                    android:layout_marginBottom="30dp"
+                    android:gravity="left|center"
                     android:text="계정 탈퇴"
                     android:background="@color/transparent"
                     android:textColor="#FF0000" />
