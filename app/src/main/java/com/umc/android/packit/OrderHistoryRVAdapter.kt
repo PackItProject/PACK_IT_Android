@@ -3,8 +3,11 @@ package com.umc.android.packit
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
+
 
 class OrderHistoryRVAdapter(private val orderHistoryList: List<OrderHistoryMenu>) : RecyclerView.Adapter<OrderHistoryRVAdapter.ViewHolder>() {
 
@@ -15,10 +18,28 @@ class OrderHistoryRVAdapter(private val orderHistoryList: List<OrderHistoryMenu>
         val menuTextView: TextView = itemView.findViewById(R.id.item_history_menu_tv)
         val priceTextView: TextView = itemView.findViewById(R.id.item_history_price_tv)
         val stateTextView: TextView = itemView.findViewById(R.id.item_history_state_tv)
+
+        val detailButton: Button = itemView.findViewById(R.id.item_history_detail_btn)
+
+        init {
+            // 버튼 클릭 리스너 설정
+            detailButton.setOnClickListener {
+                val context = itemView.context
+                // 여기서 OrderHistoryDetailedFragment 로 이동하는 코드를 작성
+                val OrderHistoryDetailedFragment = OrderHistoryDetailedFragment()
+                val fragmentManager = (context as AppCompatActivity).supportFragmentManager
+                fragmentManager.beginTransaction()
+                    .replace(R.id.container, OrderHistoryDetailedFragment)
+                    .addToBackStack(null) // 여기에 addToBackStack 메소드 위치 수정
+                    .commit()
+            }
+        }
+
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_order_history, parent, false)
+
         return ViewHolder(view)
     }
 
@@ -32,6 +53,8 @@ class OrderHistoryRVAdapter(private val orderHistoryList: List<OrderHistoryMenu>
         holder.menuTextView.text = orderItem.menu
         holder.priceTextView.text = orderItem.price
         holder.stateTextView.text = orderItem.state
+
+
     }
 
     override fun getItemCount(): Int {
