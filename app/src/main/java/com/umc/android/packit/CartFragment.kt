@@ -1,28 +1,36 @@
 package com.umc.android.packit
 
+import android.content.Context
 import android.os.Bundle
 import android.widget.TimePicker
 import androidx.appcompat.app.AppCompatActivity
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import com.umc.android.packit.databinding.FragmentCartBinding
 
 // 프래그먼트 상속
-class CartFragment:AppCompatActivity() {
-    lateinit var binding : FragmentCartBinding
-    lateinit var timePicker : TimePicker
 
-    private var pickUpAmPm : String = ""
-    private var pickUpHour : Int = 0
-    private var pickUpminute : Int = 0
+class CartFragment : AppCompatActivity() {
+    lateinit var binding: FragmentCartBinding
+    lateinit var timePicker: TimePicker
+
+    private var pickUpAmPm: String = ""
+    private var pickUpHour: Int = 0
+    private var pickUpminute: Int = 0
+
+    private var menuList = ArrayList<Menu>()
+    var nowPos = 0
+    var storeId =0
 
     private var totalPrice : Int = 0
 
-    private var menuList = ArrayList<OrderMenu>().apply {
-        add(OrderMenu("menu1", 10000, 1))
-        add(OrderMenu("menu2", 2000000, 2))
-        add(OrderMenu("menu3", 3000, 3))
-        add(OrderMenu("menu4", 4000, 4))
-        add(OrderMenu("menu5!", 5000, 5))
-    }
+//    private var menuList = ArrayList<OrderMenu>().apply {
+//        add(OrderMenu("menu1", 10000, 1))
+//        add(OrderMenu("menu2", 2000000, 2))
+//        add(OrderMenu("menu3", 3000, 3))
+//        add(OrderMenu("menu4", 4000, 4))
+//        add(OrderMenu("menu5!", 5000, 5))
+//    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,8 +39,8 @@ class CartFragment:AppCompatActivity() {
         binding = FragmentCartBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // 초기화
-
+        // SharedPreferences에서 메뉴 리스트를 가져와서 보여줌
+        loadMenuList()
         initView()
         reservePickUp()
         updateTotalPrice()
@@ -62,10 +70,24 @@ class CartFragment:AppCompatActivity() {
             }
 
         })
+
     }
 
-    // 현재 시각 기준으로 및 픽업 시간 초기화
+    private fun loadMenuList() {
+        val sharedPreferences = getSharedPreferences("Cart", MODE_PRIVATE)
+        val menuListJson = sharedPreferences.getString("menuList", null)
+
+        menuList = if (!menuListJson.isNullOrEmpty()) {
+            // 기존에 저장된 JSON 데이터가 있을 때만 Gson을 사용하여 리스트로 변환
+            Gson().fromJson(menuListJson, object : TypeToken<ArrayList<Menu>>() {}.type)
+        } else {
+            ArrayList() // 저장된 데이터가 없을 경우 빈 리스트 생성
+        }
+    }
+
+
     private fun initView() {
+
         // timePicker 초기화
         timePicker = binding.reservationTp
 
@@ -93,13 +115,10 @@ class CartFragment:AppCompatActivity() {
         binding.receiptPickUp02Tv.text = String.format("%s %02d:%02d", pickUpAmPm, pickUpHour, pickUpminute)
     }
 
-    // 타임 피커 시간 설정에 따라 픽업시간 텍스트 변경
     private fun reservePickUp() {
-        timePicker.setOnTimeChangedListener{ _, hourOfDay, minute ->
-
+        timePicker.setOnTimeChangedListener { _, hourOfDay, minute ->
             pickUpAmPm = if (hourOfDay < 12) "오전" else "오후"
-            pickUpHour = if (hourOfDay % 12 == 0)  12 else (hourOfDay % 12)
-
+            pickUpHour = if (hourOfDay % 12 == 0) 12 else (hourOfDay % 12)
             pickUpminute = minute
 
             // "오후 12:30" 꼴
@@ -117,3 +136,4 @@ class CartFragment:AppCompatActivity() {
         binding.receiptTotalPrice02Tv.text = String.format("%,d 원", totalPrice)
     }
 }
+

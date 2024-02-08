@@ -30,9 +30,6 @@ private const val ARG_PARAM2 = "param2"
 
 
 class MapFragment : Fragment(), OnMapReadyCallback,StoreListRVAdapter.MyItemClickListener  {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
     private lateinit var binding: FragmentMapBinding
     private lateinit var autocompleteFragment:AutocompleteSupportFragment
@@ -43,7 +40,11 @@ class MapFragment : Fragment(), OnMapReadyCallback,StoreListRVAdapter.MyItemClic
     private var storeDatas = ArrayList<Store>()
     private lateinit var dialog: BottomSheetDialog
     private lateinit var bottomSheet: FragmentStoreListBinding
-
+    companion object {
+        fun newInstance(): MapFragment {
+            return MapFragment()
+        }
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Places.initialize(requireContext(),"AIzaSyAIiKuJ8RTp54prSp0lyIUw15lUVftR-6s")
@@ -113,19 +114,24 @@ class MapFragment : Fragment(), OnMapReadyCallback,StoreListRVAdapter.MyItemClic
 
     override fun onItemClick(store: Store) {
         // 아이템 클릭 시 StoreActivity를 시작
+        // 새로운 Bundle 생성하고 데이터 추가
+//        val bundle = Bundle()
+//        bundle.putInt("storeId", store.id)
+//        // MenuFragment 인스턴스 생성하고 Bundle 전달
+//        val menuFragment = MenuFragment()
+//        menuFragment.arguments = bundle
+        
         val intent = Intent(requireContext(), StoreActivity::class.java)
         intent.putExtra("storeImg", store.storeImg ?: -1) // storeImg가 null이 아니면 해당 값, null이면 -1을 전달
         intent.putExtra("star", store.star ?: false) // storeImg가 null이 아니면 해당 값, null이면 -1을 전달
-
-        // 새로운 Bundle 생성하고 데이터 추가
-        val bundle = Bundle()
-        bundle.putInt("storeId", store.id)
-        // MenuFragment 인스턴스 생성하고 Bundle 전달
-        val menuFragment = MenuFragment()
-        menuFragment.arguments = bundle
-
+        intent.putExtra("storeId", store.id ?: -1)
 
         startActivity(intent)
+        //        requireActivity().supportFragmentManager.beginTransaction()
+//            .replace(R.id.fragment_container, menuFragment)
+//            .addToBackStack(null)
+//            .commit()
+
 //        supportFragmentManager.beginTransaction()
 //            .replace(R.id.main_frm, StoreActivity())
 //            .commitAllowingStateLoss()

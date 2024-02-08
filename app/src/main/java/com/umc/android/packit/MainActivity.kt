@@ -35,7 +35,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.bottomnavi.setOnItemSelectedListener { item ->
-            when(item.itemId) {
+            when (item.itemId) {
                 R.id.mapFragment -> {
                     supportFragmentManager.beginTransaction()
                         .replace(R.id.container, MapFragment())
@@ -49,9 +49,9 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 R.id.myPackitFragment -> {
-                         supportFragmentManager.beginTransaction()
-                             .replace(R.id.container, MypackitFragment() )
-                             .commit()
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.container, MypackitFragment())
+                        .commit()
                 }
 
 
@@ -60,38 +60,19 @@ class MainActivity : AppCompatActivity() {
                         .replace(R.id.container, OrderHistoryFragment())
                         .commit()
                 }
+
                 R.id.myInfoFragment -> {
                     supportFragmentManager.beginTransaction()
                         .replace(R.id.container, MyInfoFragment())
                         .commit()
                 }
-                            }
+            }
             true
         }
 
     }
 
-    private fun setFragment(tag: String, fragment: Fragment) {
-        val manager: FragmentManager = supportFragmentManager
-        val fragTransaction = manager.beginTransaction()
-
-        if (manager.findFragmentByTag(tag) == null){
-            fragTransaction.add(R.id.fl_container, fragment, tag)
-        }
-
-        val favorite= manager.findFragmentByTag(TAG_FAVORITE)
-
-        if (favorite != null){
-            fragTransaction.hide(favorite)
-        }
-
-        if (tag == TAG_FAVORITE) {
-            if (favorite!=null){
-                fragTransaction.show(favorite)
-            }
-        }
-
-
-        fragTransaction.commitAllowingStateLoss()
+    fun goBack() {
+        onBackPressed()
     }
 }
