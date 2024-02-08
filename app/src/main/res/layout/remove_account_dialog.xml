@@ -16,8 +16,8 @@
             android:layout_height="wrap_content"
             android:textAlignment="center"
             android:textColor="#000000"
+            android:text="회원 탈퇴하시겠습니까?"
             android:textSize="20sp"
-            android:text="주문 취소하시겠습니까?"
             android:layout_marginTop="20dp"/>
 
         <LinearLayout

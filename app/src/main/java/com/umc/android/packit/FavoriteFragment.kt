@@ -16,8 +16,6 @@ class FavoriteFragment : Fragment(), FavoriteRVAdapter.MyItemClickListener {
         fun newInstance(): FavoriteFragment {
             return FavoriteFragment()
         }
-
-
     }
     override fun onCreateView(
         inflater: LayoutInflater,
