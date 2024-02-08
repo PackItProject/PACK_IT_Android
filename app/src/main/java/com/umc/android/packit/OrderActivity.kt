@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.umc.android.packit.databinding.FragmentOrderBinding
 
 
-class OrderFragment() : AppCompatActivity() {
+class OrderActivity() : AppCompatActivity() {
 
     // 변수 선언
     private lateinit var binding: FragmentOrderBinding

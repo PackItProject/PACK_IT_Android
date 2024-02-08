@@ -1,6 +1,7 @@
 package com.umc.android.packit
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.widget.TimePicker
 import androidx.appcompat.app.AppCompatActivity
@@ -71,6 +72,16 @@ class CartFragment : AppCompatActivity() {
 
         })
 
+        // 뒤로 가기 버튼 -> 가게 화면으로 이동
+        binding.backBtnIv.setOnClickListener {
+            finish()
+        }
+
+        // 주문하기 버튼 -> 주문하기 화면으로 이동
+        binding.orderBtn.setOnClickListener {
+            val intent = Intent(this,OrderActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     private fun loadMenuList() {
@@ -105,27 +116,36 @@ class CartFragment : AppCompatActivity() {
             @Suppress("DEPRECATION")
             timePicker.currentMinute
         }
-
+        setFormatTime(getHour, getMinute)
         // 오전/오후, 시, 분 저장
-        pickUpAmPm = if (getHour < 12) "오전" else "오후"
-        pickUpHour = if (getHour % 12 == 0)  12 else (getHour % 12)
-        pickUpminute = getMinute
+//        pickUpAmPm = if (getHour < 12) "오전" else "오후"
+//        pickUpHour = if (getHour % 12 == 0)  12 else (getHour % 12)
+//        pickUpminute = getMinute
+//
+//        // "오후 12:30" 꼴
+//        binding.receiptPickUp02Tv.text = String.format("%s %02d:%02d", pickUpAmPm, pickUpHour, pickUpminute)
+    }
+
+    private fun reservePickUp() {
+        timePicker.setOnTimeChangedListener { _, hourOfDay, minute -> setFormatTime(hourOfDay, minute)
+//            pickUpAmPm = if (hourOfDay < 12) "오전" else "오후"
+//            pickUpHour = if (hourOfDay % 12 == 0) 12 else (hourOfDay % 12)
+//            pickUpminute = minute
+//
+//            // "오후 12:30" 꼴
+//            binding.receiptPickUp02Tv.text = String.format("%s %02d:%02d", pickUpAmPm, pickUpHour, pickUpminute)
+        }
+    }
+
+    private fun setFormatTime(hours:Int, minutes: Int) {
+        // 오전/오후, 시, 분 저장
+        pickUpAmPm = if (hours < 12) "오전" else "오후"
+        pickUpHour = if (hours % 12 == 0) 12 else (hours % 12)
+        pickUpminute = minutes
 
         // "오후 12:30" 꼴
         binding.receiptPickUp02Tv.text = String.format("%s %02d:%02d", pickUpAmPm, pickUpHour, pickUpminute)
     }
-
-    private fun reservePickUp() {
-        timePicker.setOnTimeChangedListener { _, hourOfDay, minute ->
-            pickUpAmPm = if (hourOfDay < 12) "오전" else "오후"
-            pickUpHour = if (hourOfDay % 12 == 0) 12 else (hourOfDay % 12)
-            pickUpminute = minute
-
-            // "오후 12:30" 꼴
-            binding.receiptPickUp02Tv.text = String.format("%s %02d:%02d", pickUpAmPm, pickUpHour, pickUpminute)
-        }
-    }
-
     // 총 결제금액 업데이트
     private fun updateTotalPrice() {
         totalPrice = 0

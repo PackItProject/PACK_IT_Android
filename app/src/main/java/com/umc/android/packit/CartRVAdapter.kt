@@ -57,6 +57,7 @@ class CartRVAdapter(private val menuList: ArrayList<Menu>):RecyclerView.Adapter<
     // 메뉴 삭제 함수
     fun removeMenu(position:Int) {
         menuList.removeAt(position)
+        menuList[position].count = 0 // 메뉴 수량 0으로 초기화
         notifyItemRemoved(position)
         notifyItemRangeChanged(position, itemCount) // 아이템 위치 변경을 알림
     }
