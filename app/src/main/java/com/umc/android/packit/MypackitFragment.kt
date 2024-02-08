@@ -4,14 +4,17 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
 class MypackitFragment : Fragment() {
+
+    private val dummyItemList = listOf(
+        MypackitItem(R.drawable.mypackit_sam, "첫 주문", "2024.2.4"),
+        MypackitItem(R.drawable.mypackit_sam, "3회 주문", "2024.2.5"),
+        MypackitItem(R.drawable.mypackit_sam, "5회 주문", "2024.2.6")
+    )
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -20,16 +23,11 @@ class MypackitFragment : Fragment() {
         val rootView = inflater.inflate(R.layout.fragment_mypackit, container, false)
 
         val recyclerView: RecyclerView = rootView.findViewById(R.id.badgeRecyclerView)
-        recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
-        val adapter = MypackitPinAdapter(getSampleData()) // Implement getSampleData() to provide your data
-        recyclerView.adapter = adapter
+        recyclerView.layoutManager = GridLayoutManager(context, 2)
+        recyclerView.adapter = MypackitPinAdapter(dummyItemList)
 
         return rootView
     }
 
-    private fun getSampleData(): List<String> {
-        // Replace this with your actual data
-        return listOf("Item 0", "Item 1", "Item 2")
-    }
 }
