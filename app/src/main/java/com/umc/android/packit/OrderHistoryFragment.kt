@@ -42,12 +42,30 @@ class OrderHistoryFragment : Fragment() {
         OrderHistoryMenu(
             date = "2024.03.01 18:00",
             imageUrl =  R.drawable.store_img_3,
-            storeName = "가게 이름 3",
-            reservationTime = "예약 시간 3",
+            storeName = "가게 이름 4",
+            reservationTime = "예약 시간 4",
             menu = "메뉴 3",
             price = "20000원",
             state = "주문 완료"
         ),
+        OrderHistoryMenu(
+            date = "2024.03.01 18:00",
+            imageUrl =  R.drawable.store_img_3,
+            storeName = "가게 이름 4",
+            reservationTime = "예약 시간 4",
+            menu = "메뉴 3",
+            price = "20000원",
+            state = "주문 완료"
+        ),
+        OrderHistoryMenu(
+            date = "2024.03.01 18:00",
+            imageUrl =  R.drawable.store_img_3,
+            storeName = "가게 이름 4",
+            reservationTime = "예약 시간 4",
+            menu = "메뉴 3",
+            price = "20000원",
+            state = "주문 완료"
+        )
         // 이하 추가 데이터 추가 가능
     )
 
