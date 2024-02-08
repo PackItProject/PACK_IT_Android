@@ -6,21 +6,27 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-
     <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fl_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:name="androidx.navigation.fragment.NavHostFragment" />
+
+    <!--<androidx.fragment.app.FragmentContainerView
         android:id="@+id/fl_container"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:name="androidx.navigation.fragment.NavHostFragment"
         app:navGraph="@navigation/nav_graph"
-        app:defaultNavHost="true"/>
+        app:defaultNavHost="true"/>-->
 
-    <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/mypackit_fragment_container"
+    <!--<androidx.fragment.app.FragmentContainerView
+        android:id="@+id/FragmentContainerView"
+        android:name="com.umc.android.packit.MyInfoFragment"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"/>
+        android:layout_weight="1"/>-->
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomnavi"

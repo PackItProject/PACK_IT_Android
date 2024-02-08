@@ -30,9 +30,6 @@ private const val ARG_PARAM2 = "param2"
 
 
 class MapFragment : Fragment(), OnMapReadyCallback,StoreListRVAdapter.MyItemClickListener  {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
     private lateinit var binding: FragmentMapBinding
     private lateinit var autocompleteFragment:AutocompleteSupportFragment
@@ -43,7 +40,11 @@ class MapFragment : Fragment(), OnMapReadyCallback,StoreListRVAdapter.MyItemClic
     private var storeDatas = ArrayList<Store>()
     private lateinit var dialog: BottomSheetDialog
     private lateinit var bottomSheet: FragmentStoreListBinding
-
+    companion object {
+        fun newInstance(): MapFragment {
+            return MapFragment()
+        }
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Places.initialize(requireContext(),"AIzaSyAIiKuJ8RTp54prSp0lyIUw15lUVftR-6s")
