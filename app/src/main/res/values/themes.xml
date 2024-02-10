@@ -3,7 +3,7 @@
     <style name="Theme.PackIt" parent="Theme.AppCompat.Light">
         <!-- Customize your light theme here. -->
 
-        <!--  액션바 삭제 -->
+        <!--  타이틀 바 삭제 -->
         <item name="windowNoTitle">true</item>
     </style>
 

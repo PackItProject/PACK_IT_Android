@@ -3,7 +3,7 @@
     <style name="Base.Theme.Packit" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your dark theme here. -->
 
-        <!--  액션바 삭제 -->
+        <!--  타이틀 바 삭제 -->
         <item name="windowNoTitle">true</item>
     </style>
 </resources>

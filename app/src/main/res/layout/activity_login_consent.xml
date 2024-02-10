@@ -70,7 +70,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:text="[필수]서비스이용약관 전체동의"
+            android:text="[필수] 서비스이용약관 전체동의"
             android:textSize="16sp"
             android:textColor="@color/dark_grey" />
     </LinearLayout>
@@ -110,7 +110,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:text="[필수]개인정보 제3자 제공 동의"
+            android:text="[필수] 개인정보 제3자 제공 동의"
             android:textSize="16sp"
             android:textColor="@color/dark_grey" />
     </LinearLayout>
@@ -150,7 +150,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:text="[필수]위치정보 제공 동의"
+            android:text="[필수] 위치정보 제공 동의"
             android:textSize="16sp"
             android:textColor="@color/dark_grey" />
     </LinearLayout>
