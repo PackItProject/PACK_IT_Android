@@ -32,6 +32,12 @@ class MenuInfoActivity : AppCompatActivity() {
             initMenuInfo(it)
         }
 
+        // 뒤로가기 버튼
+        binding.menuInfoBackBtnIv.setOnClickListener {
+            finish()
+        }
+
+        // 장바구니 담기 버튼
         binding.menuInfoAddCartBtn.setOnClickListener {
             menu?.let { newMenu ->
                 val sharedPreferences = getSharedPreferences("Cart", MODE_PRIVATE)

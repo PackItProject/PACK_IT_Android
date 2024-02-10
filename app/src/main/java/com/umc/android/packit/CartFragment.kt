@@ -1,6 +1,7 @@
 package com.umc.android.packit
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.widget.TimePicker
 import androidx.appcompat.app.AppCompatActivity
@@ -9,6 +10,7 @@ import com.google.gson.reflect.TypeToken
 import com.umc.android.packit.databinding.FragmentCartBinding
 
 // 프래그먼트 상속
+
 class CartFragment : AppCompatActivity() {
     lateinit var binding: FragmentCartBinding
     lateinit var timePicker: TimePicker
@@ -16,10 +18,20 @@ class CartFragment : AppCompatActivity() {
     private var pickUpAmPm: String = ""
     private var pickUpHour: Int = 0
     private var pickUpminute: Int = 0
+
     private var menuList = ArrayList<Menu>()
     var nowPos = 0
     var storeId =0
 
+    private var totalPrice : Int = 0
+
+//    private var menuList = ArrayList<OrderMenu>().apply {
+//        add(OrderMenu("menu1", 10000, 1))
+//        add(OrderMenu("menu2", 2000000, 2))
+//        add(OrderMenu("menu3", 3000, 3))
+//        add(OrderMenu("menu4", 4000, 4))
+//        add(OrderMenu("menu5!", 5000, 5))
+//    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,10 +44,44 @@ class CartFragment : AppCompatActivity() {
         loadMenuList()
         initView()
         reservePickUp()
+        updateTotalPrice()
 
-        // 메뉴 아이템 어댑터 연결
+
         val adapter = CartRVAdapter(menuList)
         binding.menuListRecyclerView.adapter = adapter
+
+        // 아이템 클릭 이벤트 등록
+        adapter.onItemClickListener(object : CartRVAdapter.ItemClick{
+            // 메뉴 삭제
+            override fun onRemoveMenu(position: Int) {
+                adapter.removeMenu(position)
+                updateTotalPrice() // 메뉴 삭제 후 총 가격 업데이트
+            }
+
+            // 메뉴 수량 추가
+            override fun onAddMenu(position: Int) {
+                adapter.addMenu(position)
+                updateTotalPrice() // 메뉴 수량 추가 후 총 가격 업데이트
+            }
+
+            // 메뉴 수량 빼기
+            override fun onSubMenu(position: Int) {
+                adapter.subMenu(position)
+                updateTotalPrice() // 메뉴 수량 뺀 후 총 가격 업데이트
+            }
+
+        })
+
+        // 뒤로 가기 버튼 -> 가게 화면으로 이동
+        binding.backBtnIv.setOnClickListener {
+            finish()
+        }
+
+        // 주문하기 버튼 -> 주문하기 화면으로 이동
+        binding.orderBtn.setOnClickListener {
+            val intent = Intent(this,OrderActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     private fun loadMenuList() {
@@ -70,27 +116,44 @@ class CartFragment : AppCompatActivity() {
             @Suppress("DEPRECATION")
             timePicker.currentMinute
         }
-
+        setFormatTime(getHour, getMinute)
         // 오전/오후, 시, 분 저장
-        pickUpAmPm = if (getHour < 12) "오전" else "오후"
-        pickUpHour = getHour
-        pickUpminute = getMinute
+//        pickUpAmPm = if (getHour < 12) "오전" else "오후"
+//        pickUpHour = if (getHour % 12 == 0)  12 else (getHour % 12)
+//        pickUpminute = getMinute
+//
+//        // "오후 12:30" 꼴
+//        binding.receiptPickUp02Tv.text = String.format("%s %02d:%02d", pickUpAmPm, pickUpHour, pickUpminute)
+    }
+
+    private fun reservePickUp() {
+        timePicker.setOnTimeChangedListener { _, hourOfDay, minute -> setFormatTime(hourOfDay, minute)
+//            pickUpAmPm = if (hourOfDay < 12) "오전" else "오후"
+//            pickUpHour = if (hourOfDay % 12 == 0) 12 else (hourOfDay % 12)
+//            pickUpminute = minute
+//
+//            // "오후 12:30" 꼴
+//            binding.receiptPickUp02Tv.text = String.format("%s %02d:%02d", pickUpAmPm, pickUpHour, pickUpminute)
+        }
+    }
+
+    private fun setFormatTime(hours:Int, minutes: Int) {
+        // 오전/오후, 시, 분 저장
+        pickUpAmPm = if (hours < 12) "오전" else "오후"
+        pickUpHour = if (hours % 12 == 0) 12 else (hours % 12)
+        pickUpminute = minutes
 
         // "오후 12:30" 꼴
         binding.receiptPickUp02Tv.text = String.format("%s %02d:%02d", pickUpAmPm, pickUpHour, pickUpminute)
     }
-
-    private fun reservePickUp() {
-        timePicker.setOnTimeChangedListener { _, hourOfDay, minute ->
-            pickUpAmPm = if (hourOfDay < 12) "오전" else "오후"
-            pickUpHour = if (hourOfDay % 12 == 0) 12 else (hourOfDay % 12)
-            pickUpminute = minute
-
-            // "오후 12:30" 꼴
-            binding.receiptPickUp02Tv.text = String.format("%s %02d:%02d", pickUpAmPm, pickUpHour, pickUpminute)
+    // 총 결제금액 업데이트
+    private fun updateTotalPrice() {
+        totalPrice = 0
+        for (menu in menuList) {
+            totalPrice += menu.price * menu.count
         }
-    }
 
-    // 나머지 부분은 그대로 유지
+        binding.receiptTotalPrice02Tv.text = String.format("%,d 원", totalPrice)
+    }
 }
 
