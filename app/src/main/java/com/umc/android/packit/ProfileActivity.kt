@@ -80,11 +80,11 @@ class ProfileActivity : ProfilePermissionActivity() {
         if (isTyping) {
             // editText가 비어 있지 않은 경우, 버튼 및 텍스트 색 변경
             binding.profileConfirmBtn.setBackgroundResource(R.drawable.btn_square)
-            binding.profileConfirmBtn.setTextColor(ContextCompat.getColor(this,R.color.white));
+            binding.profileConfirmBtn.setTextColor(ContextCompat.getColor(this,R.color.white))
         } else {
             // editText가 비어 있는 경우, 원래 색상으로 변경
             binding.profileConfirmBtn.setBackgroundResource(R.drawable.btn_square_border)
-                binding.profileConfirmBtn.setTextColor(ContextCompat.getColor(this,R.color.grey))
+            binding.profileConfirmBtn.setTextColor(ContextCompat.getColor(this,R.color.grey))
         }
     }
 
