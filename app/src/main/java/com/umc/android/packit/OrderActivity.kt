@@ -1,6 +1,7 @@
 package com.umc.android.packit
 
 import android.animation.ObjectAnimator
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -63,7 +64,12 @@ class OrderActivity() : AppCompatActivity() {
             checkButtonState()
         }
 
-        // 주문하기 버튼
+        // 뒤로 가기 버튼 -> 장바구니 화면으로 이동
+        binding.orderBackBtnIv.setOnClickListener {
+            finish()
+        }
+
+        // 주문하기 버튼 -> 체크 및 쿠폰 선택 검사
         binding.orderPaidBtn.setOnClickListener {
             checkStateValidity()
         }
@@ -131,8 +137,12 @@ class OrderActivity() : AppCompatActivity() {
             // 아래 체크 박스가 visible이 아닌 경우
             Toast.makeText(this, "체크 박스를 확인해주세요.", Toast.LENGTH_SHORT).show()
         } else {
-            // 모든 유효성 검사를 통과한 경우, 페이지 이동
-            Toast.makeText(this, "페이지 이동", Toast.LENGTH_SHORT).show()
+            // 모든 유효성 검사를 통과한 경우, 메인 화면으로 페이지 이동
+            val intent = Intent(this, MainActivity::class.java)
+            // 플래그 설정 (지금까지의 액티비티 초기화)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+            intent.putExtra("showOrderCompletedFragment", true)
+            startActivity(intent)
         }
     }
 }
