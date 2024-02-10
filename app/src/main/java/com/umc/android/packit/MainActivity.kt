@@ -86,11 +86,4 @@ class MainActivity : AppCompatActivity() {
     fun goBack() {
         onBackPressed()
     }
-
-    private fun showOrderCompletedFragment() {
-        val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
-        val orderCompletedFragment = OrderCompletedFragment()
-        transaction.replace(R.id.order_completed_layout, orderCompletedFragment)
-        transaction.commit()
-    }
 }

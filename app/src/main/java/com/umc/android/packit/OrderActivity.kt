@@ -139,9 +139,11 @@ class OrderActivity() : AppCompatActivity() {
         } else {
             // 모든 유효성 검사를 통과한 경우, 메인 화면으로 페이지 이동
             val intent = Intent(this, MainActivity::class.java)
+
             // 플래그 설정 (지금까지의 액티비티 초기화)
             intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
             intent.putExtra("showOrderCompletedFragment", true)
+
             startActivity(intent)
         }
     }
