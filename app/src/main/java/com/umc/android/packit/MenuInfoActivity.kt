@@ -61,7 +61,7 @@ class MenuInfoActivity : AppCompatActivity() {
                     // 중복된 메뉴가 있는지 확인하고, 있으면 수량 증가
                     val existingMenu = savedMenuList.find { it.id == menu.id }
                     if (existingMenu != null) {
-                        existingMenu.count++
+                        Toast.makeText(this, "이미 장바구니에 있는 메뉴입니다.", Toast.LENGTH_SHORT).show()
                     } else {
                         // 장바구니에 없는 메뉴일 경우 새로 추가
                         updatedMenuList.add(newMenu)

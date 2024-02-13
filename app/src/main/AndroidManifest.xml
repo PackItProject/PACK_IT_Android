@@ -35,16 +35,11 @@
 
         <activity
             android:name=".MainActivity"
-            android:exported="true" />  <!-- 메인화면 액티비티 -->
 
+            android:exported="true" >
 
-        <activity android:name=".LoginConsentActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity> <!-- 이용약관 액티비티 -->
+        </activity>
+
 
         <activity android:name=".ProfileActivity"
             android:exported="true" />  <!-- 프로필 액티비티 -->
@@ -60,6 +55,23 @@
 
         <activity android:name=".MenuInfoActivity"
             android:exported="true"/>
+
+
+        <activity android:name=".CartFragment"
+            android:exported="true">
+
+        </activity>
+
+        <activity
+            android:name=".LoginActivity"
+            android:exported="true" >
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+        </activity>
 
     </application>
 
