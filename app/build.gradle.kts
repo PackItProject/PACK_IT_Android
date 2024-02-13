@@ -62,22 +62,26 @@ dependencies {
     implementation ("androidx.viewpager2:viewpager2:1.0.0")
     implementation ("me.relex:circleindicator:2.1.6")
 
-    //Google maps
+    // Google Maps
     implementation ("com.google.android.gms:play-services-maps:17.0.0")
     implementation ("com.google.android.gms:play-services-location:17.0.0")
     implementation ("com.google.android.gms:play-services-places:17.0.0")
     implementation ("com.google.android.libraries.places:places:3.3.0")
 
-    //cardview
+    // Cardview
     implementation ("androidx.cardview:cardview:1.0.0")
 
-    //Bottom navigation bar
+    // Bottom navigation bar
     implementation("androidx.navigation:navigation-fragment-ktx:2.4.1")
     implementation("androidx.navigation:navigation-ui-ktx:2.4.1")
 
     // Circle Image View
     implementation ("de.hdodenhof:circleimageview:3.1.0")
 
-    // gson
+    // Gson
     implementation ("com.google.code.gson:gson:2.8.9")
+
+    // Retrofit
+    implementation ("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
 }
