@@ -3,11 +3,14 @@ package com.umc.android.packit
 import android.animation.ObjectAnimator
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import androidx.core.animation.doOnEnd
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.umc.android.packit.databinding.FragmentOrderBinding
 
@@ -21,11 +24,11 @@ class OrderActivity() : AppCompatActivity() {
     private var isChecked = false // 체크 버튼 상태
 
     private val couponList = listOf(
-        OrderCoupon("[첫 주문] 5% 할인"),
-        OrderCoupon("[누적 주문 10회] 5% 할인"),
-        OrderCoupon("[누적 주문 10회] 15% 할인"),
-        OrderCoupon("[누적 주문 10회] 20% 할인"),
-        OrderCoupon("쿠폰 미사용")
+        OrderCoupon("[첫 주문] 5% 할인",0.05),
+        OrderCoupon("[누적 주문 10회] 5% 할인",0.05),
+        OrderCoupon("[누적 주문 10회] 15% 할인",0.15),
+        OrderCoupon("[누적 주문 10회] 20% 할인",0.2),
+        OrderCoupon("쿠폰 미사용",0.0)
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,6 +44,7 @@ class OrderActivity() : AppCompatActivity() {
         binding.orderCouponRecyclerView.adapter = adapter
         binding.orderCouponRecyclerView.layoutManager= LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 
+
         // 아이템 클릭 이벤트 설정
         // 클릭한 쿠폰으로 텍스트 변경
         adapter.itemClick  = object : OrderCouponRVAdapter.ItemClick {
@@ -48,6 +52,11 @@ class OrderActivity() : AppCompatActivity() {
                 binding.orderCouponSelectedBtn.text = couponList[position].name
                 isClicked=false  // 클릭 버튼 상태 바꿔 주면서 쿠폰 리스트 숨기기
                 hideCouponList()
+
+                val discountPercent= couponList[position].discountPercent
+                if (discountPercent != null) {
+                    updateTotalPriceWithDiscount(discountPercent)
+                }
             }
         }
 
@@ -84,6 +93,13 @@ class OrderActivity() : AppCompatActivity() {
         // 체크 버튼 해제 상태
         binding.orderCheckOffBtnIv.visibility = View.VISIBLE
         binding.orderCheckOnBtnIv.visibility = View.GONE
+
+        //cartFragment에서 전달한 픽업 시간과 총 결제 금액 띄우기
+        val cartTimeData = intent.getStringExtra("cartTimeKey")
+        binding.orderPickUp02Tv.text = cartTimeData  //주문 시간 데이터 전달
+
+        val cartPriceData = intent.getStringExtra("cartPriceKey")
+        binding.orderTotalPrice02Tv.text =cartPriceData  //총 결제 금액 데이터 전달
     }
 
     // 쿠폰 클릭 시, 쿠폰 리스트 띄우기
@@ -146,5 +162,17 @@ class OrderActivity() : AppCompatActivity() {
 
             startActivity(intent)
         }
+    }
+    private fun updateTotalPriceWithDiscount(discountPercent:Double) {
+        //cartFragment에서 전달한 주문 총액을 string으로 받아와서 double로 변환
+        val originalPriceString: String? = intent.getStringExtra("cartPriceKey")
+        //ex.13000원->13000으로 원을 빼야 더블로 변환 가능
+        val originalPrice: Double? = originalPriceString?.replace("[^0-9]".toRegex(), "")?.toDoubleOrNull()
+        //할인율 적용
+        val discountedTotalPrice = originalPrice?.times((1 - discountPercent))
+
+        //쿠폰할인율이 적용된 총액을 텍스트뷰에 전달
+        val formattedTotalPrice = String.format("%,.0f원", discountedTotalPrice ?: 0.0)
+        binding.orderTotalPrice02Tv.text = formattedTotalPrice
     }
 }

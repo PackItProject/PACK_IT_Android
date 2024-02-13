@@ -15,13 +15,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.ViewOutlineProvider
 import android.widget.Button
-import android.widget.ImageView
+import androidx.appcompat.content.res.AppCompatResources.getDrawable
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Observer
+import com.bumptech.glide.Glide
 import com.umc.android.packit.databinding.FragmentMyInfoBinding
 
 
-//TODO: 프로필 사진을 카카오에서 불러오면 카카오톡 프로필 사진으로 되는건가
 //갤러리에서 불러와서 프로필 사진 편집할 수 있게 해봄- DB가 없어서 바텀 이동시 사진이 사라짐
 
 
@@ -30,6 +32,8 @@ class MyInfoFragment : Fragment() {
     var mainActivity: MainActivity? = null
     private lateinit var binding: FragmentMyInfoBinding
     private var selectedImageUri: Uri? = null
+    private val profileViewModel: ProfileViewModel by activityViewModels()
+
     companion object {
         const val TAG: String = "로그"
         private const val KEY_IMAGE_URI = "key_image_uri"
@@ -48,7 +52,7 @@ class MyInfoFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentMyInfoBinding.inflate(inflater, container, false) // 바인딩 생성
-        val profileImgIv: ImageView =  binding.profileImgIv
+        val profileImgIv= binding.profileImgIv
 
 
         //프로필사진 모서리 동그랗게
@@ -61,6 +65,52 @@ class MyInfoFragment : Fragment() {
         profileImgIv.clipToOutline = true
 
         initImageViewProfile()
+
+        //TODO: 프로필액티비티에서 uri받아와서 프로필 사진 띄우기 왜안되지?
+        val receivedUriString = arguments?.getString("URIKEY")
+        Log.d("MyInfoFragment", "Received URI: $receivedUriString")
+
+        if ( receivedUriString != null) {
+            Glide.with(this)
+                .load(Uri.parse( receivedUriString))
+                .placeholder(R.drawable.img_no_img)
+                .error(R.drawable.img_no_img)
+                .into(profileImgIv)
+        }else {
+            Log.e("MyInfoFragment", "Received URI is null.")
+        }
+
+     /*   val receivedUriString = arguments?.getString("profile_img_url")
+        Log.d("MyInfoFragment", "Received URI: $receivedUriString")
+        val bundle = arguments
+        Log.d("MyInfoFragment", "Bundle contents: $bundle")
+        // Bundle contents: null
+        //TODO: 로그 찍어보니까 Received URI: null이래..
+
+        if (receivedUriString != null) {
+            Log.d("MyInfoFragment", "Setting image URI")
+
+            Glide.with(this)
+                .load(Uri.parse(receivedUriString))
+                .into(profileImgIv)
+        }else {
+            Log.e("MyInfoFragment", "Received URI is null.")
+        }
+*/
+    /*    // 프로필 사진 URI를 관찰하여 변경이 있을 때 이미지뷰에 반영
+        profileViewModel.profileImageUri.observe(viewLifecycleOwner, Observer { uri ->
+            // 링크가 없는 경우 기본 이미지를 보여주기 위함
+            if(uri.isNullOrEmpty()) {
+                profileImgIv.setImageResource(R.drawable.img_user)
+            }
+            else{  //링크가 있는 경우 링크에서 프로필 이미지를 가져와서 보여준다.
+                binding.profileImgIv.setImageURI(uri)
+                Glide.with(this)
+                    .load(uri)
+                    .into(profileImgIv)
+            }
+        })*/
+
        /* //카카오 api에서 받아온대로 회원정보 띄우기
         UserApiClient.instance.me { user, error ->
             binding.profileNameTv.text = "${user?.kakaoAccount?.profile?.nickname}"
