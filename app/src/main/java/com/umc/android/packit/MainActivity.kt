@@ -9,6 +9,7 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
 import androidx.room.Index
 
 private const val TAG_MAP = "map_fragment"
@@ -18,11 +19,21 @@ private const val TAG_FAVORITE = "favorite_fragment"
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var navController: NavController
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        // 주문 완료 다이얼로그 표시
+        // Check if the intent has a flag to show OrderCompletedFragment
+        if (intent.getBooleanExtra("showOrderCompletedFragment", false)) {
+            val orderCompletedFragment = OrderCompletedFragment()
+            orderCompletedFragment.show(supportFragmentManager, "OrderCompletedFragment")
+        }
+
+        // 바텀 네비게이션
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.fl_container) as NavHostFragment
         navController = navHostFragment.navController

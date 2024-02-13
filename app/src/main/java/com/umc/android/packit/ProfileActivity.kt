@@ -80,11 +80,11 @@ class ProfileActivity : ProfilePermissionActivity() {
         if (isTyping) {
             // editText가 비어 있지 않은 경우, 버튼 및 텍스트 색 변경
             binding.profileConfirmBtn.setBackgroundResource(R.drawable.btn_square)
-            binding.profileConfirmBtn.setTextColor(ContextCompat.getColor(this,R.color.white));
+            binding.profileConfirmBtn.setTextColor(ContextCompat.getColor(this,R.color.white))
         } else {
             // editText가 비어 있는 경우, 원래 색상으로 변경
             binding.profileConfirmBtn.setBackgroundResource(R.drawable.btn_square_border)
-                binding.profileConfirmBtn.setTextColor(ContextCompat.getColor(this,R.color.grey))
+            binding.profileConfirmBtn.setTextColor(ContextCompat.getColor(this,R.color.grey))
         }
     }
 
@@ -94,8 +94,13 @@ class ProfileActivity : ProfilePermissionActivity() {
         val nickname = binding.profileNicknameEt.text.toString()
 
         if (isValidNickname(nickname)) {
-            // 유효한 경우, 에러 메시지 감춤
-            binding.profileErrorMessageTv.visibility = View.INVISIBLE
+            // 유효한 경우, 페이지 이동 -> 메인 액티비티
+            val intent = Intent(this, MainActivity::class.java)
+
+            // 플래그 설정 (지금까지의 액티비티 초기화)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+
+            startActivity(intent)
         } else {
             // 유효하지 않은 경우, 에러 메시지 띄우고 테두리 색 (회색 -> 빨강) 변경
             binding.profileErrorMessageTv.visibility = View.VISIBLE
