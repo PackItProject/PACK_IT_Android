@@ -5,6 +5,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.TimePicker
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContentProviderCompat.requireContext
+import androidx.core.os.bundleOf
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.umc.android.packit.databinding.FragmentCartBinding
@@ -79,7 +81,14 @@ class CartFragment : AppCompatActivity() {
 
         // 주문하기 버튼 -> 주문하기 화면으로 이동
         binding.orderBtn.setOnClickListener {
-            val intent = Intent(this,OrderActivity::class.java)
+            //카트->주문내역으로 시간과 가격 보내기
+            val cartTimeData = binding.receiptPickUp02Tv.text.toString()// 장바구니 주문 시간 데이터 추출
+            val cartPriceData= binding.receiptTotalPrice02Tv.text.toString() //장바구니 주문 가격 데이터 추출
+
+            val intent = Intent(this, OrderActivity::class.java)
+            intent.putExtra("cartTimeKey", cartTimeData)
+            intent.putExtra("cartPriceKey", cartPriceData)
+
             startActivity(intent)
         }
     }

@@ -56,7 +56,6 @@
         <activity android:name=".MenuInfoActivity"
             android:exported="true"/>
 
-
         <activity
             android:name=".LoginActivity"
             android:exported="true" >

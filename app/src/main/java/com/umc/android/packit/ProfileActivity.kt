@@ -2,7 +2,6 @@ package com.umc.android.packit
 
 import android.Manifest
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
@@ -12,9 +11,7 @@ import android.text.TextWatcher
 import android.util.Log
 import android.view.View
 import android.widget.Toast
-import androidx.activity.result.PickVisualMediaRequest
-import androidx.activity.result.contract.ActivityResultContracts
-import androidx.appcompat.app.AppCompatActivity
+import androidx.activity.viewModels
 import androidx.core.content.ContextCompat
 import com.umc.android.packit.databinding.ActivityProfileBinding
 
@@ -22,6 +19,7 @@ class ProfileActivity : ProfilePermissionActivity() {
     // 변수 선언
     private lateinit var binding: ActivityProfileBinding
     val PERM_GALLERY = 1 // 갤러리 접근권한 코드
+    private val profileViewModel: ProfileViewModel by viewModels() //마이인포에 프로필 사진 띄우기 위한 뷰모델
 
     override fun onCreate(savedInstanceState: Bundle?) {
         // xml 바인딩 작업
@@ -56,6 +54,7 @@ class ProfileActivity : ProfilePermissionActivity() {
         // 확인 버튼 클릭 시, 닉네임 유효성 검증
         binding.profileConfirmBtn.setOnClickListener {
             checkNicknameValidity()
+
         }
 
         // 프로필 사진 버튼
@@ -145,6 +144,19 @@ class ProfileActivity : ProfilePermissionActivity() {
                     data?.data?.let { uri ->
                         binding.profileUserIv.setImageURI(uri)
 
+                        //TODO:MyInfoFragment로 프로필 사진 보내기(미완)
+                       val uriString = uri.toString()
+                       Log.d("ProfileActivity", "URI: $uriString")
+                       //여기 로그메시지는 uri잘 있음 URI: content://media/external/images/media/52074
+
+                        val myInfoFragment = MyInfoFragment()
+                       val bundle = Bundle().apply {
+                           putString("URIKEY", uriString)
+                       }
+
+                       myInfoFragment.arguments = bundle
+                       Log.d("ProfileActivity", "Bundle contents: $bundle")
+                       //여기 로그메시지에서 bundle도 잘 나옴*/
                     }
                 }
             }
