@@ -10,6 +10,8 @@
     <color name="transparent">#00FFFFFF</color>
 
     <!-- 컬러칩 갱신 -->
-    <color name="main">#FB7B44</color>
-    <color name="light_beige">#FAF8ED</color>
+    <color name="gui_orange">#FB7B44</color>
+    <color name="gui_white">#FAF8ED</color>
+    <color name="gui_light_green">#C1F2B0</color>
+    <color name="gui_green">#65B741</color>
 </resources>

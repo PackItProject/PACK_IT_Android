@@ -56,7 +56,6 @@
         <activity android:name=".MenuInfoActivity"
             android:exported="true"/>
 
-
         <activity android:name=".LoginConsentActivity"
             android:exported="true" />  <!-- 이용약관 액티비티 -->
 

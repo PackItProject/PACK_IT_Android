@@ -3,6 +3,7 @@ package com.umc.android.packit
 import android.Manifest
 import android.R.attr.name
 import android.content.Intent
+import android.util.Log
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.drawable.BitmapDrawable
@@ -16,6 +17,7 @@ import android.text.TextWatcher
 import android.util.Base64
 import android.view.View
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.core.content.ContextCompat
 import com.umc.android.packit.databinding.ActivityProfileBinding
 import java.io.ByteArrayOutputStream
@@ -26,11 +28,13 @@ import java.io.InputStream
 class ProfileActivity : ProfilePermissionActivity() {
     // 변수 선언
     private lateinit var binding: ActivityProfileBinding
-
     val PERM_GALLERY = 1    // 갤러리 접근 권한 코드
     val maxLength = 12      // editText 글자 수 제한
 
     lateinit var profileData : Profile  // profile 데이터 클래스
+
+    private val profileViewModel: ProfileViewModel by viewModels() //마이인포에 프로필 사진 띄우기 위한 뷰모델
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         // xml 바인딩 작업
@@ -64,6 +68,7 @@ class ProfileActivity : ProfilePermissionActivity() {
         // 확인 버튼 클릭 시, 닉네임 유효성 검증
         binding.profileConfirmBtn.setOnClickListener {
             checkNicknameValidity()
+
         }
 
         // 프로필 사진 버튼
@@ -119,13 +124,13 @@ class ProfileActivity : ProfilePermissionActivity() {
             // Toast로 데이터 클래스의 내용 및 이미지 확인
             val toastMessage = "Nickname: ${profileData.nickname}"
 
-// Bitmap을 Base64 문자열로 인코딩
+            // Bitmap을 Base64 문자열로 인코딩
             val byteArrayOutputStream = ByteArrayOutputStream()
             profileData.profile?.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream)
             val byteArray = byteArrayOutputStream.toByteArray()
             val base64Image = Base64.encodeToString(byteArray, Base64.DEFAULT)
 
-// Base64 문자열을 Toast 메시지에 추가
+            // Base64 문자열을 Toast 메시지에 추가
             val fullToastMessage = "$toastMessage\nProfile Image: $base64Image"
 
             Toast.makeText(this, fullToastMessage, Toast.LENGTH_SHORT).show()
@@ -180,18 +185,25 @@ class ProfileActivity : ProfilePermissionActivity() {
                 PERM_GALLERY -> {
                     // 이미지 주소를 그냥 가져옴
                     data?.data?.let { uri ->
-                        // 비트맵으로 전환
+                        // TODO: 비트맵으로 전환해서 다시 binding.IV에 이미지 넣기
                         //val bitmap: Bitmap? = uriToBitmap(uri)
 
-                        // Set the Bitmap to the ImageView
-                        //bitmap?.let {
-                            //binding.profileUserIv.setImageBitmap(it)
-                        //}
+                        //TODO:MyInfoFragment로 프로필 사진 보내기(미완)
+                       val uriString = uri.toString()
+                       Log.d("ProfileActivity", "URI: $uriString")
+                       //여기 로그메시지는 uri잘 있음 URI: content://media/external/images/media/52074
+
+                        val myInfoFragment = MyInfoFragment()
+                        val bundle = Bundle().apply {
+                           putString("URIKEY", uriString)
+                       }
+                       myInfoFragment.arguments = bundle
+                       Log.d("ProfileActivity", "Bundle contents: $bundle")
+                       //여기 로그메시지에서 bundle도 잘 나옴*/
+
                     }
                 }
             }
         }
     }
-
-
 }

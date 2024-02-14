@@ -34,7 +34,7 @@
         android:layout_width="0dp"
         android:layout_height="56dp"
         android:text="확인"
-        android:textColor="@color/main"
+        android:textColor="@color/gui_orange"
         android:textSize="18sp"
         android:gravity="center"
         android:layout_marginHorizontal="60dp"
