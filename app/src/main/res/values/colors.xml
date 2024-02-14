@@ -8,4 +8,8 @@
     <color name="dark_grey">#363636</color>
     <color name="red">#E93030</color>
     <color name="transparent">#00FFFFFF</color>
+
+    <!-- 컬러칩 갱신 -->
+    <color name="main">#FB7B44</color>
+    <color name="light_beige">#FAF8ED</color>
 </resources>

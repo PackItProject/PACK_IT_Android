@@ -2,19 +2,14 @@ package com.umc.android.packit
 
 import android.Manifest
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
 import android.text.Editable
 import android.text.InputFilter
 import android.text.TextWatcher
-import android.util.Log
 import android.view.View
 import android.widget.Toast
-import androidx.activity.result.PickVisualMediaRequest
-import androidx.activity.result.contract.ActivityResultContracts
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.umc.android.packit.databinding.ActivityProfileBinding
 
@@ -79,11 +74,11 @@ class ProfileActivity : ProfilePermissionActivity() {
     private fun changeButtonBackground(isTyping: Boolean) {
         if (isTyping) {
             // editText가 비어 있지 않은 경우, 버튼 및 텍스트 색 변경
-            binding.profileConfirmBtn.setBackgroundResource(R.drawable.btn_square)
+            binding.profileConfirmBtn.setBackgroundResource(R.drawable.btn_square_main)
             binding.profileConfirmBtn.setTextColor(ContextCompat.getColor(this,R.color.white))
         } else {
             // editText가 비어 있는 경우, 원래 색상으로 변경
-            binding.profileConfirmBtn.setBackgroundResource(R.drawable.btn_square_border)
+            binding.profileConfirmBtn.setBackgroundResource(R.drawable.btn_square_enable)
             binding.profileConfirmBtn.setTextColor(ContextCompat.getColor(this,R.color.grey))
         }
     }

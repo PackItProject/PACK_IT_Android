@@ -85,11 +85,11 @@ class LoginConsentActivity : AppCompatActivity() {
 
         if (isCheckBox01Checked && isCheckBox02Checked && isCheckBox03Checked) {
             // 모든 체크박스가 체크된 상태일 때 배경 및 텍스트 색상 변경
-            binding.confirmBtn.setBackgroundResource(R.drawable.btn_square)
+            binding.confirmBtn.setBackgroundResource(R.drawable.btn_square_main)
             binding.confirmBtn.setTextColor(ContextCompat.getColor(this, R.color.white))
         } else {
             // 하나라도 체크되지 않은 경우 기본 색상으로 변경
-            binding.confirmBtn.setBackgroundResource(R.drawable.btn_square_border)
+            binding.confirmBtn.setBackgroundResource(R.drawable.btn_square_enable)
             binding.confirmBtn.setTextColor(ContextCompat.getColor(this, R.color.grey))
         }
     }

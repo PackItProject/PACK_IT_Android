@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="bottom|center_horizontal"
-    android:background="@color/background_grey">
+    android:background="@drawable/img_background">
 
     <!-- 카카오톡으로 로그인 버튼 -->
     <android.widget.Button
@@ -14,9 +14,7 @@
         android:text="카카오톡으로 로그인"
         android:textColor="@color/white"
         android:layout_marginBottom="16dp"
-        style="@style/SquareButton"
-        android:background="@color/grey"
-        />
+        style="@style/SquareButton" />
 
     <!-- 네이버로 로그인 버튼 -->
     <android.widget.Button

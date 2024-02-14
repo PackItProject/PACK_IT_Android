@@ -57,10 +57,8 @@
             android:exported="true"/>
 
 
-        <activity android:name=".CartFragment"
-            android:exported="true">
-
-        </activity>
+        <activity android:name=".LoginConsentActivity"
+            android:exported="true" />  <!-- 이용약관 액티비티 -->
 
         <activity
             android:name=".LoginActivity"

@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background_grey">
+    android:background="@color/light_beige">
 
     <!-- 서비스 이름 -->
     <TextView
@@ -182,6 +182,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:background="@drawable/btn_square_border" />
+        android:background="@drawable/btn_square_enable" />
 </androidx.constraintlayout.widget.ConstraintLayout>
 
