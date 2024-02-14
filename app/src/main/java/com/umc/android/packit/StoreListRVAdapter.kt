@@ -67,11 +67,16 @@ class StoreListRVAdapter(private val stores: ArrayList<Store>) : RecyclerView.Ad
     inner class ViewHolder(val binding: ItemStoreListBinding) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(store: Store) {
-            binding.itemListNameTv.text = store.name
+            binding.itemListNameTv.text = store.store_name
             binding.itemListAddressTv.text = store.address
-            binding.itemListCloseTv.text = store.state
-            binding.itemListRateTv.text = store.rate
-            binding.itemListStateTv.text = store.state
+            if (store.status == 1) {
+                binding.itemListCloseTv.text = "영업 중"
+                binding.itemListStateTv.text = "영업 중"
+            } else {
+                binding.itemListCloseTv.text = "영업 종료"
+                binding.itemListStateTv.text = "영업 종료"
+            }
+            binding.itemListRateTv.text = "평점 "+store.average_grade
             if (store.star==true){
                 binding.itemListStarIv.setImageResource(R.drawable.btn_star_select)
             }
