@@ -76,7 +76,7 @@ class MyInfoFragment : Fragment() {
                 .placeholder(R.drawable.img_no_img)
                 .error(R.drawable.img_no_img)
                 .into(profileImgIv)
-        }else {
+        } else {
             Log.e("MyInfoFragment", "Received URI is null.")
         }
 

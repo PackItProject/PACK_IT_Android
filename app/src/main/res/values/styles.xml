@@ -3,7 +3,7 @@
     <!-- 로그인 초반 사각 버튼 -->
     <style name="SquareButton" parent="Widget.AppCompat.Button">
         <item name="android:radius">0dp</item>
-        <item name="android:background">@color/grey</item>
+        <item name="android:background">@color/gui_orange</item>
     </style>
 
     <!-- 하단 둥근 사각 버튼 기본 설정 -->

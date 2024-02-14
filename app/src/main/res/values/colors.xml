@@ -8,8 +8,10 @@
     <color name="dark_grey">#363636</color>
     <color name="red">#E93030</color>
     <color name="transparent">#00FFFFFF</color>
-    <color name="gui_orange">#FFB534</color>
-    <color name="gui_white">#FBF6EE</color>
+
+    <!-- 컬러칩 갱신 -->
+    <color name="gui_orange">#FB7B44</color>
+    <color name="gui_white">#FAF8ED</color>
     <color name="gui_light_green">#C1F2B0</color>
     <color name="gui_green">#65B741</color>
 </resources>
