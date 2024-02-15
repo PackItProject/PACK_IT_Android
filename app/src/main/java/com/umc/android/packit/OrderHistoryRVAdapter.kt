@@ -9,15 +9,19 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 
 
-class OrderHistoryRVAdapter(private val orderHistoryList: List<OrderHistoryMenu>) : RecyclerView.Adapter<OrderHistoryRVAdapter.ViewHolder>() {
+
+
+
+class OrderHistoryRVAdapter(
+    private val orderHistoryList: List<OrderHistoryMenu>
+) : RecyclerView.Adapter<OrderHistoryRVAdapter.ViewHolder>() {
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val dateTextView: TextView = itemView.findViewById(R.id.item_history_date_tv)
         val storeNameTextView: TextView = itemView.findViewById(R.id.item_history_name_tv)
         val reservationTimeTextView: TextView = itemView.findViewById(R.id.item_history_time_tv)
         val menuTextView: TextView = itemView.findViewById(R.id.item_history_menu_tv)
-        val priceTextView: TextView = itemView.findViewById(R.id.item_history_price_tv)
-        val stateTextView: TextView = itemView.findViewById(R.id.item_history_state_tv)
+
 
         val detailButton: Button = itemView.findViewById(R.id.item_history_detail_btn)
 
@@ -50,9 +54,7 @@ class OrderHistoryRVAdapter(private val orderHistoryList: List<OrderHistoryMenu>
         holder.dateTextView.text = orderItem.date
         holder.storeNameTextView.text = orderItem.storeName
         holder.reservationTimeTextView.text = orderItem.reservationTime
-        holder.menuTextView.text = orderItem.menu
-        holder.priceTextView.text = orderItem.price
-        holder.stateTextView.text = orderItem.state
+        holder.menuTextView.text = "${orderItem.menu} 개"
 
 
     }
