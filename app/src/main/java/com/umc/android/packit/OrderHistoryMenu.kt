@@ -11,6 +11,8 @@ import com.google.gson.annotations.SerializedName
 //    val price: String,
 //    val state: String
 //)
+
+
 data class OrderHistoryMenu(
     @SerializedName("id") val orderId: Int,
     @SerializedName("created_at") val date: String,
@@ -18,3 +20,5 @@ data class OrderHistoryMenu(
     @SerializedName("pickup_time") val reservationTime: String,
     @SerializedName("quantity") val menu: Int
 )
+
+

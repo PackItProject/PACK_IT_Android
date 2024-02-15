@@ -50,7 +50,6 @@ class OrderHistoryRVAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val orderItem = orderHistoryList[position]
 
-        // 데이터와 뷰를 연결
         holder.dateTextView.text = orderItem.date
         holder.storeNameTextView.text = orderItem.storeName
         holder.reservationTimeTextView.text = orderItem.reservationTime
