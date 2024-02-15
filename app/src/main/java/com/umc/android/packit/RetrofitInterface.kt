@@ -1,5 +1,6 @@
 package com.umc.android.packit
 import retrofit2.Call
+import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Path
@@ -13,4 +14,13 @@ interface RetrofitInterface {
         @Path("store_id") storeId: Int,
         @Path("pk_user") userId: Int
     ): Call<BookmarkResponse>
+
+//    @GET("/cart/order/{pk_user}")
+//    fun getOrderLists(@Path("pk_user") userId: Int): Call<List<OrderHistoryMenu>>
+
+
+    @GET("/cart/order/{pk_user}")
+    suspend fun getOrderLists(@Path("pk_user") userId: Int): Response<List<OrderHistoryMenu>>
+
+
 }
