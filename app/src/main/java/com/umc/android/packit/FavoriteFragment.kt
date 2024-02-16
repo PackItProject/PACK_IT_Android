@@ -48,9 +48,12 @@ class FavoriteFragment : Fragment(), FavoriteRVAdapter.MyItemClickListener {
                         storeDatas.addAll(it)
                         favoriteRVAdapter.notifyDataSetChanged()
                         updateFavoriteCount()
+//                        Toast.makeText(requireContext(), "북마크 성공", Toast.LENGTH_SHORT).show()
+
                     }
                 } else {
                     // API 요청이 실패한 경우 처리할 내용을 여기에 추가하세요
+                    Toast.makeText(requireContext(), "북마크 실패", Toast.LENGTH_SHORT).show()
 
                 }
             }
@@ -90,14 +93,14 @@ class FavoriteFragment : Fragment(), FavoriteRVAdapter.MyItemClickListener {
     override fun onItemClick(store: Store) {
         // 아이템 클릭 시 StoreActivity를 시작
         val intent = Intent(requireContext(), StoreActivity::class.java)
-        intent.putExtra("storeImg", store.storeImg ?: -1) // storeImg가 null이 아니면 해당 값, null이면 -1을 전달
+        intent.putExtra("storeImg", store.image ?: "") // storeImg가 null이 아니면 해당 값, null이면 -1을 전달
 
         startActivity(intent)
     }
 
     override fun onStarClick(store: Store) {
         // 현재 북마크 상태 토글
-        store.star = !(store.star)!!
+        if (store.is_bookmarked == 1) store.is_bookmarked = 0 else store.is_bookmarked = 1
 
         // 서버에 북마크 상태 업데이트 요청 보내기
         val apiService = ApiClient.retrofitInterface

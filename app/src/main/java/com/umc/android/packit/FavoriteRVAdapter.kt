@@ -1,11 +1,12 @@
 package com.umc.android.packit
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.umc.android.packit.databinding.ItemFavoriteBinding
-
+import com.bumptech.glide.Glide
 
 class FavoriteRVAdapter(private val stores: MutableList<Store>) : RecyclerView.Adapter<FavoriteRVAdapter.ViewHolder>() {
 
@@ -26,7 +27,7 @@ class FavoriteRVAdapter(private val stores: MutableList<Store>) : RecyclerView.A
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(stores[position])
+        holder.bind(stores[position], holder.itemView.context)
 
         holder.itemView.setOnClickListener {
             mItemClickListener.onItemClick(stores[position])
@@ -64,11 +65,11 @@ class FavoriteRVAdapter(private val stores: MutableList<Store>) : RecyclerView.A
 
     @SuppressLint("NotifyDataSetChanged")
     fun getFavoriteCount(): Int {
-        return stores.count { it.star == true }
+        return stores.count { it.is_bookmarked == 1 }
     }
 
     inner class ViewHolder(val binding: ItemFavoriteBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(store: Store) {
+        fun bind(store: Store, context: Context) {
             binding.itemFavoriteNameTv.text = store.store_name
             binding.itemFavoriteAddressTv.text = store.address
             if (store.status == 1) {
@@ -78,14 +79,16 @@ class FavoriteRVAdapter(private val stores: MutableList<Store>) : RecyclerView.A
                 binding.itemFavoriteCloseTv.text = "(영업 종료)"
                 binding.itemFavoriteStateTv.text = "영업 종료"
             }
-            binding.itemFavoriteRateTv.text = "평점 "+store.average_grade.toString()
-            if (store.star == true) {
+            binding.itemFavoriteRateTv.text = "평점 %.1f".format(store.average_grade)
+            if (store.is_bookmarked == 1) {
                 binding.itemFavoriteStarIv.setImageResource(R.drawable.btn_star_select)
             } else {
                 binding.itemFavoriteStarIv.setImageResource(R.drawable.btn_star_no_select)
             }
-            store.storeImg?.let {
-                binding.itemFavoriteImgIv.setImageResource(it)
+            store.image?.let {
+                Glide.with(context)
+                    .load(it)
+                    .into(binding.itemFavoriteImgIv)
             }
         }
     }

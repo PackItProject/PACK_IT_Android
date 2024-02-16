@@ -48,6 +48,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:text="지난 번에 주문했던 메뉴 A가 정말 맛있었어요. 다음에 또 주문해보고 싶습니다."
+        android:textAlignment="textStart"
         android:textSize="17sp"
         android:textColor="@color/dark_grey"
         app:layout_constraintEnd_toEndOf="@id/item_rate_num_tv"
@@ -84,8 +85,8 @@
                 android:id="@+id/item_rate_img1_iv"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:scaleType="fitCenter"
-                android:src="@color/grey"/>
+                android:scaleType="centerCrop"
+                />
         </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
@@ -100,8 +101,8 @@
                     android:id="@+id/item_rate_img2_iv"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:scaleType="fitCenter"
-                    android:src="@color/grey"/>
+                    android:scaleType="centerCrop"
+                    />
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
@@ -116,8 +117,8 @@
                     android:id="@+id/item_rate_img3_iv"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:scaleType="fitCenter"
-                    android:src="@color/grey"/>
+                    android:scaleType="centerCrop"
+                    />
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
@@ -132,8 +133,8 @@
                     android:id="@+id/item_rate_img4_iv"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:scaleType="fitCenter"
-                    android:src="@color/grey"/>
+                    android:scaleType="centerCrop"
+                    />
             </androidx.cardview.widget.CardView>
         </LinearLayout>
     </HorizontalScrollView>
