@@ -84,12 +84,12 @@ class MapFragment : Fragment(), OnMapReadyCallback,StoreListRVAdapter.MyItemClic
         })
 
         storeDatas . apply {
-            add(Store(1, "가게 이름", "address 1", 0, 4.5, true, R.drawable.store_img_1))
-            add(Store(2, "옥루", "address 2", 0, 4.5, false, R.drawable.store_img_2))
-            add(Store(3, "선식당", "address 3", 1, 4.5, false, R.drawable.store_img_3))
-            add(Store(4, "가게 이름", "address 1", 1,  4.5, true, R.drawable.store_img_1))
-            add(Store(5, "옥루", "address 2", 0, 4.5, false, R.drawable.store_img_2))
-            add(Store(6, "선식당", "address 3", 1, 4.5, true, R.drawable.store_img_3))
+            add(Store(1, "가게 이름", "address 1", 0, 4.5, 1))
+            add(Store(2, "옥루", "address 2", 0, 4.5, 0))
+            add(Store(3, "선식당", "address 3", 1, 4.5, 0))
+            add(Store(4, "가게 이름", "address 1", 1,  4.5, 1))
+            add(Store(5, "옥루", "address 2", 0, 4.5, 0))
+            add(Store(6, "선식당", "address 3", 1, 4.5, 1))
 
         }
 
@@ -122,8 +122,8 @@ class MapFragment : Fragment(), OnMapReadyCallback,StoreListRVAdapter.MyItemClic
 //        menuFragment.arguments = bundle
         
         val intent = Intent(requireContext(), StoreActivity::class.java)
-        intent.putExtra("storeImg", store.storeImg ?: -1) // storeImg가 null이 아니면 해당 값, null이면 -1을 전달
-        intent.putExtra("star", store.star ?: false) // storeImg가 null이 아니면 해당 값, null이면 -1을 전달
+        intent.putExtra("storeImg", store.image ?: "") // storeImg가 null이 아니면 해당 값, null이면 -1을 전달
+        intent.putExtra("star", store.is_bookmarked ?: 1) // storeImg가 null이 아니면 해당 값, null이면 -1을 전달
         intent.putExtra("storeId", store.store_id ?: -1)
 
         startActivity(intent)
@@ -141,7 +141,7 @@ class MapFragment : Fragment(), OnMapReadyCallback,StoreListRVAdapter.MyItemClic
     }
 
     override fun onStarClick(store: Store) {
-        store.star = !store.star!! // Toggle the value
+        if (store.is_bookmarked == 1) store.is_bookmarked = 0 else store.is_bookmarked = 1
         updateStoreStarImage(store)
     }
 

@@ -15,6 +15,9 @@ interface RetrofitInterface {
         @Path("pk_user") userId: Int
     ): Call<BookmarkResponse>
 
+    @GET("/order/{store_id}/grade")
+    fun getStoreReviews(@Path("store_id") storeId: Int): Call<List<Grade>>
+
 //    @GET("/cart/order/{pk_user}")
 //    fun getOrderLists(@Path("pk_user") userId: Int): Call<List<OrderHistoryMenu>>
 

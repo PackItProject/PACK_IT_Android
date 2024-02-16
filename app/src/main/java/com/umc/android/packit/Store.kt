@@ -9,6 +9,6 @@ data class Store(
     var address: String? = "",
     var status: Int = 0,
     var average_grade: Double = 0.0,
-    var star: Boolean? = true,
-    var storeImg: Int? = null,
+    var is_bookmarked: Int = 1,
+    var image: String? = "",
 )
