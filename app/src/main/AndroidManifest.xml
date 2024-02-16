@@ -51,22 +51,26 @@
             android:exported="true" />  <!-- 장바구니 액티비티 -->
 
         <activity android:name=".OrderActivity"
-            android:exported="true" />  <!-- 주문하기 액티비티 -->
+            android:exported="true">
+
+
+        </activity><!-- 주문하기 액티비티 -->
 
         <activity android:name=".MenuInfoActivity"
             android:exported="true"/>
 
         <activity android:name=".LoginConsentActivity"
-            android:exported="true" />  <!-- 이용약관 액티비티 -->
+            android:exported="true">  <!-- 이용약관 액티비티 -->
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+        </activity>
 
         <activity
             android:name=".LoginActivity"
             android:exported="true" >
 
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
 
         </activity>
 

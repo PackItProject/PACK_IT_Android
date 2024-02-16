@@ -66,6 +66,7 @@ class MyInfoFragment : Fragment() {
 
         initImageViewProfile()
 
+        //비트맵으로 한번해봐야겠다..
         //TODO: 프로필액티비티에서 uri받아와서 프로필 사진 띄우기 왜안되지?
         val receivedUriString = arguments?.getString("URIKEY")
         Log.d("MyInfoFragment", "Received URI: $receivedUriString")

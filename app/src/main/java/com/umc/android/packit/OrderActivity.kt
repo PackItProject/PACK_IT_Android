@@ -3,16 +3,16 @@ package com.umc.android.packit
 import android.animation.ObjectAnimator
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import androidx.core.animation.doOnEnd
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.umc.android.packit.databinding.FragmentOrderBinding
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 
 class OrderActivity() : AppCompatActivity() {
@@ -22,6 +22,8 @@ class OrderActivity() : AppCompatActivity() {
     private lateinit var couponBackground: CardView // 쿠폰 배경
     private var isClicked = false // 쿠폰 버튼 상태
     private var isChecked = false // 체크 버튼 상태
+    private var orderDatas=ArrayList<OrderMenu>()
+
 
     private val couponList = listOf(
         OrderCoupon("[첫 주문] 5% 할인",0.05),
@@ -81,7 +83,46 @@ class OrderActivity() : AppCompatActivity() {
         // 주문하기 버튼 -> 체크 및 쿠폰 선택 검사
         binding.orderPaidBtn.setOnClickListener {
             checkStateValidity()
+
+            // 주문하기 버튼 누르면 주문추가 API 처리
+            // 서버에 상태 업데이트 요청 전송
+            val apiService = ApiClient.retrofitInterface
+            val userId = 1 // 사용자 ID
+
+            val orderRequest = OrderRequest(
+                pk_user = 1,
+                store_id = 1,
+                requirement = "단무지 빼주세요",
+                payment = 1,
+                pickup_time = "2024-02-19 23:01:11",
+                status = 1,
+                menus = listOf(Menu(id = 1, count = 3)),
+                fee = 330000
+            )
+            val addOrderCall = apiService.addOrder(orderRequest)
+
+            addOrderCall.enqueue(object : Callback<AddOrderResponse> {
+                override fun onResponse(call: Call<AddOrderResponse>, response: Response<AddOrderResponse>) {
+
+                    if (response.isSuccessful) {
+                        val addOrderResponse = response.body()
+                        addOrderResponse?.let {
+                            // 성공적으로 주문이 추가되었을 때의 처리
+                            Toast.makeText(this@OrderActivity, "정상적으로 주문되었습니다.", Toast.LENGTH_SHORT).show()
+                        }
+                    } else {
+                        // 주문 추가 실패 시의 처리
+                        Toast.makeText(this@OrderActivity, "주문추가에 실패하였습니다.", Toast.LENGTH_SHORT).show()
+                    }
+                }
+
+                override fun onFailure(call: Call<AddOrderResponse>, t: Throwable) {
+                    // 네트워크 오류 등으로 호출에 실패했을 때의 처리
+                    Toast.makeText(this@OrderActivity, "주문추가에 실패하였습니다.", Toast.LENGTH_SHORT).show()
+                }
+            })
         }
+
     }
 
     // 화면 초기화 함수
