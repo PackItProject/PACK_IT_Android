@@ -47,7 +47,7 @@
         <activity android:name=".StoreActivity"
             android:exported="true" />  <!-- 가게 액티비티 -->
 
-        <activity android:name=".CartFragment"
+        <activity android:name=".CartActivity"
             android:exported="true" />  <!-- 장바구니 액티비티 -->
 
         <activity android:name=".OrderActivity"

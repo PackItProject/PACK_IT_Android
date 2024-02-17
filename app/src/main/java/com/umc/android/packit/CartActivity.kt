@@ -1,19 +1,16 @@
 package com.umc.android.packit
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.widget.TimePicker
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContentProviderCompat.requireContext
-import androidx.core.os.bundleOf
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.umc.android.packit.databinding.FragmentCartBinding
 
 // 프래그먼트 상속
 
-class CartFragment : AppCompatActivity() {
+class CartActivity : AppCompatActivity() {
     lateinit var binding: FragmentCartBinding
     lateinit var timePicker: TimePicker
 
@@ -26,14 +23,6 @@ class CartFragment : AppCompatActivity() {
     var storeId =0
 
     private var totalPrice : Int = 0
-
-//    private var menuList = ArrayList<OrderMenu>().apply {
-//        add(OrderMenu("menu1", 10000, 1))
-//        add(OrderMenu("menu2", 2000000, 2))
-//        add(OrderMenu("menu3", 3000, 3))
-//        add(OrderMenu("menu4", 4000, 4))
-//        add(OrderMenu("menu5!", 5000, 5))
-//    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -126,23 +115,10 @@ class CartFragment : AppCompatActivity() {
             timePicker.currentMinute
         }
         setFormatTime(getHour, getMinute)
-        // 오전/오후, 시, 분 저장
-//        pickUpAmPm = if (getHour < 12) "오전" else "오후"
-//        pickUpHour = if (getHour % 12 == 0)  12 else (getHour % 12)
-//        pickUpminute = getMinute
-//
-//        // "오후 12:30" 꼴
-//        binding.receiptPickUp02Tv.text = String.format("%s %02d:%02d", pickUpAmPm, pickUpHour, pickUpminute)
     }
 
     private fun reservePickUp() {
         timePicker.setOnTimeChangedListener { _, hourOfDay, minute -> setFormatTime(hourOfDay, minute)
-//            pickUpAmPm = if (hourOfDay < 12) "오전" else "오후"
-//            pickUpHour = if (hourOfDay % 12 == 0) 12 else (hourOfDay % 12)
-//            pickUpminute = minute
-//
-//            // "오후 12:30" 꼴
-//            binding.receiptPickUp02Tv.text = String.format("%s %02d:%02d", pickUpAmPm, pickUpHour, pickUpminute)
         }
     }
 
