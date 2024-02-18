@@ -18,7 +18,8 @@ data class OrderHistoryMenu(
     @SerializedName("created_at") val date: String,
     @SerializedName("store_name") val storeName: String,
     @SerializedName("pickup_time") val reservationTime: String,
-    @SerializedName("quantity") val menu: Int
+    @SerializedName("quantity") val menu: Int,
+    @SerializedName("image") val image: String
 )
 
 

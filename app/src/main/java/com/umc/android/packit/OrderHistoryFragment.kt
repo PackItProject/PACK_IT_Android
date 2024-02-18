@@ -18,12 +18,7 @@ import java.io.IOException
 
 class OrderHistoryFragment : Fragment() {
 
-    private lateinit var adapter: OrderHistoryRVAdapter
-
-
     lateinit var binding: FragmentOrderHistoryBinding
-    private var view: View? = null
-    private var orderID:Int =2
 
 //    val dummyList: List<OrderHistoryMenu> = listOf(
 //        OrderHistoryMenu(
@@ -89,13 +84,13 @@ class OrderHistoryFragment : Fragment() {
 
         recyclerView.layoutManager = LinearLayoutManager(context)
 
-//        recyclerView.adapter = OrderHistoryRVAdapter(dummyList)
+//      recyclerView.adapter = OrderHistoryRVAdapter(dummyList)
 
         // 상세 내용 버튼을 XML에서 찾습니다.
 
         lifecycleScope.launch {
             try {
-                val userId = 2// your user id
+                val userId = 1// your user id
                 val orderHistoryList: List<OrderHistoryMenu> = fetchOrderHistory(userId)
                 val adapter = OrderHistoryRVAdapter(orderHistoryList)
 
@@ -141,19 +136,7 @@ class OrderHistoryFragment : Fragment() {
 
     }
 
-    private fun fetchData() {
-        lifecycleScope.launch {
-            try {
-                val userId = 2 // your user id
-                val orderHistory = fetchOrderHistory(userId)
 
-                // 이제 orderHistory를 사용하여 UI 업데이트 등을 수행
-            } catch (e: IOException) {
-                // 네트워크 오류 처리
-                Log.e("YourFragment", "Failed to fetch order history. Exception: ${e.message}", e)
-            }
-        }
-    }
 
     private suspend fun fetchOrderHistory(userId: Int): List<OrderHistoryMenu> {
         return try {
@@ -170,6 +153,7 @@ class OrderHistoryFragment : Fragment() {
             }
         } catch (e: Exception) {
             val exceptionMessage = e.message ?: "Unknown exception"
+            Log.e("ExceptionTag", "Exception occurred", e)
             throw IOException("Failed to fetch order history. Exception: $exceptionMessage", e)
         }
     }
