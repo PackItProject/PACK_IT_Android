@@ -84,24 +84,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="22dp"
-        android:text="화~일 : 12:00 ~ 21:00"
+        android:text="화~일 : 12:00 ~ 21:00 \n월 : 정기휴무"
         android:textSize="18sp"
         android:textColor="@color/dark_grey"
         app:layout_constraintTop_toBottomOf="@id/storeinfo_time_title_tv"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
-    <TextView
-        android:id="@+id/storeinfo_time_close_tv"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="11dp"
-        android:text="월 : 정기휴무"
-        android:textSize="18sp"
-        android:textColor="@color/dark_grey"
-        app:layout_constraintTop_toBottomOf="@id/storeinfo_time_open_tv"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
 
     <TextView
         android:id="@+id/storeinfo_intro_title_tv"
@@ -112,7 +101,7 @@
         android:textSize="24sp"
         android:textColor="@color/dark_grey"
         android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@id/storeinfo_time_close_tv"
+        app:layout_constraintTop_toBottomOf="@id/storeinfo_time_open_tv"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 

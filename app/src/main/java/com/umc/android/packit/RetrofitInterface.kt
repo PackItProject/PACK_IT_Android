@@ -22,7 +22,11 @@ interface RetrofitInterface {
     @GET("/order/{store_id}/grade")
     fun getStoreReviews(@Path("store_id") storeId: Int): Call<List<Grade>>
 
+    @GET("/order/{store_id}/info")
+    fun getStoreInfo(@Path("store_id") storeId: Int): Call<List<StoreInfo>>
 
+    @GET("/order/near/{store_id}")
+    fun getStoreMenus(@Path("store_id") storeId: Int): Call<List<Menu>>
 //    @GET("/cart/order/{pk_user}")
 //    fun getOrderLists(@Path("pk_user") userId: Int): Call<List<OrderHistoryMenu>>
 
