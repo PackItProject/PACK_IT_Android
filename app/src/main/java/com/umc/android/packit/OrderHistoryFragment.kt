@@ -173,56 +173,7 @@ class OrderHistoryFragment : Fragment() {
             throw IOException("Failed to fetch order history. Exception: $exceptionMessage", e)
         }
     }
-//    private suspend fun fetchOrderHistory(userId: Int): List<OrderHistoryMenu> {
-//        try {
-//            // API 호출 로직을 여기에 구현
-//            val call: Call<List<OrderHistoryMenu>> = ApiClient.retrofitInterface.getOrderLists(userId)
-//            val response: retrofit2.Response<List<OrderHistoryMenu>> = call.execute()
 //
-//            if (response.isSuccessful) {
-//                // HTTP 상태 코드가 200~299 사이인 경우
-//                val responseBody = response.body()
-//                if (responseBody != null) {
-//                    return responseBody
-//                } else {
-//                    // API 응답이 null이면 빈 리스트 반환
-//                    return emptyList()
-//                }
-//            } else {
-//                // 실패한 경우
-//                val errorBody = response.errorBody()?.string()
-//                throw IOException("Failed to fetch order history. HTTP code: ${response.code()}, Error body: $errorBody")
-//            }
-//        } catch (e: Exception) {
-//            // 예외 처리
-//            val exceptionMessage = e.message ?: "Unknown exception"
-//            Log.e("OrderHistory", "Failed to fetch order history. Exception: $exceptionMessage", e)
-//            throw IOException("Failed to fetch order history. Exception: $exceptionMessage", e)
-//
-//        }
-
-//        return try {
-//            // API 호출 로직을 여기에 구현
-//            val response: retrofit2.Response<List<OrderHistoryMenu>> = ApiClient.retrofitInterface.getOrderLists(userId)
-//
-//            if (response.isSuccessful) {
-//                // HTTP 상태 코드가 200~299 사이인 경우
-//                response.body() ?: emptyList()
-//            } else {
-//                // 실패한 경우
-//                val errorBody = response.errorBody()?.string()
-//                throw IOException("Failed to fetch order history. HTTP code: ${response.code()}, Error body: $errorBody")
-//            }
-//        } catch (e: Exception) {
-//            // 예외 처리
-//            val exceptionMessage = e.message ?: "Unknown exception"
-//            Log.e("OrderHistory", "Failed to fetch order history. Exception: $exceptionMessage", e)
-//            throw IOException("Failed to fetch order history. Exception: $exceptionMessage", e)
-//        }
-
-
-
-//    }
 
 
 
