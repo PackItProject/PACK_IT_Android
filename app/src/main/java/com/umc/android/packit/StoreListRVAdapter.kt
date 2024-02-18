@@ -78,7 +78,8 @@ class StoreListRVAdapter(private val stores: ArrayList<StoreResponse>) : Recycle
                 binding.itemListCloseTv.text = "영업 종료"
                 binding.itemListStateTv.text = "영업 종료"
             }
-            binding.itemListRateTv.text = "평점 "+store.average_grade
+            binding.itemListRateTv.text = "평점  %.1f".format(store.average_grade)
+
             if (store.is_bookmarked == 1){
                 binding.itemListStarIv.setImageResource(R.drawable.btn_star_select)
             }

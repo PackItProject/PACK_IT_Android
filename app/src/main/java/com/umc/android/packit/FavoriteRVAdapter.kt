@@ -80,6 +80,7 @@ class FavoriteRVAdapter(private val stores: MutableList<Store>) : RecyclerView.A
                 binding.itemFavoriteStateTv.text = "영업 종료"
             }
             binding.itemFavoriteRateTv.text = "평점 %.1f".format(store.average_grade)
+
             if (store.is_bookmarked == 1) {
                 binding.itemFavoriteStarIv.setImageResource(R.drawable.btn_star_select)
             } else {
