@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayoutMediator
 import com.umc.android.packit.databinding.ActivityStoreBinding
@@ -53,7 +52,7 @@ class StoreActivity : AppCompatActivity() {
         }
 
         binding.menuCartBtn.setOnClickListener {
-            val intent = Intent(this, CartFragment::class.java)
+            val intent = Intent(this, CartActivity::class.java)
             startActivity(intent)
         }
 
