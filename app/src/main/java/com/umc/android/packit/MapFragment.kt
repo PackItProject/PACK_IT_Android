@@ -16,6 +16,8 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import android.widget.Toast
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.google.android.gms.common.api.Status
 import com.google.android.libraries.places.api.Places
 import com.google.android.libraries.places.api.model.Place
@@ -24,12 +26,15 @@ import com.google.android.libraries.places.widget.listener.PlaceSelectionListene
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.umc.android.packit.databinding.FragmentMapBinding
 import com.umc.android.packit.databinding.FragmentStoreListBinding
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
 
-class MapFragment : Fragment(), OnMapReadyCallback,StoreListRVAdapter.MyItemClickListener  {
+class MapFragment : Fragment(), OnMapReadyCallback, StoreListRVAdapter.MyItemClickListener  {
 
     private lateinit var binding: FragmentMapBinding
     private lateinit var autocompleteFragment:AutocompleteSupportFragment
@@ -37,7 +42,11 @@ class MapFragment : Fragment(), OnMapReadyCallback,StoreListRVAdapter.MyItemClic
     private lateinit var googleMap: GoogleMap
     private var currentMarker: Marker? = null
 
-    private var storeDatas = ArrayList<Store>()
+    // TODO: 지울 것
+    // 가게 데이터 리스트
+    var StoreDataFromAPI: List<StoreResponse> = ArrayList()
+    var storeList : ArrayList<StoreResponse> = ArrayList()
+
     private lateinit var dialog: BottomSheetDialog
     private lateinit var bottomSheet: FragmentStoreListBinding
     companion object {
@@ -83,71 +92,70 @@ class MapFragment : Fragment(), OnMapReadyCallback,StoreListRVAdapter.MyItemClic
 
         })
 
-        storeDatas . apply {
-            add(Store(1, "가게 이름", "address 1", 0, 4.5, true, R.drawable.store_img_1))
-            add(Store(2, "옥루", "address 2", 0, 4.5, false, R.drawable.store_img_2))
-            add(Store(3, "선식당", "address 3", 1, 4.5, false, R.drawable.store_img_3))
-            add(Store(4, "가게 이름", "address 1", 1,  4.5, true, R.drawable.store_img_1))
-            add(Store(5, "옥루", "address 2", 0, 4.5, false, R.drawable.store_img_2))
-            add(Store(6, "선식당", "address 3", 1, 4.5, true, R.drawable.store_img_3))
+        // 가게 목로 조회 api 호출
+        val apiService = ApiClient.retrofitInterface
+        // CoroutineScope를 생성하고 비동기 호출을 수행
+        CoroutineScope(Dispatchers.Main).launch {
+            try {
+                // API 호출 결과를 LiveData에 저장
+                StoreDataFromAPI = apiService.getNearbyStores()
+                storeList = ArrayList(StoreDataFromAPI) ?: ArrayList()
 
+
+            } catch (e: Exception) {
+                // 예외 처리 로직
+                storeList =  ArrayList()
+                Toast.makeText(requireContext(), "API 호출에 실패했습니다.", Toast.LENGTH_SHORT).show()
+            }
         }
 
-
+        // LiveData는 비동기적으로 값을 가져오기 때문에,
+        // null 데이터 emptyList()로 처리
         binding.storeListBtn.setOnClickListener {
-            showBottomSheet()
+            // LiveData 값을 가져와서 BottomSheet에 표시
+            showBottomSheet(storeList)
         }
+
         return binding.root
+
     }
 
-    private fun showBottomSheet() {
+    private fun showBottomSheet(storeDatas: ArrayList<StoreResponse>) {
         val dialogView = layoutInflater.inflate(R.layout.fragment_store_list, null)
         dialog = BottomSheetDialog(requireContext())
         dialog.setContentView(dialogView)
         bottomSheet = FragmentStoreListBinding.bind(dialogView)
+
+        // 리사이클러 뷰 데이터 연결
         val storeListRVAdapter = StoreListRVAdapter(storeDatas)
         storeListRVAdapter.setMyItemClickListener(this)
         bottomSheet.storeListRecyclerView.adapter = storeListRVAdapter
-        dialog.show()
 
+        dialog.show()
     }
 
-    override fun onItemClick(store: Store) {
+    override fun onItemClick(store: StoreResponse) {
         // 아이템 클릭 시 StoreActivity를 시작
-        // 새로운 Bundle 생성하고 데이터 추가
-//        val bundle = Bundle()
-//        bundle.putInt("storeId", store.id)
-//        // MenuFragment 인스턴스 생성하고 Bundle 전달
-//        val menuFragment = MenuFragment()
-//        menuFragment.arguments = bundle
-        
         val intent = Intent(requireContext(), StoreActivity::class.java)
-        intent.putExtra("storeImg", store.storeImg ?: -1) // storeImg가 null이 아니면 해당 값, null이면 -1을 전달
-        intent.putExtra("star", store.star ?: false) // storeImg가 null이 아니면 해당 값, null이면 -1을 전달
+        intent.putExtra("storeImg", store.image ?: "") // storeImg가 null이 아니면 해당 값, null이면 -1을 전달
+        // TODO: 북마크
+        // intent.putExtra("star", store.is_bookmarked ?: 1) // storeImg가 null이 아니면 해당 값, null이면 -1을 전달
         intent.putExtra("storeId", store.store_id ?: -1)
 
         startActivity(intent)
-        //        requireActivity().supportFragmentManager.beginTransaction()
-//            .replace(R.id.fragment_container, menuFragment)
-//            .addToBackStack(null)
-//            .commit()
-
-//        supportFragmentManager.beginTransaction()
-//            .replace(R.id.main_frm, StoreActivity())
-//            .commitAllowingStateLoss()
-
-        // BottomSheetDialog 닫기 (선택적)
         dialog.dismiss()
     }
 
-    override fun onStarClick(store: Store) {
-        store.star = !store.star!! // Toggle the value
-        updateStoreStarImage(store)
+    // TODO: 즐겨찾기 on/off 1
+    override fun onStarClick(store: StoreResponse) {
+//        if (store.is_bookmarked == 1) store.is_bookmarked = 0 else store.is_bookmarked = 1
+//        updateStoreStarImage(store)
     }
 
-    private fun updateStoreStarImage(store: Store) {
-        val adapter = bottomSheet.storeListRecyclerView.adapter as? StoreListRVAdapter
-        adapter?.updateStoreStarImage(store)
+    // TODO: 즐겨찾기 on/off 2
+    private fun updateStoreStarImage(store: StoreResponse) {
+//        val adapter = bottomSheet.storeListRecyclerView.adapter as? StoreListRVAdapter
+//        adapter?.updateStoreStarImage(store)
     }
 
 

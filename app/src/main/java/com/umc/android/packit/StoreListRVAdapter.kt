@@ -1,18 +1,20 @@
 package com.umc.android.packit
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.umc.android.packit.databinding.ItemStoreListBinding
 
-class StoreListRVAdapter(private val stores: ArrayList<Store>) : RecyclerView.Adapter<StoreListRVAdapter.ViewHolder>() {
+class StoreListRVAdapter(private val stores: ArrayList<StoreResponse>) : RecyclerView.Adapter<StoreListRVAdapter.ViewHolder>() {
 
     interface MyItemClickListener {
 
-        fun onItemClick(store: Store)
+        fun onItemClick(store: StoreResponse)
 
-        fun onStarClick(store: Store)
+        fun onStarClick(store: StoreResponse)
     }
 
     private lateinit var mItemClickListener: MyItemClickListener
@@ -29,7 +31,7 @@ class StoreListRVAdapter(private val stores: ArrayList<Store>) : RecyclerView.Ad
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(stores[position])
+        holder.bind(stores[position], holder.itemView.context)
 
         holder.itemView.setOnClickListener {
             mItemClickListener.onItemClick(stores[position])
@@ -43,7 +45,7 @@ class StoreListRVAdapter(private val stores: ArrayList<Store>) : RecyclerView.Ad
     override fun getItemCount(): Int = stores.size
 
     @SuppressLint("NotifyDataSetChanged")
-    fun addStores(stores: ArrayList<Store>) {
+    fun addStores(stores: List<StoreResponse>) {
         this.stores.clear()
         this.stores.addAll(stores)
 
@@ -57,7 +59,7 @@ class StoreListRVAdapter(private val stores: ArrayList<Store>) : RecyclerView.Ad
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    fun updateStoreStarImage(store: Store) {
+    fun updateStoreStarImage(store: StoreResponse) {
         val position = stores.indexOf(store)
         if (position != -1) {
             notifyItemChanged(position)
@@ -66,7 +68,7 @@ class StoreListRVAdapter(private val stores: ArrayList<Store>) : RecyclerView.Ad
 
     inner class ViewHolder(val binding: ItemStoreListBinding) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(store: Store) {
+        fun bind(store: StoreResponse, context: Context) {
             binding.itemListNameTv.text = store.store_name
             binding.itemListAddressTv.text = store.address
             if (store.status == 1) {
@@ -77,14 +79,16 @@ class StoreListRVAdapter(private val stores: ArrayList<Store>) : RecyclerView.Ad
                 binding.itemListStateTv.text = "영업 종료"
             }
             binding.itemListRateTv.text = "평점 "+store.average_grade
-            if (store.star==true){
+            if (store.is_bookmarked == 1){
                 binding.itemListStarIv.setImageResource(R.drawable.btn_star_select)
             }
             else {
                 binding.itemListStarIv.setImageResource(R.drawable.btn_star_no_select)
             }
-            store.storeImg?.let {
-                binding.itemListImgIv.setImageResource(it)
+            store.image?.let {
+                Glide.with(context)
+                    .load(it)
+                    .into(binding.itemListImgIv)
             }
         }
     }
