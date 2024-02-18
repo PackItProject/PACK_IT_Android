@@ -150,10 +150,12 @@ class MapFragment : Fragment(), OnMapReadyCallback, StoreListRVAdapter.MyItemCli
     override fun onItemClick(store: StoreResponse) {
         // 아이템 클릭 시 StoreActivity를 시작
         val intent = Intent(requireContext(), StoreActivity::class.java)
-        // storeImg, star, storeId 전달
+
+        // storeImg, star, storeId, storeName 전달
         intent.putExtra("storeImg", store.image ?: "")
         intent.putExtra("star", store.is_bookmarked ?: -1)
         intent.putExtra("storeId", store.store_id ?: -1)
+        intent.putExtra("storeName", store.store_name ?: "")
 
         startActivity(intent)
         dialog.dismiss()
