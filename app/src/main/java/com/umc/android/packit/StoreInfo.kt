@@ -10,3 +10,4 @@ data class StoreInfo(
     val introduction: String,
     val notice: String
 )
+
