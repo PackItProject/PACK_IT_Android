@@ -5,6 +5,9 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil.setContentView
 import androidx.fragment.app.Fragment
@@ -24,26 +27,54 @@ class OrderHistoryDetailedFragment: Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        binding = FragmentOrderHistoryDetailedBinding.inflate(inflater, container, false)
 
-        val rootView = inflater.inflate(R.layout.fragment_order_history, container, false)
-        val recyclerView: RecyclerView = rootView.findViewById(R.id.history_main_recyclerView)
+        val rootView = inflater.inflate(R.layout.fragment_order_history_detailed, container, false)
+        val recyclerView: RecyclerView = rootView.findViewById(R.id.menu_list_recycler_view)
 
         recyclerView.layoutManager = LinearLayoutManager(context)
 
-//        lifecycleScope.launch {
-//            try {
-//                val orderId = // your user id
-//                val orderHistoryList: List<OrderHistoryMenu> = fetchOrderHistoryDetail(orderId)
-//                val adapter = OrderHistoryRVAdapter(orderHistoryList)
-//
-//                // RecyclerView Adapter 초기화
-//
-//                recyclerView.adapter = adapter
-//            } catch (e: IOException) {
-//                // 네트워크 오류 처리
-//                Log.e("YourFragment", "Failed to fetch order history. Exception: ${e.message}", e)
-//            }
-//        }
+        val storeTextView =  rootView.findViewById<TextView>(R.id.store_name_tv)
+        val pickupTextView = rootView.findViewById<TextView>(R.id.receipt_pick_up_02_tv)
+        val priceTextView =rootView.findViewById<TextView>(R.id.receipt_total_price_02_tv)
+
+        val orderId = arguments?.getInt("ORDER_ID", -1) ?: -1
+
+        if (orderId != -1) {
+            // Use the orderId to fetch detailed order history
+            lifecycleScope.launch {
+                try {
+                    val orderHistoryList: List<OrderHistoryDetail> = fetchOrderHistoryDetail(orderId)
+                    val adapter = OrderHistoryDetailedRVAdapter(orderHistoryList)
+
+                    // Set up RecyclerView Adapter
+                    recyclerView.adapter = adapter
+                    storeTextView.text=orderHistoryList[0].store_name
+                    pickupTextView.text=orderHistoryList[0].pickup_time
+                    priceTextView.text=orderHistoryList[0].fee
+
+                } catch (e: IOException) {
+                    // Handle network error
+                    Log.e("OrderHistoryDetailedFrag", "Failed to fetch detailed order history. Exception: ${e.message}", e)
+                }
+            }
+        } else {
+            // Handle invalid orderId
+            Log.e("OrderHistoryDetailedFrag", "Invalid orderId")
+        }
+
+
+        rootView.findViewById<ImageView>(R.id.back_btn_iv).setOnClickListener {
+            // Create an instance of OrderHistoryFragment
+            val orderHistoryFragment = OrderHistoryFragment()
+
+            // Perform the fragment transaction
+            val fragmentManager = requireActivity().supportFragmentManager
+            fragmentManager.beginTransaction()
+                .replace(R.id.container, orderHistoryFragment)
+                .addToBackStack(null) // Optional, if you want to add to the back stack
+                .commit()
+        }
 
 
         return rootView

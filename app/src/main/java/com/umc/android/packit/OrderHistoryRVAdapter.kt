@@ -1,5 +1,6 @@
 package com.umc.android.packit
 
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -29,9 +30,13 @@ class OrderHistoryRVAdapter(
             // 버튼 클릭 리스너 설정
             detailButton.setOnClickListener {
                 val context = itemView.context
-
                 // 여기서 OrderHistoryDetailedFragment 로 이동하는 코드를 작성
                 val OrderHistoryDetailedFragment = OrderHistoryDetailedFragment()
+
+                val bundle = Bundle()
+                bundle.putInt("ORDER_ID", orderHistoryList[adapterPosition].orderId)
+                OrderHistoryDetailedFragment.arguments = bundle
+
                 val fragmentManager = (context as AppCompatActivity).supportFragmentManager
                 fragmentManager.beginTransaction()
                     .replace(R.id.container, OrderHistoryDetailedFragment)

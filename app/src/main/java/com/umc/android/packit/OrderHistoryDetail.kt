@@ -6,6 +6,6 @@ data class OrderHistoryDetail(
     val menu_name: String,
     val price: Int,
     val payment: Int,
-    val fee: Int,
+    val fee: String,
     val image: String
 )

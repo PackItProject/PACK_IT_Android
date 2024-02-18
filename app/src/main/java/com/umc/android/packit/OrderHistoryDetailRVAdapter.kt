@@ -23,7 +23,6 @@ class OrderHistoryDetailedRVAdapter(
     }
 
 
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_order_detailed_menu, parent, false)
         return ViewHolder(view)
@@ -34,7 +33,7 @@ class OrderHistoryDetailedRVAdapter(
 
         holder.menuNameTextView.text = orderDetail.menu_name
         holder.priceTextView.text = "${orderDetail.price} 원"
-        holder.paymentTextView.text = "x${orderDetail.payment}"
+        holder.paymentTextView.text = "${orderDetail.payment}"
 
         Glide.with(holder.menuImageView.context)
             .load(orderDetail.image)
