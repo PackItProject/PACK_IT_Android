@@ -49,11 +49,11 @@
                     android:id="@+id/menu_list_recycler_view"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:nestedScrollingEnabled="false"
                     android:orientation="vertical"
                     android:overScrollMode="never"
-                    android:nestedScrollingEnabled="false"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    tools:listitem="@layout/item_order_detailed_menu"/>
+                    tools:listitem="@layout/item_order_detailed_menu" />
             </androidx.cardview.widget.CardView>
 
             <!-- 주문 내역 정보 -->
