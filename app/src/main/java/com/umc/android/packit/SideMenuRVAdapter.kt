@@ -1,8 +1,10 @@
 package com.umc.android.packit
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.umc.android.packit.databinding.ItemSideMenuBinding
 
 class SideMenuRVAdapter(private val menus: List<Menu>) : RecyclerView.Adapter<SideMenuRVAdapter.ViewHolder>() {
@@ -26,7 +28,7 @@ class SideMenuRVAdapter(private val menus: List<Menu>) : RecyclerView.Adapter<Si
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(menus[position])
+        holder.bind(menus[position], holder.itemView.context)
 
         holder.itemView.setOnClickListener {
             mItemClickListener.onItemClick(menus[position])
@@ -38,14 +40,16 @@ class SideMenuRVAdapter(private val menus: List<Menu>) : RecyclerView.Adapter<Si
 
     inner class ViewHolder(val binding: ItemSideMenuBinding) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(menu: Menu) {
+        fun bind(menu: Menu, context : Context) {
 
                 binding.itemSideTitleTv.text = menu.menu_name
                 binding.itemSidePriceTv.text = menu.price.toString()+"원"
-                binding.itemSideSizeTv.text = menu.containers
+                binding.itemSideSizeTv.text = menu.containter
 
-                menu.menuImg?.let {
-                    binding.itemSideImgIv.setImageResource(it)
+                menu.image?.let {
+                    Glide.with(context)
+                        .load(it)
+                        .into(binding.itemSideImgIv)
                 }
 
         }

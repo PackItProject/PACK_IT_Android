@@ -12,6 +12,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.viewpager2.widget.ViewPager2
+import com.bumptech.glide.Glide
 import com.google.android.material.tabs.TabLayoutMediator
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -150,11 +151,15 @@ class MenuInfoActivity : AppCompatActivity() {
 
     private fun initMenuInfo(menu: Menu) {
         // 메뉴 정보 초기화
-        binding.menuInfoImageIv.setImageResource(menu?.menuImg!!)
+        menu.image?.let {
+            Glide.with(this)
+                .load(it)
+                .into(binding.menuInfoImageIv)
+        }
         binding.menuInfoNameTv.text = menu.menu_name
         binding.menuInfoDescriptionTv.text = menu.about_menu
         binding.menuInfoPrice02Tv.text = "${menu.price}원"
-        binding.menuInfoSize02Tv.text = menu.containers
+        binding.menuInfoSize02Tv.text = menu.containter
         binding.menuInfoCautionMessageTv.text = menu.notice
     }
 }
