@@ -1,9 +1,11 @@
 package com.umc.android.packit
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.umc.android.packit.databinding.ItemCartMenuBinding
 
 
@@ -36,7 +38,7 @@ class CartRVAdapter(private val menuList: ArrayList<Menu>):RecyclerView.Adapter<
 
     // 뷰홀더 바인딩
     override fun onBindViewHolder(holder: CartRVAdapter.ViewHolder, position: Int) {
-        holder.bind(menuList[position])
+        holder.bind(menuList[position], holder.itemView.context)
 
         // 닫기 버튼 누르면 아이템 삭제
         holder.binding.itemCartClosedBtn.setOnClickListener {
@@ -81,8 +83,12 @@ class CartRVAdapter(private val menuList: ArrayList<Menu>):RecyclerView.Adapter<
     }
 
     inner class ViewHolder(val binding: ItemCartMenuBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(menu: Menu){
-            binding.itemCartMenuImageIv.setImageResource(menu.menuImg!!)
+        fun bind(menu: Menu, context : Context){
+            menu.image?.let {
+                Glide.with(context)
+                    .load(it)
+                    .into(binding.itemCartMenuImageIv)
+            }
             binding.itemCartMenuNameTv.text = menu.menu_name
             binding.itemCartMenuPriceTv.text = String.format("%,d 원", menu.price)
             binding.itemCartCountBtn.text = menu.count.toString()

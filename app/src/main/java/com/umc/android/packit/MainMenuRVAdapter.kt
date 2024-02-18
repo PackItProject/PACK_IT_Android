@@ -1,8 +1,10 @@
 package com.umc.android.packit
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.umc.android.packit.databinding.ItemMainMenuBinding
 class MainMenuRVAdapter(private val menus: List<Menu>) : RecyclerView.Adapter<MainMenuRVAdapter.ViewHolder>() {
 
@@ -25,7 +27,7 @@ class MainMenuRVAdapter(private val menus: List<Menu>) : RecyclerView.Adapter<Ma
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(menus[position])
+        holder.bind(menus[position], holder.itemView.context)
 
         holder.itemView.setOnClickListener {
             mItemClickListener.onItemClick(menus[position])
@@ -37,13 +39,15 @@ class MainMenuRVAdapter(private val menus: List<Menu>) : RecyclerView.Adapter<Ma
 
     inner class ViewHolder(val binding: ItemMainMenuBinding) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(menu: Menu) {
+        fun bind(menu: Menu, context: Context) {
                 binding.itemMainTitleTv.text = menu.menu_name
                 binding.itemMainPriceTv.text = menu.price.toString()+"원"
-                binding.itemMainSizeTv.text = menu.containers
+                binding.itemMainSizeTv.text = menu.containter
 
-                menu.menuImg?.let {
-                    binding.itemMainImgIv.setImageResource(it)
+                menu.image?.let {
+                    Glide.with(context)
+                        .load(it)
+                        .into(binding.itemMainImgIv)
                 }
 
 
