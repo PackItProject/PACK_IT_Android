@@ -47,6 +47,9 @@ interface RetrofitInterface {
     @GET("/cart/order/{pk_user}")
     suspend fun getOrderLists(@Path("pk_user") userId: Int): Response<List<OrderHistoryMenu>>
 
+    @GET("/cart/orderdetail/{orderId}")
+    suspend fun getOrderDetail(@Path("orderId") orderId: Int): Response<List<OrderHistoryDetail>>
+
     @POST("/cart/order")//주문추가
     fun addOrder(@Body order: OrderRequest): Call<AddOrderResponse>
 

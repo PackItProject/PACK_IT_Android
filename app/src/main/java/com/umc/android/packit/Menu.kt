@@ -18,3 +18,4 @@ data class Menu(
     var image: String? =null,
     var count: Int = 1,
 ): Serializable
+

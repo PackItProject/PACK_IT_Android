@@ -18,12 +18,7 @@ import java.io.IOException
 
 class OrderHistoryFragment : Fragment() {
 
-    private lateinit var adapter: OrderHistoryRVAdapter
-
-
     lateinit var binding: FragmentOrderHistoryBinding
-    private var view: View? = null
-    private var orderID:Int =2
 
 //    val dummyList: List<OrderHistoryMenu> = listOf(
 //        OrderHistoryMenu(
@@ -89,13 +84,13 @@ class OrderHistoryFragment : Fragment() {
 
         recyclerView.layoutManager = LinearLayoutManager(context)
 
-//        recyclerView.adapter = OrderHistoryRVAdapter(dummyList)
+//      recyclerView.adapter = OrderHistoryRVAdapter(dummyList)
 
         // 상세 내용 버튼을 XML에서 찾습니다.
 
         lifecycleScope.launch {
             try {
-                val userId = 2// your user id
+                val userId = 1// your user id
                 val orderHistoryList: List<OrderHistoryMenu> = fetchOrderHistory(userId)
                 val adapter = OrderHistoryRVAdapter(orderHistoryList)
 
@@ -141,19 +136,7 @@ class OrderHistoryFragment : Fragment() {
 
     }
 
-    private fun fetchData() {
-        lifecycleScope.launch {
-            try {
-                val userId = 2 // your user id
-                val orderHistory = fetchOrderHistory(userId)
 
-                // 이제 orderHistory를 사용하여 UI 업데이트 등을 수행
-            } catch (e: IOException) {
-                // 네트워크 오류 처리
-                Log.e("YourFragment", "Failed to fetch order history. Exception: ${e.message}", e)
-            }
-        }
-    }
 
     private suspend fun fetchOrderHistory(userId: Int): List<OrderHistoryMenu> {
         return try {
@@ -170,59 +153,11 @@ class OrderHistoryFragment : Fragment() {
             }
         } catch (e: Exception) {
             val exceptionMessage = e.message ?: "Unknown exception"
+            Log.e("ExceptionTag", "Exception occurred", e)
             throw IOException("Failed to fetch order history. Exception: $exceptionMessage", e)
         }
     }
-//    private suspend fun fetchOrderHistory(userId: Int): List<OrderHistoryMenu> {
-//        try {
-//            // API 호출 로직을 여기에 구현
-//            val call: Call<List<OrderHistoryMenu>> = ApiClient.retrofitInterface.getOrderLists(userId)
-//            val response: retrofit2.Response<List<OrderHistoryMenu>> = call.execute()
 //
-//            if (response.isSuccessful) {
-//                // HTTP 상태 코드가 200~299 사이인 경우
-//                val responseBody = response.body()
-//                if (responseBody != null) {
-//                    return responseBody
-//                } else {
-//                    // API 응답이 null이면 빈 리스트 반환
-//                    return emptyList()
-//                }
-//            } else {
-//                // 실패한 경우
-//                val errorBody = response.errorBody()?.string()
-//                throw IOException("Failed to fetch order history. HTTP code: ${response.code()}, Error body: $errorBody")
-//            }
-//        } catch (e: Exception) {
-//            // 예외 처리
-//            val exceptionMessage = e.message ?: "Unknown exception"
-//            Log.e("OrderHistory", "Failed to fetch order history. Exception: $exceptionMessage", e)
-//            throw IOException("Failed to fetch order history. Exception: $exceptionMessage", e)
-//
-//        }
-
-//        return try {
-//            // API 호출 로직을 여기에 구현
-//            val response: retrofit2.Response<List<OrderHistoryMenu>> = ApiClient.retrofitInterface.getOrderLists(userId)
-//
-//            if (response.isSuccessful) {
-//                // HTTP 상태 코드가 200~299 사이인 경우
-//                response.body() ?: emptyList()
-//            } else {
-//                // 실패한 경우
-//                val errorBody = response.errorBody()?.string()
-//                throw IOException("Failed to fetch order history. HTTP code: ${response.code()}, Error body: $errorBody")
-//            }
-//        } catch (e: Exception) {
-//            // 예외 처리
-//            val exceptionMessage = e.message ?: "Unknown exception"
-//            Log.e("OrderHistory", "Failed to fetch order history. Exception: $exceptionMessage", e)
-//            throw IOException("Failed to fetch order history. Exception: $exceptionMessage", e)
-//        }
-
-
-
-//    }
 
 
 
