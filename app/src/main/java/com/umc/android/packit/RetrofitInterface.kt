@@ -12,7 +12,7 @@ interface RetrofitInterface {
 
     // 주변 가게 목록 조회
     @GET("/order/near")
-    suspend fun  getNearbyStores(): List<StoreResponse>
+    fun getNearbyStores(): Call<List<StoreResponse>>
 
     @GET("/bookmark/{pk_user}")
     fun getBookmarkedStores(@Path("pk_user") userId: Int): Call<List<Store>>
@@ -50,6 +50,9 @@ interface RetrofitInterface {
 
     @GET("/cart/order/{pk_user}")
     suspend fun getOrderLists(@Path("pk_user") userId: Int): Response<List<OrderHistoryMenu>>
+
+    @GET("/cart/orderdetail/{orderId}")
+    suspend fun getOrderDetail(@Path("orderId") orderId: Int): Response<List<OrderHistoryDetail>>
 
     @POST("/cart/order")//주문추가
     fun addOrder(@Body order: OrderRequest): Call<AddOrderResponse>

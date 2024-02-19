@@ -31,6 +31,7 @@ class MenuInfoActivity : AppCompatActivity() {
         binding = ActivityMenuInfoBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        //
         val menu = intent.getSerializableExtra("MenuData") as? Menu
         menu?.let {
             val apiService = ApiClient.retrofitInterface

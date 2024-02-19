@@ -11,9 +11,11 @@ class StoreVPAdapter(private val activity: AppCompatActivity) : FragmentStateAda
 
     override fun createFragment(position: Int): Fragment {
         val storeId = (activity as StoreActivity).storeId
+
         val bundle = Bundle().apply {
             putInt("storeId", storeId)
         }
+
         return when(position){
             0 -> {
                 val fragment = MenuFragment()
