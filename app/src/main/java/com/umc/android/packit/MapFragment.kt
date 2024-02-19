@@ -117,9 +117,10 @@ class MapFragment : Fragment(), OnMapReadyCallback, StoreListRVAdapter.MyItemCli
                     if (response.isSuccessful) {
                         val storeDataFromAPI = response.body()
                         showBottomSheet(ArrayList(storeDataFromAPI))
+                        Toast.makeText(requireContext(), "${response.code()}: 가게 목록 조회에 성공하였습니다.", Toast.LENGTH_SHORT).show()
                     } else {
                         // 2-1. API 호출 실패 처리
-                        Toast.makeText(requireContext(), "가게 목록 조회에 실패하였습니다.", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(requireContext(), "${response.code()}: 가게 목록 조회에 실패하였습니다.", Toast.LENGTH_SHORT).show()
                     }
                 }
 
@@ -174,7 +175,7 @@ class MapFragment : Fragment(), OnMapReadyCallback, StoreListRVAdapter.MyItemCli
                     updateStoreStarImage(store) // RecyclerView 업데이트
                 } else {
                     // 북마크 상태 변경 실패
-                    Toast.makeText(requireContext(), "북마크 상태 변경 실패", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), "${response.code()}: 북마크 상태 변경 실패", Toast.LENGTH_SHORT).show()
                 }
             }
 

@@ -18,6 +18,7 @@ class MenuFragment : Fragment(), MainMenuRVAdapter.MyItemClickListener, SideMenu
 
     private lateinit var mainmenuRVAdapter : MainMenuRVAdapter
     private lateinit var sidemenuRVAdapter : MainMenuRVAdapter
+
     lateinit var binding: FragmentMenuBinding
     private var menuDatas = ArrayList<Menu>()
 

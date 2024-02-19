@@ -15,7 +15,7 @@ data class Menu(
     var notice: String ="",
     var status: Int = 0,
     var menu_category: Int =0,
-    var image: String? =null,
+    var image: String? = null,
     var count: Int = 1,
 ): Serializable
 

@@ -15,7 +15,7 @@ class StoreActivity : AppCompatActivity() {
     lateinit var binding : ActivityStoreBinding
 
     private var isStarSelected : Boolean = false
-    var storeId : Int = 0
+    public var storeId : Int = 0
 
     private val information = arrayListOf("메뉴", "가게 정보", "평점")
 
@@ -86,7 +86,6 @@ class StoreActivity : AppCompatActivity() {
 
     // 가게 정보 초기화
     private fun initStore() {
-
         val intent = intent
 
         if (intent != null && storeId == 0) { // storeId가 0일 때만 초기화
@@ -101,11 +100,12 @@ class StoreActivity : AppCompatActivity() {
             // intent의 가게 이름 값 가져와 TextView에 설정
             binding.storeImageTv.text = intent.getStringExtra("storeName")
 
+            // TODO: 가게 북마크 구현?
             isStarSelected = intent.getBooleanExtra("star", false)
             binding.storeStarIv.setImageResource(if (isStarSelected) R.drawable.btn_star_select else R.drawable.btn_star_no_select)
-            storeId = intent.getIntExtra("storeId", 0)
 
-            Log.d("StoreActivity", "New Menu's store_id: $storeId")
+            // storeId 갱신
+            storeId = intent.getIntExtra("storeId", 0)
         }
     }
 

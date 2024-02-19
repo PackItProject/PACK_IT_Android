@@ -85,6 +85,7 @@ class FavoriteFragment : Fragment(), FavoriteRVAdapter.MyItemClickListener {
         val intent = Intent(requireContext(), StoreActivity::class.java)
         intent.putExtra("storeId", store.store_id ?: 0) // storeImg가 null이 아니면 해당 값, null이면 -1을 전달
         intent.putExtra("storeImg", store.image ?: "") // storeImg가 null이 아니면 해당 값, null이면 -1을 전달
+        intent.putExtra("storeName", store.store_name ?: "")
 
         startActivity(intent)
     }
