@@ -3,16 +3,19 @@ package com.umc.android.packit
 import android.animation.ObjectAnimator
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import androidx.core.animation.doOnEnd
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide.init
 import com.umc.android.packit.databinding.FragmentOrderBinding
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.io.IOException
 
 
 class OrderActivity() : AppCompatActivity() {
@@ -101,7 +104,7 @@ class OrderActivity() : AppCompatActivity() {
             )
             val addOrderCall = apiService.addOrder(orderRequest)
 
-            addOrderCall.enqueue(object : Callback<AddOrderResponse> {
+             addOrderCall.enqueue(object : Callback<AddOrderResponse> {
                 override fun onResponse(call: Call<AddOrderResponse>, response: Response<AddOrderResponse>) {
 
                     if (response.isSuccessful) {
@@ -112,13 +115,30 @@ class OrderActivity() : AppCompatActivity() {
                         }
                     } else {
                         // 주문 추가 실패 시의 처리
+
                         Toast.makeText(this@OrderActivity, "주문추가에 실패하였습니다.", Toast.LENGTH_SHORT).show()
+                        Log.e("OrderActivity", "Unsuccessful response: ${response.code()}")
+                        try {
+                            val errorBody = response.errorBody()?.string()
+                            Log.e("OrderActivity", "Error body: $errorBody")
+                        } catch (e: IOException) {
+                            e.printStackTrace()
+                        }
+
                     }
+
+                  /*  Unsuccessful response: 500
+                    2024-02-18 16:40:31.051  2998-2998  OrderActivity           com.umc.android.packit
+                    E  Error body: Error: Bind parameters must not contain undefined. To pass SQL NULL specify JS null
+                    at PromisePool.execute (/app/node_modules/mysql2/promise.js:374:22)
+                    at addOrderService (file:///app/src/services/cart.service.js:51:20)
+                    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+                    at async addOrderController (file:///app/src/controllers/cart.controller.js:29:24)*/
                 }
 
                 override fun onFailure(call: Call<AddOrderResponse>, t: Throwable) {
                     // 네트워크 오류 등으로 호출에 실패했을 때의 처리
-                    Toast.makeText(this@OrderActivity, "주문추가에 실패하였습니다.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@OrderActivity, "onFailure.", Toast.LENGTH_SHORT).show()
                 }
             })
         }

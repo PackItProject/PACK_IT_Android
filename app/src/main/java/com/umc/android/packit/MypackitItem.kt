@@ -1,8 +1,10 @@
 package com.umc.android.packit
 
 data class MypackitItem(
+        val protectEarthCount:Int,
+        val stampImageResource:Int,
+        val stampCount:Int,
         val badgeImageResource: Int,
-        val mypackitPinName: String,
-        val mypackitPinDate: String
+        val badgeCount:Int
     )
 
