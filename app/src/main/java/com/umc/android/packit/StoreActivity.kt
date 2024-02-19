@@ -12,10 +12,11 @@ import com.umc.android.packit.databinding.ActivityStoreBinding
 
 class StoreActivity : AppCompatActivity() {
 
-    lateinit var binding : ActivityStoreBinding
 
-    private var isStarSelected : Boolean = false
-    public var storeId : Int = 0
+
+    lateinit var binding: ActivityStoreBinding
+    private var isStarSelected:Int = 0
+    var storeId:Int = 0
 
     private val information = arrayListOf("메뉴", "가게 정보", "평점")
 
@@ -47,10 +48,10 @@ class StoreActivity : AppCompatActivity() {
         }
 
         binding.storeStarIv.setOnClickListener {
-            isStarSelected = !isStarSelected
+            if (isStarSelected == 1) isStarSelected = 0 else isStarSelected = 1
 
             binding.storeStarIv.setImageResource(
-                if (isStarSelected) R.drawable.btn_star_select else R.drawable.btn_star_no_select)
+                if (isStarSelected == 1) R.drawable.btn_star_select else R.drawable.btn_star_no_select)
         }
 
         binding.menuCartBtn.setOnClickListener {
@@ -88,25 +89,19 @@ class StoreActivity : AppCompatActivity() {
     private fun initStore() {
         val intent = intent
 
-        if (intent != null && storeId == 0) { // storeId가 0일 때만 초기화
-            // intent의 가게 이미지 값 가져와 붙이기
-            intent.getStringExtra("storeImg")?.let { storeImg ->
-                // storeImg 값이 null이 아닌 경우에만 실행
-                Glide.with(this)
-                    .load(storeImg)
-                    .into(binding.storeBackgroundView)
+        if (intent != null && storeId == 0) { // storeId가 0일 때만 초기
+            intent.getStringExtra("storeImg").let { storeImg ->
+                if (storeImg != null) {
+                    Glide.with(this)
+                        .load(storeImg)
+                        .into(binding.storeBackgroundView)
+                }
             }
-
-            // intent의 가게 이름 값 가져와 TextView에 설정
-            binding.storeImageTv.text = intent.getStringExtra("storeName")
-
-            // TODO: 가게 북마크 구현?
-            isStarSelected = intent.getBooleanExtra("star", false)
-            binding.storeStarIv.setImageResource(if (isStarSelected) R.drawable.btn_star_select else R.drawable.btn_star_no_select)
-
-            // storeId 갱신
+            isStarSelected = intent.getIntExtra("star", 0)
+            binding.storeStarIv.setImageResource(if (isStarSelected == 1) R.drawable.btn_star_select else R.drawable.btn_star_no_select)
             storeId = intent.getIntExtra("storeId", 0)
         }
     }
 
 }
+

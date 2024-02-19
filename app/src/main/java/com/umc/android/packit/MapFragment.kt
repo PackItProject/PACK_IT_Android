@@ -152,9 +152,10 @@ class MapFragment : Fragment(), OnMapReadyCallback, StoreListRVAdapter.MyItemCli
         // 아이템 클릭 시 StoreActivity를 시작
         val intent = Intent(requireContext(), StoreActivity::class.java)
 
+
         // storeImg, star, storeId, storeName 전달
-        intent.putExtra("storeImg", store.image ?: "")
-        intent.putExtra("star", store.is_bookmarked ?: -1)
+        intent.putExtra("storeImg", store.image ?: "") // storeImg가 null이 아니면 해당 값, null이면 -1을 전달
+        intent.putExtra("star", store.is_bookmarked ?: 0) // storeImg가 null이 아니면 해당 값, null이면 -1을 전달
         intent.putExtra("storeId", store.store_id ?: -1)
         intent.putExtra("storeName", store.store_name ?: "")
 
@@ -165,10 +166,12 @@ class MapFragment : Fragment(), OnMapReadyCallback, StoreListRVAdapter.MyItemCli
     // 즐겨찾기 on/off
     override fun onStarClick(store: StoreResponse) {
         if (store.is_bookmarked == 1) store.is_bookmarked = 0 else store.is_bookmarked = 1
+
         // TODO: api 추가
         val userId = 1 // 사용자 ID를 여기에 설정하세요
 
-        apiService.changeBookmarkStatus(store.store_id, userId).enqueue(object : Callback<BookmarkResponse> {
+        apiService.changeBookmarkStatus(store.store_id!!, userId).enqueue(object :
+            Callback<BookmarkResponse> {
             override fun onResponse(call: Call<BookmarkResponse>, response: Response<BookmarkResponse>) {
                 if (response.isSuccessful) {
                     // 북마크 상태 변경 성공
@@ -185,7 +188,6 @@ class MapFragment : Fragment(), OnMapReadyCallback, StoreListRVAdapter.MyItemCli
             }
         })
 
-        updateStoreStarImage(store)
     }
 
     // 즐겨찾기 on/off

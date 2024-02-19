@@ -50,6 +50,7 @@
             android:textSize="18sp"
             android:textColor="@color/white"
             android:gravity="center"
+            android:visibility="invisible"
             />
 
         <ImageView

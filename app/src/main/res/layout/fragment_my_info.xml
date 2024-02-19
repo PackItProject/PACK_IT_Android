@@ -42,13 +42,13 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
-                    <ImageView
+                    <de.hdodenhof.circleimageview.CircleImageView
                         android:id="@+id/profile_img_iv"
                         android:layout_width="100dp"
                         android:layout_height="100dp"
                         android:layout_margin="20dp"
-
-                        android:clipToOutline="true"
+                        android:src="@drawable/img_user"
+                        app:civ_border_overlay="true"
                         android:outlineProvider="background"
                         app:layout_constraintBottom_toTopOf="@+id/profile_textview_email"
                         app:layout_constraintEnd_toEndOf="parent"
