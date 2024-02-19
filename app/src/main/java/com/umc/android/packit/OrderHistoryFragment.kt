@@ -1,7 +1,6 @@
 package com.umc.android.packit
 
 import android.os.Bundle
-import retrofit2.Call
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -10,7 +9,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.gms.common.api.Response
 import com.umc.android.packit.databinding.FragmentOrderHistoryBinding
 import kotlinx.coroutines.launch
 import java.io.IOException
@@ -90,7 +88,11 @@ class OrderHistoryFragment : Fragment() {
 
         lifecycleScope.launch {
             try {
-                val userId = 1// your user id
+
+                val sharedPreferencesManager = SharedPreferencesManager(requireContext())
+                val userId = sharedPreferencesManager.getUserId()
+
+//                val userId = 1//
                 val orderHistoryList: List<OrderHistoryMenu> = fetchOrderHistory(userId)
                 val adapter = OrderHistoryRVAdapter(orderHistoryList)
 

@@ -58,6 +58,9 @@ interface RetrofitInterface {
     @GET("/cart/orderdetail/{orderId}")
     suspend fun getOrderDetail(@Path("orderId") orderId: Int): Response<List<OrderHistoryDetail>>
 
+    @POST("auth/kakao/signin")
+    suspend fun sendUserInfo(@Body request: LoginRequest): Response<SignInResponse>
+
     @POST("/cart/order")//주문추가
     fun addOrder(@Body order: OrderRequest): Call<AddOrderResponse>
 
