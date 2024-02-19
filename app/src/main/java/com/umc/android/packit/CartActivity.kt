@@ -2,6 +2,7 @@ package com.umc.android.packit
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.TimePicker
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -22,9 +23,12 @@ class CartActivity : AppCompatActivity() {
     private var pickUpHour: Int = 0
     private var pickUpminute: Int = 0
 
-    private var cartList = ArrayList<CartResponse>()
+    private var menuList = ArrayList<CartResponse>()
     var nowPos = 0
     var storeId =0
+
+    // 장바구니 조회, 삭제 api 호출
+    val api = ApiClient.retrofitInterface
 
     private var totalPrice : Int = 0
 
@@ -65,10 +69,6 @@ class CartActivity : AppCompatActivity() {
         val storeName = intent.getStringExtra("storeName")
         binding.storeNameTv.text = storeName
 
-
-        // 장바구니 조회 api 호출
-        val api = ApiClient.retrofitInterface
-
         // 유저 아이디, 가게 아이디 필요
         val userId = 1
         val storeId = intent.getIntExtra("storeId", -1)
@@ -81,10 +81,10 @@ class CartActivity : AppCompatActivity() {
                     // 리스트가 null이 아닌지 확인
                     if (cartResponses != null) {
                         // menuList에 있는 기존 데이터 지우고 새로운 데이터 추가
-                        cartList.clear()
-                        cartList.addAll(cartResponses)
+                        menuList.clear()
+                        menuList.addAll(cartResponses)
 
-                        connectRecyclerView(cartList)
+                        connectRecyclerView(menuList)
                     }
                 } else {
                     // 조회 실패
@@ -102,8 +102,7 @@ class CartActivity : AppCompatActivity() {
 
     // 리사이클러 뷰 연결
     private fun connectRecyclerView(menuList: ArrayList<CartResponse>) {
-        Toast.makeText(this@CartActivity, "cartList?.size: ${cartList?.size}", Toast.LENGTH_SHORT).show()
-        val adapter = CartRVAdapter(cartList ?: arrayListOf())
+        val adapter = CartRVAdapter(menuList)
 
         // 연결
         binding.menuListRecyclerView.adapter = adapter
@@ -115,8 +114,39 @@ class CartActivity : AppCompatActivity() {
         adapter.onItemClickListener(object : CartRVAdapter.ItemClick{
             // 메뉴 삭제
             override fun onRemoveMenu(position: Int) {
-                adapter.removeMenu(position)
-                updateTotalPrice() // 메뉴 삭제 후 총 가격 업데이트
+                var menu = menuList[position]
+
+                api.subMenuToCart(DeleteCartRequest(menu.pk_user,menu.store_id,menu.menu_id)).enqueue(object : Callback<BookmarkResponse> {
+                    override fun onResponse(call: Call<BookmarkResponse>, response: Response<BookmarkResponse>) {
+                        if (response.isSuccessful) {
+                            when (response.code()) {
+                                200 -> {
+                                    // 장바구니 메누 삭제 성공
+                                    adapter.removeMenu(position)
+                                    updateTotalPrice()
+                                    Toast.makeText(this@CartActivity, "${response.message()}", Toast.LENGTH_SHORT).show()
+                                }
+                                404 -> {
+                                    Toast.makeText(this@CartActivity, "${response.code()}: 장바구니에 해당 아이템이 존재하지 않습니다.", Toast.LENGTH_SHORT).show()
+                                }
+                                500 -> {
+                                    Toast.makeText(this@CartActivity, "${response.code()}: 장바구니에서 아이템을 삭제하는데 실패하였습니다.", Toast.LENGTH_SHORT).show()
+                                }
+                            }
+                        } else {
+                            // 응답이 실패한 경우
+                            Toast.makeText(this@CartActivity, "장바구니 메뉴 삭제에 실패하였습니다.", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+
+                    override fun onFailure(call: Call<BookmarkResponse>, t: Throwable) {
+                        // 네트워크 오류 등 호출 실패 시 처리
+                        Toast.makeText(this@CartActivity, "API 호출에 실패했습니다.", Toast.LENGTH_SHORT).show()
+                    }
+                })
+
+//                adapter.removeMenu(position)
+//                updateTotalPrice() // 메뉴 제거 후 총 가격 업데이트
             }
 
             // 메뉴 수량 추가
@@ -172,7 +202,7 @@ class CartActivity : AppCompatActivity() {
     // 총 결제금액 업데이트
     private fun updateTotalPrice() {
         totalPrice = 0
-        for (cart in cartList) {
+        for (cart in menuList) {
             totalPrice += cart.price * cart.count
         }
         binding.receiptTotalPrice02Tv.text = String.format("%,d 원", totalPrice)
