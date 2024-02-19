@@ -49,7 +49,12 @@
 
 
         <activity android:name=".ProfileActivity"
-            android:exported="true" />  <!-- 프로필 액티비티 -->
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>  <!-- 프로필 액티비티 -->
 
         <activity android:name=".StoreActivity"
             android:exported="true" />  <!-- 가게 액티비티 -->
@@ -78,10 +83,7 @@
         <activity
             android:name=".LoginActivity"
             android:exported="true" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+
         </activity>
 
 

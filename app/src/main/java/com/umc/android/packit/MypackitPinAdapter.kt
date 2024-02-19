@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 class MypackitPinAdapter(private val itemList: List<MypackitItem>) : RecyclerView.Adapter<MypackitPinAdapter.ViewHolder>() {
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val badgeImageView: ImageView = itemView.findViewById(R.id.badgeImageView)
+        val badgeImageView: ImageView = itemView.findViewById(R.id.badge_iv)
         val mypackitPinName: TextView = itemView.findViewById(R.id.mypackitPinName)
         val mypackitPinDate: TextView = itemView.findViewById(R.id.mypackitPinDate)
     }
