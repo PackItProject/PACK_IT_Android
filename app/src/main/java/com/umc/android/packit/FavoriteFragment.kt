@@ -19,6 +19,10 @@ class FavoriteFragment : Fragment(), FavoriteRVAdapter.MyItemClickListener {
     private lateinit var favoriteRVAdapter: FavoriteRVAdapter
     private val storeDatas = ArrayList<Store>()
 
+    // TODO: 로그인 구현 후 삭제
+    // mainAtctivity에서 유저 ID 가져오기
+    //private val userID = arguments?.getInt("userId", 1)
+
     companion object {
         fun newInstance(): FavoriteFragment {
             return FavoriteFragment()
@@ -30,6 +34,9 @@ class FavoriteFragment : Fragment(), FavoriteRVAdapter.MyItemClickListener {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        // 현재 유저 아이디 체크
+        //Toast.makeText(requireContext(), "현재 유저 아이디: ${userID}", Toast.LENGTH_SHORT).show()
+
         binding = FragmentFavoriteBinding.inflate(inflater, container, false)
         favoriteRVAdapter = FavoriteRVAdapter(storeDatas)
         favoriteRVAdapter.setMyItemClickListener(this)
@@ -48,6 +55,7 @@ class FavoriteFragment : Fragment(), FavoriteRVAdapter.MyItemClickListener {
 
     private fun loadData() {
         val apiService = ApiClient.retrofitInterface
+
         val userId = 1 // 사용자 ID를 여기에 설정하세요
 
         apiService.getBookmarkedStores(userId).enqueue(object : Callback<List<Store>> {
@@ -80,6 +88,10 @@ class FavoriteFragment : Fragment(), FavoriteRVAdapter.MyItemClickListener {
 
     override fun onItemClick(store: Store) {
         val intent = Intent(requireContext(), StoreActivity::class.java)
+
+        // userId 전달
+        //intent.putExtra("userId", userID)
+
         intent.putExtra("storeId", store.store_id ?: 0)
         intent.putExtra("storeImg", store.image ?: "")
         intent.putExtra("storeName", store.store_name ?: "")

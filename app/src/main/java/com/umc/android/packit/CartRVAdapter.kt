@@ -10,7 +10,7 @@ import com.umc.android.packit.databinding.ItemCartMenuBinding
 
 
 
-class CartRVAdapter(private val menuList: ArrayList<Menu>):RecyclerView.Adapter<CartRVAdapter.ViewHolder>() {
+class CartRVAdapter(private val menuList: ArrayList<CartResponse>):RecyclerView.Adapter<CartRVAdapter.ViewHolder>() {
 
     // 클릭 이벤트 등록
     interface ItemClick {
@@ -83,7 +83,7 @@ class CartRVAdapter(private val menuList: ArrayList<Menu>):RecyclerView.Adapter<
     }
 
     inner class ViewHolder(val binding: ItemCartMenuBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(menu: Menu, context : Context){
+        fun bind(menu: CartResponse, context : Context){
             menu.image?.let {
                 Glide.with(context)
                     .load(it)

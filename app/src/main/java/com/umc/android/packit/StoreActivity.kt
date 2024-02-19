@@ -4,27 +4,34 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.google.android.material.tabs.TabLayoutMediator
 import com.umc.android.packit.databinding.ActivityStoreBinding
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class StoreActivity : AppCompatActivity() {
 
-
-
     lateinit var binding: ActivityStoreBinding
     private var isStarSelected:Int = 0
-    var storeId:Int = 0
+    var storeId : Int = 0
 
     private val information = arrayListOf("메뉴", "가게 정보", "평점")
 
-    override fun onCreate(savedInstanceState: Bundle?) {
+    override
+    fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityStoreBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        // 현재 유저 아이디 체크
+        //Toast.makeText(this, "현재 유저 아이디: ${userID}", Toast.LENGTH_SHORT).show()
+
+        // 가게 정보 초기화
         initStore()
 
         val storeAdapter = StoreVPAdapter(this)
@@ -34,7 +41,8 @@ class StoreActivity : AppCompatActivity() {
         }.attach()
 
         // ViewPager2의 페이지 변경을 감지하는 콜백 추가
-        binding.storeContentVp.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+        binding.storeContentVp.registerOnPageChangeCallback(object :
+            ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
 
@@ -51,14 +59,16 @@ class StoreActivity : AppCompatActivity() {
             if (isStarSelected == 1) isStarSelected = 0 else isStarSelected = 1
 
             binding.storeStarIv.setImageResource(
-                if (isStarSelected == 1) R.drawable.btn_star_select else R.drawable.btn_star_no_select)
+                if (isStarSelected == 1) R.drawable.btn_star_select else R.drawable.btn_star_no_select
+            )
         }
 
         binding.menuCartBtn.setOnClickListener {
             val intent = Intent(this, CartActivity::class.java)
+            intent.putExtra("storeName", binding.storeImageTv.text.toString())
+            intent.putExtra("storeId", storeId)
             startActivity(intent)
         }
-
     }
 
     private fun showHideCartButton(show: Boolean) {
@@ -89,6 +99,10 @@ class StoreActivity : AppCompatActivity() {
     private fun initStore() {
         val intent = intent
 
+        // 가게 이름 설정
+        binding.storeImageTv.text = intent.getStringExtra("storeName")
+
+        // 가게 이미지 설정
         if (intent != null && storeId == 0) { // storeId가 0일 때만 초기
             intent.getStringExtra("storeImg").let { storeImg ->
                 if (storeImg != null) {
@@ -99,6 +113,8 @@ class StoreActivity : AppCompatActivity() {
             }
             isStarSelected = intent.getIntExtra("star", 0)
             binding.storeStarIv.setImageResource(if (isStarSelected == 1) R.drawable.btn_star_select else R.drawable.btn_star_no_select)
+
+            // storeId 갱신
             storeId = intent.getIntExtra("storeId", 0)
         }
     }
