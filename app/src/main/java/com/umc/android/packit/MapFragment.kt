@@ -76,7 +76,7 @@ class MapFragment : Fragment(), OnMapReadyCallback, StoreListRVAdapter.MyItemCli
         //지도검색 칸 초기화
         autocompleteFragment = (childFragmentManager.findFragmentById(R.id.autocomplete_fragment) as AutocompleteSupportFragment?)!!
 
-        autocompleteFragment.setPlaceFields(listOf(Place.Field.ID,Place.Field.ADDRESS, Place.Field.LAT_LNG ))
+        autocompleteFragment.setPlaceFields(listOf(Place.Field.ID,Place.Field.ADDRESS, Place.Field.LAT_LNG,Place.Field.NAME ))
         autocompleteFragment.setOnPlaceSelectedListener(object: PlaceSelectionListener{
             //장소 검색 시 오류 처리
             override fun onError(p0: Status) {
@@ -86,11 +86,12 @@ class MapFragment : Fragment(), OnMapReadyCallback, StoreListRVAdapter.MyItemCli
             //에러 없다면 검색된 장소 보여주기
             override fun onPlaceSelected(place: Place) {
                 val latLng= place.latLng!! //위치 찾아서
-         /*       val placeName=place.name!!*/
+                val placeName=place.name!!
+                val placeAdd=place.address!!
                 zoonOnMap(latLng) //지도에서 줌 인
                 autocompleteFragment.setText("") //장소가 선택되면 입력창의 input은 초기화
-                /*addMarker(latLng, placeName)*/
-                addMarker(latLng)
+                addMarker(latLng, placeName, placeAdd)
+                //addMarker(latLng)
             }
 
         })
@@ -216,7 +217,7 @@ class MapFragment : Fragment(), OnMapReadyCallback, StoreListRVAdapter.MyItemCli
     }
 
     // addMarker 메서드 추가
-    private fun addMarker(location: LatLng) {
+    private fun addMarker(location: LatLng, storeName: String, placeAdd: String) {
         // 기존 마커 삭제
         currentMarker?.remove()
 
@@ -224,8 +225,8 @@ class MapFragment : Fragment(), OnMapReadyCallback, StoreListRVAdapter.MyItemCli
         currentMarker = googleMap.addMarker(
             MarkerOptions()
                 .position(location)
-                .title("검색 결과")
-                .snippet("추가 정보")
+                .title(storeName)
+                .snippet(placeAdd)
         )
 
         // 지도 이동 및 줌 조절
