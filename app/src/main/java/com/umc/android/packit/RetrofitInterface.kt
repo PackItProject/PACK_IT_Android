@@ -23,7 +23,6 @@ interface RetrofitInterface {
         @Path("pk_user") userId: Int
     ): Call<BookmarkResponse>
 
-
     // 장바구니에 메뉴 추가
     @POST("/cart")
     fun addMenuToCart(@Body cartItem: CartItem): Call<BookmarkResponse>
@@ -43,6 +42,11 @@ interface RetrofitInterface {
 //    @GET("/cart/order/{pk_user}")
 //    fun getOrderLists(@Path("pk_user") userId: Int): Call<List<OrderHistoryMenu>>
 
+    @GET("/order/near/{store_id}/menu/{menu_id}")
+    fun getMenuInfo(
+        @Path("store_id") storeId: Int,
+        @Path("menu_id") menuId: Int
+    ): Call<List<Menu>>
 
     @GET("/cart/order/{pk_user}")
     suspend fun getOrderLists(@Path("pk_user") userId: Int): Response<List<OrderHistoryMenu>>

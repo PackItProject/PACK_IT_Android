@@ -21,7 +21,7 @@ data class StoreResponse(
     val average_grade: Double,
 
     // TODO: 가게 북마크 추가 예정
-    val is_bookmarked: Int,
+    var is_bookmarked: Int,
 
     // 가게 주소
     @SerializedName("address")

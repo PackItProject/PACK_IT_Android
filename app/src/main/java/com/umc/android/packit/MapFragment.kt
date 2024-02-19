@@ -29,6 +29,9 @@ import com.umc.android.packit.databinding.FragmentStoreListBinding
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
@@ -139,7 +142,7 @@ class MapFragment : Fragment(), OnMapReadyCallback, StoreListRVAdapter.MyItemCli
         val intent = Intent(requireContext(), StoreActivity::class.java)
         intent.putExtra("storeImg", store.image ?: "") // storeImg가 null이 아니면 해당 값, null이면 -1을 전달
         // TODO: 북마크
-        // intent.putExtra("star", store.is_bookmarked ?: 1) // storeImg가 null이 아니면 해당 값, null이면 -1을 전달
+        intent.putExtra("star", store.is_bookmarked ?: 0) // storeImg가 null이 아니면 해당 값, null이면 -1을 전달
         intent.putExtra("storeId", store.store_id ?: -1)
 
         startActivity(intent)
@@ -148,14 +151,37 @@ class MapFragment : Fragment(), OnMapReadyCallback, StoreListRVAdapter.MyItemCli
 
     // TODO: 즐겨찾기 on/off 1
     override fun onStarClick(store: StoreResponse) {
+        if (store.is_bookmarked == 1) store.is_bookmarked = 0 else store.is_bookmarked = 1
+
+        val userId = 1 // 사용자 ID를 여기에 설정하세요
+        val apiService = ApiClient.retrofitInterface
+
+        apiService.changeBookmarkStatus(store.store_id!!, userId).enqueue(object :
+            Callback<BookmarkResponse> {
+            override fun onResponse(call: Call<BookmarkResponse>, response: Response<BookmarkResponse>) {
+                if (response.isSuccessful) {
+                    // 북마크 상태 변경 성공
+                    updateStoreStarImage(store) // RecyclerView 업데이트
+
+                } else {
+                    // 북마크 상태 변경 실패
+                    Toast.makeText(requireContext(), "북마크 상태 변경 실패", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            override fun onFailure(call: Call<BookmarkResponse>, t: Throwable) {
+                // 네트워크 오류 등으로 인한 실패
+                Toast.makeText(requireContext(), "네트워크 오류: ${t.message}", Toast.LENGTH_SHORT).show()
+            }
+        })
 //        if (store.is_bookmarked == 1) store.is_bookmarked = 0 else store.is_bookmarked = 1
 //        updateStoreStarImage(store)
     }
 
     // TODO: 즐겨찾기 on/off 2
     private fun updateStoreStarImage(store: StoreResponse) {
-//        val adapter = bottomSheet.storeListRecyclerView.adapter as? StoreListRVAdapter
-//        adapter?.updateStoreStarImage(store)
+        val adapter = bottomSheet.storeListRecyclerView.adapter as? StoreListRVAdapter
+        adapter?.updateStoreStarImage(store)
     }
 
 
