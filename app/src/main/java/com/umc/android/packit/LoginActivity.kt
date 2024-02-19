@@ -1,7 +1,6 @@
 package com.umc.android.packit
 
 import android.content.ContentValues.TAG
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -15,9 +14,7 @@ import com.kakao.sdk.common.model.ClientError
 import com.kakao.sdk.common.model.ClientErrorCause
 import com.kakao.sdk.common.model.KakaoSdkError
 import com.kakao.sdk.user.UserApiClient
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 
 class LoginActivity : AppCompatActivity() {
@@ -102,6 +99,10 @@ class LoginActivity : AppCompatActivity() {
                                     if (response!!.isSuccessful) {
                                         // 성공적으로 전송됨
                                         Log.i(TAG, "사용자 정보 전송 성공")
+
+                                        val sharedPreferencesManager = SharedPreferencesManager(this@LoginActivity)
+                                        sharedPreferencesManager.saveUserId(user.id!!.toInt())
+
                                     } else {
                                         // 서버에서 오류 응답
                                         Log.e(TAG, "사용자 정보 전송 실패. HTTP code: ${response.code()}")
