@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -20,50 +21,77 @@
             android:layout_height="wrap_content"
             android:background="@color/background_grey"
             android:orientation="vertical"
-            android:padding="18dp">
-
-            <TextView
-                android:id="@+id/textMyPackit"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
-                android:layout_marginTop="16dp"
-                android:text="My packIt!"
-                android:textSize="20sp"
-                android:textStyle="bold" />
+            android:padding="20dp">
 
             <!-- 적립 정보를 보여주는 박스 -->
+            <TextView
+                android:id="@+id/mypackit_title_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="64dp"
+                android:gravity="center_vertical"
+                android:layout_marginTop="20dp"
+                android:text="MY Packit!"
+                android:fontFamily="@font/mypackit"
+                android:textColor="@color/gui_orange"
+                android:textSize="37sp"
+                android:textStyle="bold" />
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:background="@color/white">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="23dp"
-                    android:layout_marginLeft="10dp"
-                    android:text="이름"
-                    android:textSize="16sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/textViewName"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/textViewName" />
+                android:layout_height="120dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:background="#F5F5F5"
+                android:padding="20dp">
 
                 <!-- 이름 -->
-                <TextView
-                    android:id="@+id/textViewName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text=" 님이 \n 지금까지 지구를 지킨 횟수"
-                    android:textSize="16sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/guideline"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
 
                 <!-- 가이드라인 -->
+
+
+                <TextView
+                    android:id="@+id/name_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="강희정"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/orderCount_tv"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.05">
+
+                </TextView>
+
+                <TextView
+                    android:id="@+id/count_explain1_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="60dp"
+                    android:text="님이"
+                    android:textSize="18sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline"
+                    app:layout_constraintHorizontal_bias="0.092"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.125" />
+
+                <TextView
+                    android:id="@+id/count_explain2_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="지금까지 지구를 지킨 횟수"
+                    android:textSize="18sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/name_tv"
+                    app:layout_constraintVertical_bias="0.453" />
+
                 <androidx.constraintlayout.widget.Guideline
                     android:id="@+id/guideline"
                     android:layout_width="wrap_content"
@@ -73,164 +101,174 @@
 
                 <!-- 주문 횟수 -->
                 <TextView
-                    android:id="@+id/textViewOrderCount"
+                    android:id="@+id/orderCount_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="00회"
-                    android:textSize="16sp"
+                    android:layout_marginLeft="50dp"
+                    android:text="12회"
+                    android:textColor="@color/gui_orange"
+                    android:textSize="30sp"
+                    android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/guideline"
                     app:layout_constraintTop_toTopOf="parent" />
+
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <!-- 이미지 -->
 
-            <!-- 스탬프 -->
-
-            <ImageView
-                android:id="@+id/imageViewStamp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="-25dp"
-                android:layout_marginBottom="-30dp"
-                android:padding="0dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/mypackit_map" />
-
-            <TextView
-                android:id="@+id/textStampCard"
+            <!--모래색의 스탬프카드 판 레이아웃-->
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="5dp"
-                android:text="스탬프카드"
-                android:textSize="20sp"
-                android:textStyle="bold" />
+                android:layout_marginBottom="20dp"
+                android:background="@color/gui_stamp"
+                android:orientation="vertical">
 
-            <GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:columnCount="5"
-                android:rowCount="2"
+                <TextView
+                    android:id="@+id/textStampCard"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="5dp"
+                    android:text="스탬프카드"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
 
-                >
+                <GridLayout
+                    android:layout_width="382dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginBottom="10dp"
+                    android:columnCount="5"
+                    android:rowCount="2">
 
-                <!-- 도장판 이미지 -->
+                    <!--   &lt;!&ndash; 도장판 이미지 &ndash;&gt;
                 <ImageView
                     android:id="@+id/stampFrame"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="200dp"
                     android:layout_rowSpan="2"
                     android:layout_columnSpan="5"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/mypackit_stamp_pad" />
+                    android:src="@drawable/mypackit_stamp_brownPad" />
 
-                <!-- 도장 1 -->
-                <ImageView
-                    android:id="@+id/stamp1"
-                    android:layout_row="0"
-                    android:layout_column="0"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="35dp"
-                    android:layout_marginTop="15dp"
-                    android:padding="5dp"
-                    android:src="@drawable/mypack_stamp_no"
+                -->
+                    <!-- 도장 1 -->
+                    <ImageView
+                        android:id="@+id/stamp1"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:layout_row="0"
+                        android:layout_column="0"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="20dp"
+                        android:padding="5dp"
+                        android:src="@drawable/mypack_stamp_yes_gui" />
 
-                    />
+                    <ImageView
+                        android:id="@+id/stamp2"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:layout_row="0"
+                        android:layout_column="1"
+                        android:padding="5dp"
+                        android:src="@drawable/mypackit_stamp_no_gui" />
 
-                <ImageView
-                    android:id="@+id/stamp2"
-                    android:layout_row="0"
-                    android:layout_column="1"
-                    android:layout_marginTop="15dp"
-                    android:padding="5dp"
-                    android:src="@drawable/mypack_stamp_no" />
+                    <ImageView
+                        android:id="@+id/stamp3"
+                        android:layout_row="0"
+                        android:layout_column="2"
+                        android:padding="5dp"
+                        android:src="@drawable/mypackit_stamp_no_gui" />
 
-                <ImageView
-                    android:id="@+id/stamp3"
-                    android:layout_row="0"
-                    android:layout_column="2"
-                    android:layout_marginTop="15dp"
-                    android:padding="5dp"
-                    android:src="@drawable/mypack_stamp_no" />
+                    <ImageView
+                        android:id="@+id/stamp4"
+                        android:layout_row="0"
+                        android:layout_column="3"
+                        android:padding="5dp"
+                        android:src="@drawable/mypackit_stamp_no_gui" />
 
-                <ImageView
-                    android:id="@+id/stamp4"
-                    android:layout_row="0"
-                    android:layout_column="3"
-                    android:layout_marginTop="15dp"
-                    android:padding="5dp"
-                    android:src="@drawable/mypack_stamp_no" />
+                    <ImageView
+                        android:id="@+id/stamp5"
+                        android:layout_row="0"
+                        android:layout_column="4"
+                        android:layout_marginRight="20dp"
+                        android:padding="5dp"
+                        android:src="@drawable/mypackit_stamp_no_gui" />
 
-                <ImageView
-                    android:id="@+id/stamp5"
-                    android:layout_row="0"
-                    android:layout_column="4"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginRight="35dp"
-                    android:padding="5dp"
-                    android:src="@drawable/mypack_stamp_no" />
+                    <ImageView
+                        android:id="@+id/stamp6"
+                        android:layout_row="1"
+                        android:layout_column="0"
+                        android:layout_marginLeft="20dp"
+                        android:padding="5dp"
+                        android:src="@drawable/mypackit_stamp_no_gui" />
 
-                <ImageView
-                    android:id="@+id/stamp6"
-                    android:layout_row="1"
-                    android:layout_column="0"
-                    android:layout_marginLeft="35dp"
-                    android:padding="5dp"
-                    android:src="@drawable/mypack_stamp_no" />
+                    <ImageView
+                        android:id="@+id/stamp7"
 
-                <ImageView
-                    android:id="@+id/stamp7"
+                        android:layout_row="1"
+                        android:layout_column="1"
+                        android:padding="5dp"
+                        android:src="@drawable/mypackit_stamp_no_gui" />
 
-                    android:layout_row="1"
-                    android:layout_column="1"
-                    android:padding="5dp"
-                    android:src="@drawable/mypack_stamp_no" />
+                    <ImageView
+                        android:id="@+id/stamp8"
+                        android:layout_row="1"
+                        android:layout_column="2"
+                        android:padding="5dp"
+                        android:src="@drawable/mypackit_stamp_no_gui" />
 
-                <ImageView
-                    android:id="@+id/stamp8"
-                    android:layout_row="1"
-                    android:layout_column="2"
-                    android:padding="5dp"
-                    android:src="@drawable/mypack_stamp_no" />
+                    <ImageView
+                        android:id="@+id/stamp9"
+                        android:layout_row="1"
+                        android:layout_column="3"
+                        android:padding="5dp"
+                        android:src="@drawable/mypackit_stamp_no_gui" />
 
-                <ImageView
-                    android:id="@+id/stamp9"
-                    android:layout_row="1"
-                    android:layout_column="3"
-                    android:padding="5dp"
-                    android:src="@drawable/mypack_stamp_no" />
+                    <ImageView
+                        android:id="@+id/stamp10"
+                        android:layout_row="1"
+                        android:layout_column="4"
+                        android:layout_marginRight="20dp"
+                        android:padding="5dp"
+                        android:src="@drawable/mypackit_stamp_no_gui" />
 
-                <ImageView
-                    android:id="@+id/stamp10"
-                    android:layout_row="1"
-                    android:layout_column="4"
-                    android:layout_marginRight="35dp"
-                    android:padding="5dp"
-                    android:src="@drawable/mypack_stamp_no" />
-
-            </GridLayout>
-
-            <TextView
-                android:id="@+id/textPin"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="5dp"
-                android:text="뱃지"
-                android:textSize="20sp"
-                android:textStyle="bold" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/badgeRecyclerView"
+                </GridLayout>
+            </LinearLayout>
+            <!--하얀색의 뱃지 판 레이아웃-->
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/white"
-                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager" />
+                android:background="#F5F5F5"
+                android:orientation="vertical"
+                android:padding="20dp"
+                android:layout_marginBottom="30dp">
+
+                <TextView
+                    android:id="@+id/textPin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:text="뱃지"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/badgeRecyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#F4F4F4"
+                    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager" />
+
+            </LinearLayout>
+
 
         </LinearLayout>
-
     </androidx.core.widget.NestedScrollView>
 
 </LinearLayout>

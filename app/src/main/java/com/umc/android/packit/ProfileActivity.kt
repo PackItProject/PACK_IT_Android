@@ -1,7 +1,9 @@
 package com.umc.android.packit
 
 import android.Manifest
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.util.Log
 import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
@@ -15,6 +17,7 @@ import android.text.TextWatcher
 import android.util.Base64
 import android.view.View
 import android.widget.Button
+import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.activity.viewModels
@@ -37,6 +40,9 @@ class ProfileActivity : ProfilePermissionActivity() {
     private lateinit var databaseReference: DatabaseReference
     private lateinit var storageRefrence: StorageReference
     private lateinit var imageUri:Uri
+
+    //닉네임전달용
+    private lateinit var sharedPreferences: SharedPreferences
 
     val PERM_GALLERY = 1    // 갤러리 접근 권한 코드
     val maxLength = 12      // editText 글자 수 제한
@@ -97,6 +103,7 @@ class ProfileActivity : ProfilePermissionActivity() {
                     }
                 }
             }
+
         }
 
         // 프로필 사진 버튼
@@ -107,6 +114,16 @@ class ProfileActivity : ProfilePermissionActivity() {
             else requirePermission(arrayOf(Manifest.permission.READ_MEDIA_IMAGES), PERM_GALLERY)
         }
         makeBitmap()
+/*
+
+        // 닉네임을 입력받아 SharedPreferences에 저장
+        val nickname = binding.profileNicknameEt.text.toString()  // 실제 사용자가 입력한 닉네임을 받아오는 코드
+        val sharedPreference = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
+        val editor = sharedPreference.edit()
+        editor.putString("nickname", nickname)
+        editor.apply()
+*/
+
 
     }
 
