@@ -39,33 +39,29 @@
                 android:layout_marginTop="16dp"
                 android:background="@color/white">
 
-
-
-                    <!-- 이름 -->
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="23dp"
-                    android:marginLeft="10dp"
+                    android:layout_marginLeft="10dp"
                     android:text="이름"
                     android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/textViewName"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
+                    app:layout_constraintTop_toTopOf="@+id/textViewName" />
 
-                </TextView>
-
+                <!-- 이름 -->
                 <TextView
-                        android:id="@+id/textViewName"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text=" 님이 \n 지금까지 지구를 지킨 횟수"
-                        android:textSize="16sp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@+id/guideline"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                    android:id="@+id/textViewName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" 님이 \n 지금까지 지구를 지킨 횟수"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <!-- 가이드라인 -->
                 <androidx.constraintlayout.widget.Guideline
@@ -91,8 +87,6 @@
             <!-- 이미지 -->
 
             <!-- 스탬프 -->
-
-
 
             <ImageView
                 android:id="@+id/imageViewStamp"

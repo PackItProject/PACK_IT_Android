@@ -45,11 +45,10 @@ class MapFragment : Fragment(), OnMapReadyCallback, StoreListRVAdapter.MyItemCli
     private lateinit var googleMap: GoogleMap
     private var currentMarker: Marker? = null
 
-    // TODO: 지울 것
-    // 가게 데이터 리스트
-    var StoreDataFromAPI: List<StoreResponse> = ArrayList()
-    var storeList : ArrayList<StoreResponse> = ArrayList()
+    // api 호출 (for 가게 목로 조회, 북마크 기능)
+    val apiService = ApiClient.retrofitInterface
 
+    // 가게 데이터 리스트
     private lateinit var dialog: BottomSheetDialog
     private lateinit var bottomSheet: FragmentStoreListBinding
     companion object {
@@ -95,32 +94,44 @@ class MapFragment : Fragment(), OnMapReadyCallback, StoreListRVAdapter.MyItemCli
 
         })
 
-        // 가게 목로 조회 api 호출
-        val apiService = ApiClient.retrofitInterface
-        // CoroutineScope를 생성하고 비동기 호출을 수행
-        CoroutineScope(Dispatchers.Main).launch {
-            try {
-                // API 호출 결과를 LiveData에 저장
-                StoreDataFromAPI = apiService.getNearbyStores()
-                storeList = ArrayList(StoreDataFromAPI) ?: ArrayList()
 
+        // TODO: 최후의 방법(회의 후에 지울 것) -> CoroutineScope를 생성하고 비동기 호출을 수행
+//        CoroutineScope(Dispatchers.Main).launch {
+//            try {
+//                // API 호출 결과를 LiveData에 저장
+//                storeDataFromAPI = apiService.getNearbyStores()
+//                storeList = ArrayList(storeDataFromAPI)
+//            } catch (e: Exception) {
+//                // 예외 처리 로직
+//                storeList =  ArrayList()
+//                Toast.makeText(requireContext(), "API 호출에 실패했습니다.", Toast.LENGTH_SHORT).show()
+//            }
+//        }
 
-            } catch (e: Exception) {
-                // 예외 처리 로직
-                storeList =  ArrayList()
-                Toast.makeText(requireContext(), "API 호출에 실패했습니다.", Toast.LENGTH_SHORT).show()
-            }
-        }
-
-        // LiveData는 비동기적으로 값을 가져오기 때문에,
-        // null 데이터 emptyList()로 처리
+        // 주변 가게 목록 데이터 조회하기
         binding.storeListBtn.setOnClickListener {
-            // LiveData 값을 가져와서 BottomSheet에 표시
-            showBottomSheet(storeList)
+            // 1. 버튼 클릭 시, api 요청
+            apiService.getNearbyStores().enqueue(object : Callback<List<StoreResponse>> {
+                override fun onResponse(call: Call<List<StoreResponse>>, response: Response<List<StoreResponse>>) {
+                    // 2. API 호출에 성공하면 바텀시트 보이기
+                    if (response.isSuccessful) {
+                        val storeDataFromAPI = response.body()
+                        showBottomSheet(ArrayList(storeDataFromAPI))
+                        Toast.makeText(requireContext(), "${response.code()}: 가게 목록 조회에 성공하였습니다.", Toast.LENGTH_SHORT).show()
+                    } else {
+                        // 2-1. API 호출 실패 처리
+                        Toast.makeText(requireContext(), "${response.code()}: 가게 목록 조회에 실패하였습니다.", Toast.LENGTH_SHORT).show()
+                    }
+                }
+
+                override fun onFailure(call: Call<List<StoreResponse>>, t: Throwable) {
+                    // 2-2. 네트워크 오류 등 호출 실패 시 처리
+                    Toast.makeText(requireContext(), "API 호출에 실패했습니다.", Toast.LENGTH_SHORT).show()
+                }
+            })
         }
 
         return binding.root
-
     }
 
     private fun showBottomSheet(storeDatas: ArrayList<StoreResponse>) {
@@ -140,21 +151,24 @@ class MapFragment : Fragment(), OnMapReadyCallback, StoreListRVAdapter.MyItemCli
     override fun onItemClick(store: StoreResponse) {
         // 아이템 클릭 시 StoreActivity를 시작
         val intent = Intent(requireContext(), StoreActivity::class.java)
+
+
+        // storeImg, star, storeId, storeName 전달
         intent.putExtra("storeImg", store.image ?: "") // storeImg가 null이 아니면 해당 값, null이면 -1을 전달
-        // TODO: 북마크
         intent.putExtra("star", store.is_bookmarked ?: 0) // storeImg가 null이 아니면 해당 값, null이면 -1을 전달
         intent.putExtra("storeId", store.store_id ?: -1)
+        intent.putExtra("storeName", store.store_name ?: "")
 
         startActivity(intent)
         dialog.dismiss()
     }
 
-    // TODO: 즐겨찾기 on/off 1
+    // 즐겨찾기 on/off
     override fun onStarClick(store: StoreResponse) {
         if (store.is_bookmarked == 1) store.is_bookmarked = 0 else store.is_bookmarked = 1
 
+        // TODO: api 추가
         val userId = 1 // 사용자 ID를 여기에 설정하세요
-        val apiService = ApiClient.retrofitInterface
 
         apiService.changeBookmarkStatus(store.store_id!!, userId).enqueue(object :
             Callback<BookmarkResponse> {
@@ -162,10 +176,9 @@ class MapFragment : Fragment(), OnMapReadyCallback, StoreListRVAdapter.MyItemCli
                 if (response.isSuccessful) {
                     // 북마크 상태 변경 성공
                     updateStoreStarImage(store) // RecyclerView 업데이트
-
                 } else {
                     // 북마크 상태 변경 실패
-                    Toast.makeText(requireContext(), "북마크 상태 변경 실패", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), "${response.code()}: 북마크 상태 변경 실패", Toast.LENGTH_SHORT).show()
                 }
             }
 
@@ -174,11 +187,10 @@ class MapFragment : Fragment(), OnMapReadyCallback, StoreListRVAdapter.MyItemCli
                 Toast.makeText(requireContext(), "네트워크 오류: ${t.message}", Toast.LENGTH_SHORT).show()
             }
         })
-//        if (store.is_bookmarked == 1) store.is_bookmarked = 0 else store.is_bookmarked = 1
-//        updateStoreStarImage(store)
+
     }
 
-    // TODO: 즐겨찾기 on/off 2
+    // 즐겨찾기 on/off
     private fun updateStoreStarImage(store: StoreResponse) {
         val adapter = bottomSheet.storeListRecyclerView.adapter as? StoreListRVAdapter
         adapter?.updateStoreStarImage(store)

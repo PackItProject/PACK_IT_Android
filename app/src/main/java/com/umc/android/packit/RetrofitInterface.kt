@@ -12,7 +12,7 @@ interface RetrofitInterface {
 
     // 주변 가게 목록 조회
     @GET("/order/near")
-    suspend fun  getNearbyStores(): List<StoreResponse>
+    fun getNearbyStores(): Call<List<StoreResponse>>
 
     @GET("/bookmark/{pk_user}")
     fun getBookmarkedStores(@Path("pk_user") userId: Int): Call<List<Store>>

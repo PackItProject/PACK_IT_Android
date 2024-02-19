@@ -12,6 +12,8 @@ import com.umc.android.packit.databinding.ActivityStoreBinding
 
 class StoreActivity : AppCompatActivity() {
 
+
+
     lateinit var binding: ActivityStoreBinding
     private var isStarSelected:Int = 0
     var storeId:Int = 0
@@ -83,10 +85,11 @@ class StoreActivity : AppCompatActivity() {
     }
 
 
+    // 가게 정보 초기화
     private fun initStore() {
         val intent = intent
-        if (intent != null && storeId == 0) { // storeId가 0일 때만 초기화
 
+        if (intent != null && storeId == 0) { // storeId가 0일 때만 초기
             intent.getStringExtra("storeImg").let { storeImg ->
                 if (storeImg != null) {
                     Glide.with(this)
@@ -97,9 +100,6 @@ class StoreActivity : AppCompatActivity() {
             isStarSelected = intent.getIntExtra("star", 0)
             binding.storeStarIv.setImageResource(if (isStarSelected == 1) R.drawable.btn_star_select else R.drawable.btn_star_no_select)
             storeId = intent.getIntExtra("storeId", 0)
-
-            Log.d("StoreActivity", "New Menu's store_id: $storeId")
-
         }
     }
 
