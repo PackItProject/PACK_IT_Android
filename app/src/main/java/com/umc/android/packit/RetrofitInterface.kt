@@ -12,7 +12,7 @@ interface RetrofitInterface {
 
     // 주변 가게 목록 조회
     @GET("/order/near")
-    suspend fun  getNearbyStores(): List<StoreResponse>
+    fun getNearbyStores(): Call<List<StoreResponse>>
 
     @GET("/bookmark/{pk_user}")
     fun getBookmarkedStores(@Path("pk_user") userId: Int): Call<List<Store>>
@@ -22,7 +22,6 @@ interface RetrofitInterface {
         @Path("store_id") storeId: Int,
         @Path("pk_user") userId: Int
     ): Call<BookmarkResponse>
-
 
     // 장바구니에 메뉴 추가
     @POST("/cart")
@@ -43,6 +42,15 @@ interface RetrofitInterface {
 //    @GET("/cart/order/{pk_user}")
 //    fun getOrderLists(@Path("pk_user") userId: Int): Call<List<OrderHistoryMenu>>
 
+    @GET("/order/near/{store_id}/menu/{menu_id}")
+    fun getMenuInfo(
+        @Path("store_id") storeId: Int,
+        @Path("menu_id") menuId: Int
+    ): Call<List<Menu>>
+
+    // 가게 이름으로 가게 정보 가져오기
+    @GET("/order/search/{store_name}")
+    fun getStoreByName(@Path("store_name") storeName: String): Call<List<StoreResponse>>
 
     @GET("/cart/order/{pk_user}")
     suspend fun getOrderLists(@Path("pk_user") userId: Int): Response<List<OrderHistoryMenu>>

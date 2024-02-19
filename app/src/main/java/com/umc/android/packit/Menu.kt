@@ -10,12 +10,12 @@ data class Menu(
     var about_menu: String = "",
     var containter: String = "",
     var price: Int = 0,
-    var field: Int =0,
-    var airtight: Int=0,
+    var insulation: Int =0,
+    var liquid_seal: Int=0,
     var notice: String ="",
     var status: Int = 0,
     var menu_category: Int =0,
-    var image: String? =null,
+    var image: String? = null,
     var count: Int = 1,
 ): Serializable
 

@@ -1,11 +1,9 @@
 package com.umc.android.packit
 
 import android.Manifest
-import android.R.attr.name
 import android.content.Intent
 import android.util.Log
 import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.graphics.drawable.BitmapDrawable
 import android.net.Uri
 import android.os.Build
@@ -16,24 +14,34 @@ import android.text.InputFilter
 import android.text.TextWatcher
 import android.util.Base64
 import android.view.View
+import android.widget.Button
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
 import com.umc.android.packit.databinding.ActivityProfileBinding
 import java.io.ByteArrayOutputStream
-import java.io.IOException
-import java.io.InputStream
+
 
 
 class ProfileActivity : ProfilePermissionActivity() {
     // 변수 선언
     private lateinit var binding: ActivityProfileBinding
+    private lateinit var auth: FirebaseAuth
+    private lateinit var databaseReference: DatabaseReference
+    private lateinit var storageRefrence: StorageReference
+    private lateinit var imageUri:Uri
+
     val PERM_GALLERY = 1    // 갤러리 접근 권한 코드
     val maxLength = 12      // editText 글자 수 제한
 
     lateinit var profileData : Profile  // profile 데이터 클래스
-
-    private val profileViewModel: ProfileViewModel by viewModels() //마이인포에 프로필 사진 띄우기 위한 뷰모델
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,6 +50,11 @@ class ProfileActivity : ProfilePermissionActivity() {
 
         binding = ActivityProfileBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        //파이어베이스에 프로필 사진 넣기
+        auth=FirebaseAuth.getInstance()
+        val uid=auth.currentUser?.uid
+        databaseReference=FirebaseDatabase.getInstance().getReference("Users")
 
         // editText 내용에 따른 이벤트 처리
         binding.profileNicknameEt.addTextChangedListener(object : TextWatcher{
@@ -69,6 +82,21 @@ class ProfileActivity : ProfilePermissionActivity() {
         binding.profileConfirmBtn.setOnClickListener {
             checkNicknameValidity()
 
+            //TODO: 프로필 이미지와 닉네임 저장
+            val nickname=binding.profileNicknameEt.text.toString()
+            val bitmap = (binding.profileUserIv.drawable as BitmapDrawable).bitmap
+
+            val user=Profile(0,nickname,"",bitmap)
+
+            if (uid!=null){
+                databaseReference.child(uid).setValue(user).addOnCompleteListener {
+                    if(it.isSuccessful) {
+                        uploadProfilePic()
+                    }else{
+                        Toast.makeText(this@ProfileActivity,"Failed to update profile",Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
         }
 
         // 프로필 사진 버튼
@@ -78,6 +106,8 @@ class ProfileActivity : ProfilePermissionActivity() {
                 requirePermission(arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), PERM_GALLERY)
             else requirePermission(arrayOf(Manifest.permission.READ_MEDIA_IMAGES), PERM_GALLERY)
         }
+        makeBitmap()
+
     }
 
     // editText 효과 초기화 함수
@@ -185,25 +215,58 @@ class ProfileActivity : ProfilePermissionActivity() {
                 PERM_GALLERY -> {
                     // 이미지 주소를 그냥 가져옴
                     data?.data?.let { uri ->
-                        // TODO: 비트맵으로 전환해서 다시 binding.IV에 이미지 넣기
-                        //val bitmap: Bitmap? = uriToBitmap(uri)
+                        binding.profileUserIv.setImageURI(uri)
 
-                        //TODO:MyInfoFragment로 프로필 사진 보내기(미완)
-                       val uriString = uri.toString()
-                       Log.d("ProfileActivity", "URI: $uriString")
-                       //여기 로그메시지는 uri잘 있음 URI: content://media/external/images/media/52074
 
-                        val myInfoFragment = MyInfoFragment()
-                        val bundle = Bundle().apply {
-                           putString("URIKEY", uriString)
-                       }
-                       myInfoFragment.arguments = bundle
-                       Log.d("ProfileActivity", "Bundle contents: $bundle")
-                       //여기 로그메시지에서 bundle도 잘 나옴*/
 
                     }
                 }
             }
         }
     }
+
+    //비트맵으로 프로필 사진 저장
+    // 비트맵으로 프로필 사진 저장
+    private fun makeBitmap() {
+        val myInfoFragment = MyInfoFragment()
+        val bundle = Bundle()
+        // 이미지뷰의 이미지를 비트맵으로 변환
+        val bitmap = (binding.profileUserIv.drawable as BitmapDrawable).bitmap
+
+        // 비트맵을 ByteArray로 직렬화
+        val byteArrayOutputStream = ByteArrayOutputStream()
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream)
+        val byteArray = byteArrayOutputStream.toByteArray()
+
+        // bundle에 데이터 담기
+        bundle.putByteArray("img", byteArray)
+        bundle.putString("nickname", binding.profileNicknameEt.text.toString())
+
+        myInfoFragment.arguments = bundle
+        //Todo: 바로 transaction.commit()하지 못하니 안보이는건가?
+        //Todo:외부저장소를 사용해야하나?
+
+        // Assuming you have a FragmentManager
+        val fragmentManager = supportFragmentManager
+        val transaction = fragmentManager.beginTransaction()
+
+        transaction.commit()
+    }
+
+
+    private fun uploadProfilePic(){
+        imageUri=Uri.parse("android.resource://$packageName/${R.drawable.img_user}")
+        storageRefrence=FirebaseStorage.getInstance().getReference("Users/"+auth.currentUser?.uid)
+        storageRefrence.putFile(imageUri).addOnSuccessListener{
+            Toast.makeText(this@ProfileActivity, "프로필이 정상적으로 업데이트 되었습니다.", Toast.LENGTH_SHORT).show()
+
+        }.addOnFailureListener{
+            Toast.makeText(this@ProfileActivity, "프로필 업로드 실패", Toast.LENGTH_SHORT).show()
+
+        }
+    }
+
+
+
+
 }

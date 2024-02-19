@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName
 data class StoreResponse(
     // 가게 아이디
     @SerializedName("store_id")
-    val store_id: Int?,
+    val store_id: Int,
 
     // 가게 이름
     @SerializedName("store_name")
@@ -20,8 +20,9 @@ data class StoreResponse(
     @SerializedName("grade")
     val average_grade: Double,
 
-    // TODO: 가게 북마크 추가 예정
-    val is_bookmarked: Int,
+    // 가게 북마크
+    @SerializedName("is_bookmarked")
+    var is_bookmarked: Int,
 
     // 가게 주소
     @SerializedName("address")

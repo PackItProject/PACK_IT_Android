@@ -22,7 +22,7 @@
             android:id="@+id/item_list_img_iv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:scaleType="fitCenter"
+            android:scaleType="centerCrop"
             android:src="@color/grey"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -120,8 +120,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_gravity="center_vertical"
-        android:visibility="visible"
-        android:background="@color/white"/>
+        android:visibility="visible" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

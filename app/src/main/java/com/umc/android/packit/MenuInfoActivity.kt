@@ -31,9 +31,29 @@ class MenuInfoActivity : AppCompatActivity() {
         binding = ActivityMenuInfoBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        //
         val menu = intent.getSerializableExtra("MenuData") as? Menu
         menu?.let {
-            initMenuInfo(it)
+            val apiService = ApiClient.retrofitInterface
+
+            apiService.getMenuInfo(it.store_id,it.id).enqueue(object : Callback<List<Menu>> {
+                override fun onResponse(call: Call<List<Menu>>, response: Response<List<Menu>>) {
+                    if (response.isSuccessful) {
+                        val menus = response.body()?.get(0)
+                        // Populate UI with storeInfo
+                        if (menus != null) {
+                            initMenuInfo(menus)
+                        }
+                        // Populate other views similarly
+                    } else {
+                        // Handle error
+                    }
+                }
+
+                override fun onFailure(call: Call<List<Menu>>, t: Throwable) {
+                    // Handle failure
+                }
+            })
         }
 
         // 뒤로가기 버튼
@@ -160,6 +180,11 @@ class MenuInfoActivity : AppCompatActivity() {
         binding.menuInfoDescriptionTv.text = menu.about_menu
         binding.menuInfoPrice02Tv.text = "${menu.price}원"
         binding.menuInfoSize02Tv.text = menu.containter
-        binding.menuInfoCautionMessageTv.text = menu.notice
+        if (menu.insulation == 0){
+            binding.menuInfoRequired01Tv.visibility = View.GONE
+        }
+        if (menu.liquid_seal == 0){
+            binding.menuInfoRequired02Tv.visibility = View.GONE
+        }
     }
 }

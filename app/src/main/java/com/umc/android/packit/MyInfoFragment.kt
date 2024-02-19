@@ -1,12 +1,8 @@
 package com.umc.android.packit
 
-import android.app.Activity
 import android.app.AlertDialog
-import android.content.Context
-import android.content.Intent
-import android.content.pm.PackageManager
+import android.graphics.BitmapFactory
 import android.graphics.Outline
-import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -15,35 +11,17 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.ViewOutlineProvider
 import android.widget.Button
-import androidx.appcompat.content.res.AppCompatResources.getDrawable
+import android.widget.ImageView
 import android.widget.Toast
-import androidx.core.content.ContextCompat
-import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.Observer
-import com.bumptech.glide.Glide
 import com.umc.android.packit.databinding.FragmentMyInfoBinding
-
-
-//갤러리에서 불러와서 프로필 사진 편집할 수 있게 해봄- DB가 없어서 바텀 이동시 사진이 사라짐
-
 
 class MyInfoFragment : Fragment() {
 
-    var mainActivity: MainActivity? = null
     private lateinit var binding: FragmentMyInfoBinding
-    private var selectedImageUri: Uri? = null
-    private val profileViewModel: ProfileViewModel by activityViewModels()
 
-    companion object {
-        const val TAG: String = "로그"
-        private const val KEY_IMAGE_URI = "key_image_uri"
-        fun newInstance(): MyInfoFragment {
-            return MyInfoFragment()
-        }
-
-    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
 
     }
 
@@ -52,23 +30,22 @@ class MyInfoFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentMyInfoBinding.inflate(inflater, container, false) // 바인딩 생성
-        val profileImgIv= binding.profileImgIv
-
+        receiveHomeData() //프로필 사진 띄우기
 
         //프로필사진 모서리 동그랗게
-        profileImgIv.outlineProvider = object : ViewOutlineProvider() {
+        binding.profileImgIv.outlineProvider = object : ViewOutlineProvider() {
             override fun getOutline(view: View, outline: Outline) {
                 val cornerRadius = resources.getDimensionPixelSize(R.dimen.corner_radius)
                 outline.setRoundRect(0, 0, view.width, view.height, cornerRadius.toFloat())
             }
         }
-        profileImgIv.clipToOutline = true
+        binding.profileImgIv.clipToOutline = true
 
-        initImageViewProfile()
+
 
         //비트맵으로 한번해봐야겠다..
         //TODO: 프로필액티비티에서 uri받아와서 프로필 사진 띄우기 왜안되지?
-        val receivedUriString = arguments?.getString("URIKEY")
+    /*    val receivedUriString = arguments?.getString("URIKEY")
         Log.d("MyInfoFragment", "Received URI: $receivedUriString")
 
         if ( receivedUriString != null) {
@@ -76,10 +53,10 @@ class MyInfoFragment : Fragment() {
                 .load(Uri.parse( receivedUriString))
                 .placeholder(R.drawable.img_no_img)
                 .error(R.drawable.img_no_img)
-                .into(profileImgIv)
+                .into(binding.profileImgIv)
         } else {
             Log.e("MyInfoFragment", "Received URI is null.")
-        }
+        }*/
 
      /*   val receivedUriString = arguments?.getString("profile_img_url")
         Log.d("MyInfoFragment", "Received URI: $receivedUriString")
@@ -180,7 +157,7 @@ class MyInfoFragment : Fragment() {
         return binding.root
 
     }
-    override fun onSaveInstanceState(outState: Bundle) {
+ /*   override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         selectedImageUri?.let { outState.putParcelable(KEY_IMAGE_URI, it) }
     }
@@ -193,7 +170,7 @@ class MyInfoFragment : Fragment() {
                 binding.profileImgIv.setImageURI(uri)
             }
         }
-    }
+    }*/
     //FavoriteFragment()로 이동
     private fun navigateToFavoriteFragment() {
         val fragmentTransaction = requireActivity().supportFragmentManager.beginTransaction()
@@ -236,105 +213,30 @@ class MyInfoFragment : Fragment() {
         fragmentTransaction.commit()
     }
 
-    override fun onAttach(context: Context) { // Ctrl + O를 통해 입력
-        super.onAttach(context)
-        if(context is MainActivity) mainActivity = context // 메인 액티비티인 것을 확인하고 캐스팅해서 프로퍼티에 저장
-    }
+    private fun receiveHomeData() {
 
-    private fun initImageViewProfile() {
-       /* val profileImgIv: ImageView = binding.profileImgIv
-*/
-        binding.profileImgIv.setOnClickListener {
-            when {
-                // 갤러리 접근 권한이 있는 경우
-                ContextCompat.checkSelfPermission(
-                    requireActivity(),
-                    android.Manifest.permission.READ_EXTERNAL_STORAGE
-                ) == PackageManager.PERMISSION_GRANTED
-                -> {
-                    navigateGallery()
-                }
+        val byteArray = arguments?.getByteArray("img")
 
-                // 갤러리 접근 권한이 없는 경우
-                shouldShowRequestPermissionRationale(android.Manifest.permission.READ_EXTERNAL_STORAGE)
-                -> {
-                    showPermissionContextPopup()
-                }
+        if (byteArray != null) {
+            // ByteArray를 Bitmap으로 변환
+            val bitmap = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.size)
 
-                // 권한 요청 하기(requestPermissions) -> 갤러리 접근(onRequestPermissionResult)
-                else -> requestPermissions(
-                    arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE),
-                    1000
-                )
-            }
+            Log.d("MyInfoFragment", "Received ByteArray size: ${byteArray.size}")
+            Log.d("MyInfoFragment", "Decoded Bitmap: $bitmap")
 
+            // 앨범 커버 이미지에 Bitmap 설정
+            binding.profileImgIv.setImageBitmap(bitmap)
+        } else {
+            Log.e("MyInfoFragment", "Received ByteArray is null.")
+            //TODO:Received ByteArray is null.
         }
+
+        //닉네임 설정
+        binding.profileNameTv.text = arguments?.getString("nickname")?:"강희정"
+
     }
 
-    // 권한 요청 승인 이후 실행되는 함수
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
 
-        when (requestCode) {
-            1000 -> {
-                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)
-                    navigateGallery()
-                else
-                    Toast.makeText(requireActivity(), "권한을 거부하셨습니다.", Toast.LENGTH_SHORT).show()
-            }
-            else -> {
-                //
-            }
-        }
-    }
-
-    private fun navigateGallery() {
-        val intent = Intent(Intent.ACTION_PICK)
-        // 가져올 컨텐츠들 중에서 Image 만을 가져온다.
-        intent.type = "image/*"
-        // 갤러리에서 이미지를 선택한 후, 프로필 이미지뷰를 수정하기 위해 갤러리에서 수행한 값을 받아오는 startActivityForeResult를 사용한다.
-        startActivityForResult(intent, 2000)
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-
-        super.onActivityResult(requestCode, resultCode, data)
-        // 예외처리
-        if (resultCode != Activity.RESULT_OK)
-            return
-
-        when (requestCode) {
-            // 2000: 이미지 컨텐츠를 가져오는 액티비티를 수행한 후 실행되는 Activity 일 때만 수행하기 위해서
-            2000 -> {
-                val selectedImageUri: Uri? = data?.data
-                if (selectedImageUri != null) {
-                    binding.profileImgIv.setImageURI(selectedImageUri)
-                    this.selectedImageUri = selectedImageUri //프로필 사진 저장하여 바텀네비게이션 이동하여도 유지하도록
-                } else {
-                    Toast.makeText(requireActivity(), "사진을 가져오지 못했습니다.", Toast.LENGTH_SHORT).show()
-                }
-            }
-            else -> {
-                Toast.makeText(requireActivity(), "사진을 가져오지 못했습니다.", Toast.LENGTH_SHORT).show()
-            }
-        }
-    }
-
-    private fun showPermissionContextPopup() {
-        AlertDialog.Builder(requireActivity())
-            .setTitle("권한이 필요합니다.")
-            .setMessage("프로필 이미지를 바꾸기 위해서는 갤러리 접근 권한이 필요합니다.")
-            .setPositiveButton("동의하기") { _, _ ->
-                requestPermissions(arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE), 1000)
-            }
-            .setNegativeButton("취소하기") { _, _ -> }
-            .create()
-            .show()
-    }
 }
 
 

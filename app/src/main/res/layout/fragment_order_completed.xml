@@ -115,11 +115,12 @@
         app:layout_constraintTop_toBottomOf="@id/order_completed_line_02_view"
         app:layout_constraintStart_toStartOf="@id/order_completed_store_name_tv" />
 
+    <!--12:30에가 붙어서 출력되길래 수정했습니다-->
     <TextView
         android:id="@+id/order_completed_noticed_message_02_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text=" 에 방문해주세요!"
+        android:text="     에 방문해주세요!"
         android:textColor="@color/grey"
         android:textSize="18sp"
         android:layout_marginTop="6dp"
