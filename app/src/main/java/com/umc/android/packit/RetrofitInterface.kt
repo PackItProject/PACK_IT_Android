@@ -48,6 +48,10 @@ interface RetrofitInterface {
         @Path("menu_id") menuId: Int
     ): Call<List<Menu>>
 
+    // 가게 이름으로 가게 정보 가져오기
+    @GET("/order/search/{store_name}")
+    fun getStoreByName(@Path("store_name") storeName: String): Call<List<StoreResponse>>
+
     @GET("/cart/order/{pk_user}")
     suspend fun getOrderLists(@Path("pk_user") userId: Int): Response<List<OrderHistoryMenu>>
 

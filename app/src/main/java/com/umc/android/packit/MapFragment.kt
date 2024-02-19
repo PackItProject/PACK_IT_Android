@@ -32,18 +32,25 @@ import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.net.URLEncoder
 
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
 
-class MapFragment : Fragment(), OnMapReadyCallback, StoreListRVAdapter.MyItemClickListener  {
+class MapFragment : Fragment(), OnMapReadyCallback, StoreListRVAdapter.MyItemClickListener,
+    GoogleMap.OnInfoWindowClickListener {
 
     private lateinit var binding: FragmentMapBinding
     private lateinit var autocompleteFragment:AutocompleteSupportFragment
     private lateinit var mapView: MapView //지도용 변수
     private lateinit var googleMap: GoogleMap
     private var currentMarker: Marker? = null
+    var storeId:Int =0
+    var storeImg: String = ""
+    var is_bookmarked: Int = 0
+    var storeName: String = ""
+
 
     // api 호출 (for 가게 목로 조회, 북마크 기능)
     val apiService = ApiClient.retrofitInterface
@@ -75,21 +82,47 @@ class MapFragment : Fragment(), OnMapReadyCallback, StoreListRVAdapter.MyItemCli
         //지도검색 칸 초기화
         autocompleteFragment = (childFragmentManager.findFragmentById(R.id.autocomplete_fragment) as AutocompleteSupportFragment?)!!
 
-        autocompleteFragment.setPlaceFields(listOf(Place.Field.ID,Place.Field.ADDRESS, Place.Field.LAT_LNG ))
+        autocompleteFragment.setPlaceFields(listOf(Place.Field.ID,Place.Field.ADDRESS, Place.Field.LAT_LNG,Place.Field.NAME ))
         autocompleteFragment.setOnPlaceSelectedListener(object: PlaceSelectionListener{
             //장소 검색 시 오류 처리
             override fun onError(p0: Status) {
                 Toast.makeText(requireContext(), "잠시 후 다시 검색해주세요.", Toast.LENGTH_SHORT).show()
             }
 
-            //에러 없다면 검색된 장소 보여주기
             override fun onPlaceSelected(place: Place) {
-                val latLng= place.latLng!! //위치 찾아서
-         /*       val placeName=place.name!!*/
-                zoonOnMap(latLng) //지도에서 줌 인
-                autocompleteFragment.setText("") //장소가 선택되면 입력창의 input은 초기화
-                /*addMarker(latLng, placeName)*/
-                addMarker(latLng)
+                var storeName = place.name ?: return // 가게 이름 가져오기
+                val encodedStoreName = URLEncoder.encode(storeName, "UTF-8") // URL에 사용하기 위해 가게 이름 인코딩
+
+                // API를 호출하여 해당 가게 정보 가져오기
+                val apiService = ApiClient.retrofitInterface
+                apiService.getStoreByName(storeName).enqueue(object: Callback<List<StoreResponse>> {
+                    override fun onResponse(call: Call<List<StoreResponse>>, response: Response<List<StoreResponse>>) {
+                        if (response.isSuccessful) {
+                            val store = response.body()?.get(0)
+                            if (store != null ) {
+                                storeName = store.store_name
+                                storeId = store.store_id
+                                storeImg = store.image.toString()
+                                is_bookmarked = store.is_bookmarked
+                            } else {
+                                Toast.makeText(requireContext(), "가게 정보를 찾을 수 없습니다.", Toast.LENGTH_SHORT).show()
+                            }
+                        } else {
+                            Toast.makeText(requireContext(), "가게 정보를 가져오는데 실패했습니다.", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+
+                    override fun onFailure(call: Call<List<StoreResponse>>, t: Throwable) {
+                        Toast.makeText(requireContext(), "네트워크 오류: ${t.message}", Toast.LENGTH_SHORT).show()
+                    }
+                })
+
+                 val latLng= place.latLng!! //위치 찾아서
+                 val placeName=place.name!!
+                 val placeAdd=place.address!!
+                 zoonOnMap(latLng) //지도에서 줌 인
+                 autocompleteFragment.setText("") //장소가 선택되면 입력창의 input은 초기화
+                 addMarker(latLng, placeName, placeAdd)
             }
 
         })
@@ -202,6 +235,20 @@ class MapFragment : Fragment(), OnMapReadyCallback, StoreListRVAdapter.MyItemCli
 
         currentMarker = setupMarker(MapFragment.LatLngEntity(37.5562, 126.9724))  // default 서울역
         currentMarker?.showInfoWindow()
+
+        // 맵에 인포 윈도우 클릭 리스너 등록
+        googleMap.setOnInfoWindowClickListener(this)
+    }
+
+    override fun onInfoWindowClick(marker: Marker) {
+        // 인포 윈도우(마커의 타이틀 박스)를 클릭했을 때 수행할 동작
+        // 여기서는 선택한 가게의 상세 화면으로 이동하는 Intent를 수행하도록 함
+        val intent = Intent(requireContext(), StoreActivity::class.java)
+        intent.putExtra("storeImg", storeImg ?: "") // storeImg가 null이 아니면 해당 값, null이면 -1을 전달
+        intent.putExtra("star", is_bookmarked ?: 0) // storeImg가 null이 아니면 해당 값, null이면 -1을 전달
+        intent.putExtra("storeId", storeId ?: -1)
+        intent.putExtra("storeName", storeName ?: "")
+        startActivity(intent)
     }
 
     //검색한 장소를 찾은 후에 지도에서 확대해서 보여주기
@@ -228,7 +275,7 @@ class MapFragment : Fragment(), OnMapReadyCallback, StoreListRVAdapter.MyItemCli
     }
 
     // addMarker 메서드 추가
-    private fun addMarker(location: LatLng) {
+    private fun addMarker(location: LatLng, placeName: String, placeAdd: String) {
         // 기존 마커 삭제
         currentMarker?.remove()
 
@@ -236,8 +283,8 @@ class MapFragment : Fragment(), OnMapReadyCallback, StoreListRVAdapter.MyItemCli
         currentMarker = googleMap.addMarker(
             MarkerOptions()
                 .position(location)
-                .title("검색 결과")
-                .snippet("추가 정보")
+                .title(placeName)
+                .snippet(placeAdd)
         )
 
         // 지도 이동 및 줌 조절
