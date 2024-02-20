@@ -1,6 +1,7 @@
 package com.umc.android.packit
 
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.umc.android.packit.databinding.ActivityMainBinding
 import androidx.navigation.NavController
@@ -29,15 +30,30 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // 프래그먼트 전달할 bundle 만들기
-        //val bundle = Bundle()
-        //bundle.putInt("userID", userID)
+        // TODO
+        //orderActivity->MainActivity->orderCompletedFragment
+        val receivedValue1 = intent.getStringExtra("orderTime")
+        val receivedValue2 = intent.getStringExtra("orderStoreName")
+        val bundle = Bundle()
+        bundle.putString("orderTime", receivedValue1)
+        bundle.putString("orderStoreName", receivedValue2)
+
+        if (receivedValue2 != null) {
+            Log.d("ykMainActivity OrderstoreName", receivedValue2) //잘나옴
+        }
 
         // 주문 완료 다이얼로그 표시
         // Check if the intent has a flag to show OrderCompletedFragment
         if (intent.getBooleanExtra("showOrderCompletedFragment", false)) {
-            val orderCompletedFragment = OrderCompletedFragment()
-            orderCompletedFragment.show(supportFragmentManager, "OrderCompletedFragment")
+            val orderCompletedFragment = receivedValue1?.let{
+                OrderCompletedFragment.newInstance(it)
+            }
+
+            if (orderCompletedFragment != null) {
+                orderCompletedFragment.show(supportFragmentManager, "OrderCompletedFragment")
+            }
+
+
         }
 
         // 바텀 네비게이션
