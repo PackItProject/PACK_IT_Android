@@ -144,44 +144,58 @@ class OrderActivity() : AppCompatActivity() {
                 fee = cartPriceData
             )
 
-            Log.d("selected card: ",selectedPaymentMethod.toString())
-            val addOrderCall = apiService.addOrder(orderRequest)
-
-             addOrderCall.enqueue(object : Callback<AddOrderResponse> {
-                override fun onResponse(call: Call<AddOrderResponse>, response: Response<AddOrderResponse>) {
-
-                    if (response.isSuccessful) {
-                        val addOrderResponse = response.body()
-                        addOrderResponse?.let {
-                            // 성공적으로 주문이 추가되었을 때의 처리
-
-
-                            Toast.makeText(this@OrderActivity, "정상적으로 주문되었습니다.", Toast.LENGTH_SHORT).show()
-
-
-
+            // 클릭한 메뉴 아이템의 유저 id, 가게 id, 메뉴 id 가져온 후, 전송
+            for (menu in orderMenus) {
+                val deleteRequest = DeleteCartRequest(userId, store_id, menu.menu_id)
+                apiService.subMenuToCart(deleteRequest).enqueue(object : Callback<BookmarkResponse> {
+                    override fun onResponse(call: Call<BookmarkResponse>, response: Response<BookmarkResponse>) {
+                        if (response.isSuccessful) {
+                            when (response.code()) {
+                                200 -> {
+                                    Toast.makeText(
+                                        this@OrderActivity,
+                                        "메뉴가 성공적으로 삭제되었습니다.",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                }
+                                404 -> {
+                                    // 실패 1
+                                    Toast.makeText(
+                                        this@OrderActivity,
+                                        "${response.code()}: 장바구니에 해당 아이템이 존재하지 않습니다.",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                }
+                                500 -> {
+                                    // 실패 2
+                                    Toast.makeText(
+                                        this@OrderActivity,
+                                        "${response.code()}: 장바구니에서 아이템을 삭제하는데 실패하였습니다.",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                }
+                            }
+                        } else {
+                            // 응답이 실패한 경우
+                            Toast.makeText(
+                                this@OrderActivity,
+                                "장바구니 메뉴 삭제에 실패하였습니다.",
+                                Toast.LENGTH_SHORT
+                            ).show()
                         }
-
-                    } else {
-                        // 주문 추가 실패 시의 처리
-
-                        Toast.makeText(this@OrderActivity, "주문추가에 실패하였습니다.", Toast.LENGTH_SHORT).show()
-                        Log.e("OrderActivity", "Unsuccessful response: ${response.code()}")
-                        try {
-                            val errorBody = response.errorBody()?.string()
-                            Log.e("OrderActivity", "Error body: $errorBody")
-                        } catch (e: IOException) {
-                            e.printStackTrace()
-                        }
-
                     }
-                }
 
-                override fun onFailure(call: Call<AddOrderResponse>, t: Throwable) {
-                    // 네트워크 오류 등으로 호출에 실패했을 때의 처리
-                    Toast.makeText(this@OrderActivity, "onFailure.", Toast.LENGTH_SHORT).show()
-                }
-            })
+                    override fun onFailure(call: Call<BookmarkResponse>, t: Throwable) {
+                        // 네트워크 오류 등 호출 실패 시 처리
+                        Toast.makeText(
+                            this@OrderActivity,
+                            "API 호출에 실패했습니다.",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                })
+            }
+
         }
 
     }

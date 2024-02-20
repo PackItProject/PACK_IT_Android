@@ -3,6 +3,7 @@ package com.umc.android.packit
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.TimePicker
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -96,8 +97,11 @@ class CartActivity : AppCompatActivity() {
                         // menuList에 있는 기존 데이터 지우고 새로운 데이터 추가
                         menuList.clear()
                         menuList.addAll(cartResponses)
-                        storeAdd = menuList[0].address
-
+                        if (menuList.isNotEmpty()) {
+                            storeAdd = menuList[0].address
+                        } else {
+                            storeAdd = "" // 빈 문자열로 설정하거나 다른 기본값을 설정할 수 있음
+                        }
                         connectRecyclerView(menuList)
                     }
                 } else {

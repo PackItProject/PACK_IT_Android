@@ -37,6 +37,7 @@ class OrderHistoryDetailedFragment: Fragment() {
         val storeTextView =  rootView.findViewById<TextView>(R.id.store_name_tv)
         val pickupTextView = rootView.findViewById<TextView>(R.id.receipt_pick_up_02_tv)
         val priceTextView =rootView.findViewById<TextView>(R.id.receipt_total_price_02_tv)
+        val paymentTextView =rootView.findViewById<TextView>(R.id.receipt_payment_02_tv)
 
         val orderId = arguments?.getInt("ORDER_ID", -1) ?: -1
 
@@ -51,7 +52,16 @@ class OrderHistoryDetailedFragment: Fragment() {
                     recyclerView.adapter = adapter
                     storeTextView.text=orderHistoryList[0].store_name
                     pickupTextView.text=orderHistoryList[0].pickup_time
+
                     priceTextView.text=orderHistoryList[0].fee+"원"
+
+                    priceTextView.text=orderHistoryList[0].fee
+                    when (orderHistoryList[0].payment) {
+                        1 -> paymentTextView.text = "신용/체크카드"
+                        2 -> paymentTextView.text = "휴대폰 결제"
+                        3 -> paymentTextView.text = "카카오페이"
+                        4 -> paymentTextView.text = "네이버페이"}
+
 
 
                 } catch (e: IOException) {

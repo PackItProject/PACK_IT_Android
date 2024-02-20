@@ -21,7 +21,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
-            android:src="@color/grey" />
+            android:src="@drawable/img_no_menu" />
     </androidx.cardview.widget.CardView>
 
     <!-- 오른쪽 부분 (메뉴 이름 + 가격 + 수량) -->
