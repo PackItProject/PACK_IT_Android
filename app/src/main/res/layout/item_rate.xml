@@ -23,7 +23,7 @@
         android:id="@+id/item_rate_star_iv"
         android:layout_width="22dp"
         android:layout_height="22dp"
-        android:src="@drawable/btn_star_no_select"
+        android:src="@drawable/rate_star"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toStartOf="@id/item_rate_num_tv"
         android:layout_gravity="center_vertical"

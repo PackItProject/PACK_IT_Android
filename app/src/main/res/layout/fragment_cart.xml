@@ -48,11 +48,11 @@
                     android:id="@+id/menu_list_recycler_view"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:nestedScrollingEnabled="false"
                     android:orientation="vertical"
                     android:overScrollMode="never"
-                    android:nestedScrollingEnabled="false"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    tools:listitem="@layout/item_cart_menu"/>
+                    tools:listitem="@layout/item_cart_menu" />
             </androidx.cardview.widget.CardView>
 
             <!-- 픽업 시간 -->
