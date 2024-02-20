@@ -1,7 +1,9 @@
 package com.umc.android.packit
 
 import android.animation.ObjectAnimator
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -115,8 +117,14 @@ class OrderActivity() : AppCompatActivity() {
                         val addOrderResponse = response.body()
                         addOrderResponse?.let {
                             // 성공적으로 주문이 추가되었을 때의 처리
+
+
                             Toast.makeText(this@OrderActivity, "정상적으로 주문되었습니다.", Toast.LENGTH_SHORT).show()
+
+
+
                         }
+
                     } else {
                         // 주문 추가 실패 시의 처리
 
@@ -130,14 +138,6 @@ class OrderActivity() : AppCompatActivity() {
                         }
 
                     }
-
-                  /*  Unsuccessful response: 500
-                    2024-02-18 16:40:31.051  2998-2998  OrderActivity           com.umc.android.packit
-                    E  Error body: Error: Bind parameters must not contain undefined. To pass SQL NULL specify JS null
-                    at PromisePool.execute (/app/node_modules/mysql2/promise.js:374:22)
-                    at addOrderService (file:///app/src/services/cart.service.js:51:20)
-                    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
-                    at async addOrderController (file:///app/src/controllers/cart.controller.js:29:24)*/
                 }
 
                 override fun onFailure(call: Call<AddOrderResponse>, t: Throwable) {
@@ -158,6 +158,15 @@ class OrderActivity() : AppCompatActivity() {
         // 체크 버튼 해제 상태
         binding.orderCheckOffBtnIv.visibility = View.VISIBLE
         binding.orderCheckOnBtnIv.visibility = View.GONE
+
+    /*    //가게이름 불러오기
+        val storeName = intent.getStringExtra("storeName")
+        binding.orderStoreNameTv.text = storeName.toString()*/
+
+        // SharedPreference에서 닉네임을 불러와서 orderUserNameTv에 표시
+        val sharedPreference = getSharedPreferences("sp1", Context.MODE_PRIVATE)
+        val nickname = sharedPreference.getString("name", "데이터 없음")
+        binding.orderUserNameTv.text = nickname
 
         //cartFragment에서 전달한 픽업 시간과 총 결제 금액 띄우기
         cartTimeData = intent.getStringExtra("cartTimeKey")!!

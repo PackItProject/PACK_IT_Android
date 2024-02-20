@@ -1,5 +1,7 @@
 package com.umc.android.packit
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -7,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import com.umc.android.packit.databinding.FragmentOrderCompletedBinding
@@ -23,11 +26,12 @@ import retrofit2.Response
 // 프래그먼트 상속
 class OrderCompletedFragment: DialogFragment() {
 
+    //-1로 한번 바꾸고 다시실행해보자
     lateinit var binding: FragmentOrderCompletedBinding
-
-    lateinit var orderBinding: FragmentOrderBinding
     private var orderDatas = ArrayList<OrderHistoryMenu>() //주문기록 리스트
     private lateinit var orderHistoryRVAdapter: OrderHistoryRVAdapter // 변수 선언
+    var orderCount:Int=-1 //주문했던 기록의 횟수
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         isCancelable = false // 팝업창 외 터치 X
@@ -41,6 +45,16 @@ class OrderCompletedFragment: DialogFragment() {
     ): View? {
         binding = FragmentOrderCompletedBinding.inflate(inflater, container, false)
         val view = binding.root
+
+        //sharedpreference에 저장되어있던 주문기록 횟수 값을 찾아 갱신
+        val sharedPreference = requireActivity().getSharedPreferences("sp1", Context.MODE_PRIVATE)
+        orderCount = sharedPreference.getInt("orderCount", 0) // Retrieve the orderCount from SharedPreferences
+
+        orderCount += 1 // 증가
+        val editor: SharedPreferences.Editor = sharedPreference.edit()
+        editor.putInt("orderCount", orderCount)
+        Log.d("0220put", orderCount.toString())
+        editor.apply() // Use apply() instead of commit()
 
         /*//OrderHistoryRVAdapter 초기화
         val recyclerView: RecyclerView =
@@ -76,6 +90,7 @@ class OrderCompletedFragment: DialogFragment() {
         //주문 취소 버튼 클릭
         binding.orderCompletedOrderDeletedBtn.setOnClickListener {
             dismiss() //주문완료 팝업창 닫기
+            orderCount -=1 //주문취소했으니 주문기록 횟수 감소
 
           /*  //TODO:주문삭제 레트로핏
             // 주문 삭제 호출
