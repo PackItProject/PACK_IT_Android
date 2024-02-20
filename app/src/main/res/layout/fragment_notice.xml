@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:text="공지사항"
         android:textSize="20sp"
-        android:textStyle="bold"
+        android:fontFamily="@font/bold"
         android:layout_gravity="center_horizontal"
         android:layout_margin="50dp"/>
 

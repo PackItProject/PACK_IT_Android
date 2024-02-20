@@ -89,10 +89,10 @@ class OrderHistoryFragment : Fragment() {
         lifecycleScope.launch {
             try {
 
-                val sharedPreferencesManager = SharedPreferencesManager(requireContext())
-//                val userId = sharedPreferencesManager.getUserId()
+//                val sharedPreferencesManager = SharedPreferencesManager(requireContext())
+//                val userId = sharedPreferencesManager.getUserId() // 카카오 로그인할 때 프론트에서 받아서 저장한 값
+                val userId = 1 // 임시 pk_user 값
 
-                val userId = 1//
                 val orderHistoryList: List<OrderHistoryMenu> = fetchOrderHistory(userId)
                 val adapter = OrderHistoryRVAdapter(orderHistoryList)
 

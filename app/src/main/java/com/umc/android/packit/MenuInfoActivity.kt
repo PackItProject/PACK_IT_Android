@@ -2,6 +2,7 @@ package com.umc.android.packit
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.util.AttributeSet
 import android.util.Log
@@ -22,14 +23,20 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
+
 class MenuInfoActivity : AppCompatActivity() {
     lateinit var binding: ActivityMenuInfoBinding
+    var userId = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding = ActivityMenuInfoBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+//        val sharedPreferencesManager = SharedPreferencesManager(this@MenuInfoActivity)
+//        userId = sharedPreferencesManager.getUserId() // 사용자 ID를 여기에 설정하세요
+
 
         //
         val menu = intent.getSerializableExtra("MenuData") as? Menu
@@ -65,7 +72,6 @@ class MenuInfoActivity : AppCompatActivity() {
         binding.menuInfoAddCartBtn.setOnClickListener {
 
             val apiService = ApiClient.retrofitInterface
-            val userId = 1 // 사용자 ID를 여기에 설정하세요
 
             menu?.let { newMenu ->
                 Toast.makeText(this, "가게 id: ${menu.store_id}", Toast.LENGTH_SHORT).show()
@@ -184,19 +190,21 @@ class MenuInfoActivity : AppCompatActivity() {
     private fun initMenuInfo(menu: Menu) {
         // 메뉴 정보 초기화
         menu.image?.let {
+            binding.menuInfoImageIv.setBackgroundColor(Color.GRAY)
             Glide.with(this)
                 .load(it)
                 .into(binding.menuInfoImageIv)
+
         }
         binding.menuInfoNameTv.text = menu.menu_name
         binding.menuInfoDescriptionTv.text = menu.about_menu
         binding.menuInfoPrice02Tv.text = "${menu.price}원"
         binding.menuInfoSize02Tv.text = menu.containter
         if (menu.insulation == 0){
-            binding.menuInfoRequired01Tv.visibility = View.GONE
+            binding.menuInfoRequired02Tv.text = "X"
         }
         if (menu.liquid_seal == 0){
-            binding.menuInfoRequired02Tv.visibility = View.GONE
+            binding.menuInfoRequired04Tv.text = "X"
         }
     }
 }

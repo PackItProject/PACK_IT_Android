@@ -34,7 +34,7 @@
             android:id="@+id/item_history_img_iv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:scaleType="fitCenter"
+            android:scaleType="centerCrop"
             android:src="@color/grey"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -48,7 +48,7 @@
         android:text="가게 이름"
         android:textSize="17sp"
         android:textColor="@color/black"
-        android:textStyle="bold"
+        android:fontFamily="@font/bold"
         app:layout_constraintTop_toTopOf="@id/item_history_img_cardView"
         app:layout_constraintBottom_toTopOf="@id/item_history_time_tv"
         app:layout_constraintStart_toEndOf="@id/item_history_img_cardView"/>
@@ -84,7 +84,8 @@
         android:textColor="@color/grey"
         app:layout_constraintTop_toBottomOf="@+id/item_history_menu_tv"
         app:layout_constraintBottom_toBottomOf="@id/item_history_img_cardView"
-        app:layout_constraintStart_toStartOf="@id/item_history_name_tv"/>
+        app:layout_constraintStart_toStartOf="@id/item_history_name_tv"
+        android:visibility="invisible"/>
 
     <TextView
         android:id="@+id/item_history_state_tv"
@@ -94,7 +95,7 @@
         android:text="주문 완료"
         android:textSize="12sp"
         android:textColor="@color/black"
-        android:textStyle="bold"
+        android:fontFamily="@font/bold"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:visibility="visible"/>

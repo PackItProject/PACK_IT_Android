@@ -17,8 +17,8 @@ class MypackitFragment : Fragment() {
 
     private val dummyItemList = listOf(
         MypackitItem(R.drawable.mypack_badge, "누적 주문 5회", "2024.2.4"),
-        MypackitItem(R.drawable.mypack_badge, "3회 주문", "2024.2.9"),
-        MypackitItem(R.drawable.mypack_badge, "단 1개 뿐인 지구를 위한 1번째 걸음", "2024.2.15")
+        MypackitItem(R.drawable.mypack_badge, "3회 주문", "2024.1.15"),
+        MypackitItem(R.drawable.mypack_badge, "단 1개 뿐인 지구를 위한 1번째 걸음", "2024.1.1")
     )
 
     override fun onCreateView(
@@ -34,13 +34,17 @@ class MypackitFragment : Fragment() {
             recyclerView.layoutManager = GridLayoutManager(requireContext(), 2)
             recyclerView.adapter = MypackitPinAdapter(dummyItemList)
 
-            // SharedPreferences에서 닉네임을 불러와서 name_tv에 표시
-            val sharedPreferences = requireActivity().getSharedPreferences("sp1", Context.MODE_PRIVATE)
-            val nickname = sharedPreferences.getString("name", "데이터 없음")
+            // SharedPreference에서 닉네임을 불러와서 name_tv에 표시
+            val sharedPreference = requireActivity().getSharedPreferences("sp1", Context.MODE_PRIVATE)
+            val nickname = sharedPreference.getString("name", "데이터 없음")
             binding.nameTv.text = nickname
 
-            if (nickname != null) {
-                Log.d("0219",nickname)
+            //TODO:SharedPreference에서 주문횟수를 불러와서
+            val orderCountValue = sharedPreference.getInt("orderCount",0) //숫자를 문자로 바꾸어 쉐어드프리퍼런스에 저장
+            binding.orderCountTv.text = orderCountValue.toString()+"회"
+
+            if (orderCountValue != null) {
+                Log.d("0220get",orderCountValue.toString())
             }
         }
 

@@ -3,6 +3,7 @@ package com.umc.android.packit
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.TimePicker
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -26,6 +27,9 @@ class CartActivity : AppCompatActivity() {
     private var menuList = ArrayList<CartResponse>()
     var nowPos = 0
     var storeId =0
+    var orderMenus = ArrayList<OrderMenu>()
+    var storeName =""
+    var storeAdd = ""
 
     // 장바구니 조회, 삭제 api 호출
     val api = ApiClient.retrofitInterface
@@ -56,23 +60,32 @@ class CartActivity : AppCompatActivity() {
             val cartTimeData = binding.receiptPickUp02Tv.text.toString()// 장바구니 주문 시간 데이터 추출
             val cartPriceData = binding.receiptTotalPrice02Tv.text.toString()
 
-            val intent = Intent(this, OrderActivity::class.java)
-            intent.putExtra("cartTimeKey", cartTimeData)
-            intent.putExtra("cartPriceKey", totalPrice)
-            intent.putExtra("fee", storeId)
 
-            startActivity(intent)
+            if (totalPrice==0){ //총 결제금액이 0원-> 화면 넘어가면 안됨
+                Toast.makeText(this@CartActivity, "장바구니가 비었습니다.", Toast.LENGTH_SHORT).show()
+
+            } else {
+                val intent = Intent(this, OrderActivity::class.java)
+                intent.putExtra("cartTimeKey", cartTimeData)
+                intent.putExtra("cartPriceKey", totalPrice)
+                intent.putExtra("storeId", storeId)
+                intent.putExtra("orderMenu", orderMenus)
+                intent.putExtra("storeName", storeName)
+                intent.putExtra("storeAdd", storeAdd)
+
+                startActivity(intent)
+            }
         }
     }
 
     private fun loadMenuList() {
         // 가게 이름 설정
-        val storeName = intent.getStringExtra("storeName")
+        storeName = intent.getStringExtra("storeName").toString()
         binding.storeNameTv.text = storeName
 
         // 유저 아이디, 가게 아이디 필요
         val userId = 1
-        val storeId = intent.getIntExtra("storeId", -1)
+        storeId = intent.getIntExtra("storeId", -1)
         Toast.makeText(this@CartActivity, "storeID: ${storeId}", Toast.LENGTH_SHORT).show()
 
         api.getCartMenus(userId, storeId).enqueue(object : Callback<List<CartResponse>> {
@@ -84,7 +97,11 @@ class CartActivity : AppCompatActivity() {
                         // menuList에 있는 기존 데이터 지우고 새로운 데이터 추가
                         menuList.clear()
                         menuList.addAll(cartResponses)
-
+                        if (menuList.isNotEmpty()) {
+                            storeAdd = menuList[0].address
+                        } else {
+                            storeAdd = "" // 빈 문자열로 설정하거나 다른 기본값을 설정할 수 있음
+                        }
                         connectRecyclerView(menuList)
                     }
                 } else {
@@ -203,9 +220,11 @@ class CartActivity : AppCompatActivity() {
     // 총 결제금액 업데이트
     private fun updateTotalPrice() {
         totalPrice = 0
+        orderMenus.clear() // Clear the list before updating
 
         for (menu in menuList) {
             totalPrice += menu.price * menu.count
+            orderMenus.add(OrderMenu(menu.menu_id, menu.count))
         }
         binding.receiptTotalPrice02Tv.text = String.format("%,d 원", totalPrice)
     }

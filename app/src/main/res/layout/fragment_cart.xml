@@ -27,7 +27,7 @@
                 android:text="가게이름"
                 android:textSize="22sp"
                 android:textColor="@color/dark_grey"
-                android:textStyle="bold"
+                android:fontFamily="@font/bold"
                 android:layout_marginStart="30dp"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
@@ -80,7 +80,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="픽업할 시간 예약"
-                        android:textStyle="bold"
+                        android:fontFamily="@font/bold"
                         android:layout_marginTop="16dp"
                         android:layout_marginStart="16dp"
                         style="@style/GreyText"/>

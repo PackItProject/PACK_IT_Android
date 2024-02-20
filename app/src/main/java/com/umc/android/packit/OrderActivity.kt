@@ -1,7 +1,9 @@
 package com.umc.android.packit
 
 import android.animation.ObjectAnimator
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -28,6 +30,9 @@ class OrderActivity() : AppCompatActivity() {
     var cartTimeData: String = ""
     var store_id: Int = 0
     var cartPriceData: Int =0
+    var userId: Int = 1
+    var orderMenus = ArrayList<OrderMenu>()
+
 
 
 
@@ -45,6 +50,9 @@ class OrderActivity() : AppCompatActivity() {
         binding = FragmentOrderBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+//        val sharedPreferencesManager = SharedPreferencesManager(this@OrderActivity)
+//        userId = sharedPreferencesManager.getUserId() // 사용자 ID를 여기에 설정하세요
+
 
         init()  // 화면 초기화
 
@@ -52,6 +60,34 @@ class OrderActivity() : AppCompatActivity() {
         val adapter = OrderCouponRVAdapter(couponList)
         binding.orderCouponRecyclerView.adapter = adapter
         binding.orderCouponRecyclerView.layoutManager= LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+
+
+        val requestText = binding.orderRequestEt.text.toString()
+
+        // RadioButton 선택 여부 확인 및 값 가져오기
+        val selectedPaymentMethodId = binding.orderRadioGroup.checkedRadioButtonId
+        var selectedPaymentMethod = 0
+
+        // RadioButton 클릭 리스너 설정
+        binding.orderPaymentCardTv.setOnClickListener {
+            // 클릭된 RadioButton에 대한 처리
+            selectedPaymentMethod = 1
+        }
+
+        binding.orderPaymentMobileTv.setOnClickListener {
+            // 클릭된 RadioButton에 대한 처리
+            selectedPaymentMethod = 2
+        }
+
+        binding.orderPaymentKakaoTv.setOnClickListener {
+            // 클릭된 RadioButton에 대한 처리
+            selectedPaymentMethod = 3
+        }
+
+        binding.orderPaymentNaverTv.setOnClickListener {
+            // 클릭된 RadioButton에 대한 처리
+            selectedPaymentMethod = 4
+        }
 
 
         // 아이템 클릭 이벤트 설정
@@ -94,63 +130,82 @@ class OrderActivity() : AppCompatActivity() {
             // 주문하기 버튼 누르면 주문추가 API 처리
             // 서버에 상태 업데이트 요청 전송
             val apiService = ApiClient.retrofitInterface
-            val userId = 1 // 사용자 ID
 
+            store_id = intent.getIntExtra("storeId",0)
+            orderMenus = (intent.getSerializableExtra("orderMenu") as? ArrayList<OrderMenu>)!!
             val orderRequest = OrderRequest(
-                pk_user = 1,
-                store_id = 1,
-                requirement = "단무지 빼주세요",
-                payment = 1,
+                pk_user = userId,
+                store_id = store_id,
+                requirement = requestText,
+                payment = selectedPaymentMethod,
                 pickup_time = cartTimeData,
                 status = 1,
-                menus = listOf(OrderMenu(menu_id = 1, quantity = 3)),
+                menus = orderMenus,
                 fee = cartPriceData
             )
-            val addOrderCall = apiService.addOrder(orderRequest)
 
-             addOrderCall.enqueue(object : Callback<AddOrderResponse> {
-                override fun onResponse(call: Call<AddOrderResponse>, response: Response<AddOrderResponse>) {
-
-                    if (response.isSuccessful) {
-                        val addOrderResponse = response.body()
-                        addOrderResponse?.let {
-                            // 성공적으로 주문이 추가되었을 때의 처리
-                            Toast.makeText(this@OrderActivity, "정상적으로 주문되었습니다.", Toast.LENGTH_SHORT).show()
+            // 클릭한 메뉴 아이템의 유저 id, 가게 id, 메뉴 id 가져온 후, 전송
+            for (menu in orderMenus) {
+                val deleteRequest = DeleteCartRequest(userId, store_id, menu.menu_id)
+                apiService.subMenuToCart(deleteRequest).enqueue(object : Callback<BookmarkResponse> {
+                    override fun onResponse(call: Call<BookmarkResponse>, response: Response<BookmarkResponse>) {
+                        if (response.isSuccessful) {
+                            when (response.code()) {
+                                200 -> {
+                                    Toast.makeText(
+                                        this@OrderActivity,
+                                        "메뉴가 성공적으로 삭제되었습니다.",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                }
+                                404 -> {
+                                    // 실패 1
+                                    Toast.makeText(
+                                        this@OrderActivity,
+                                        "${response.code()}: 장바구니에 해당 아이템이 존재하지 않습니다.",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                }
+                                500 -> {
+                                    // 실패 2
+                                    Toast.makeText(
+                                        this@OrderActivity,
+                                        "${response.code()}: 장바구니에서 아이템을 삭제하는데 실패하였습니다.",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                }
+                            }
+                        } else {
+                            // 응답이 실패한 경우
+                            Toast.makeText(
+                                this@OrderActivity,
+                                "장바구니 메뉴 삭제에 실패하였습니다.",
+                                Toast.LENGTH_SHORT
+                            ).show()
                         }
-                    } else {
-                        // 주문 추가 실패 시의 처리
-
-                        Toast.makeText(this@OrderActivity, "주문추가에 실패하였습니다.", Toast.LENGTH_SHORT).show()
-                        Log.e("OrderActivity", "Unsuccessful response: ${response.code()}")
-                        try {
-                            val errorBody = response.errorBody()?.string()
-                            Log.e("OrderActivity", "Error body: $errorBody")
-                        } catch (e: IOException) {
-                            e.printStackTrace()
-                        }
-
                     }
 
-                  /*  Unsuccessful response: 500
-                    2024-02-18 16:40:31.051  2998-2998  OrderActivity           com.umc.android.packit
-                    E  Error body: Error: Bind parameters must not contain undefined. To pass SQL NULL specify JS null
-                    at PromisePool.execute (/app/node_modules/mysql2/promise.js:374:22)
-                    at addOrderService (file:///app/src/services/cart.service.js:51:20)
-                    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
-                    at async addOrderController (file:///app/src/controllers/cart.controller.js:29:24)*/
-                }
+                    override fun onFailure(call: Call<BookmarkResponse>, t: Throwable) {
+                        // 네트워크 오류 등 호출 실패 시 처리
+                        Toast.makeText(
+                            this@OrderActivity,
+                            "API 호출에 실패했습니다.",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                })
+            }
 
-                override fun onFailure(call: Call<AddOrderResponse>, t: Throwable) {
-                    // 네트워크 오류 등으로 호출에 실패했을 때의 처리
-                    Toast.makeText(this@OrderActivity, "onFailure.", Toast.LENGTH_SHORT).show()
-                }
-            })
         }
 
     }
 
     // 화면 초기화 함수
     private fun init() {
+
+        binding.orderStoreNameTv.text = intent.getStringExtra("storeName")
+        binding.orderStoreAddressTv.text = intent.getStringExtra("storeAdd")
+
         // 쿠폰 리스트 숨김 상태
         couponBackground = binding.orderCouponBackgroundView
         couponBackground.visibility = View.INVISIBLE
@@ -158,6 +213,15 @@ class OrderActivity() : AppCompatActivity() {
         // 체크 버튼 해제 상태
         binding.orderCheckOffBtnIv.visibility = View.VISIBLE
         binding.orderCheckOnBtnIv.visibility = View.GONE
+
+    /*    //가게이름 불러오기
+        val storeName = intent.getStringExtra("storeName")
+        binding.orderStoreNameTv.text = storeName.toString()*/
+
+        // SharedPreference에서 닉네임을 불러와서 orderUserNameTv에 표시
+        val sharedPreference = getSharedPreferences("sp1", Context.MODE_PRIVATE)
+        val nickname = sharedPreference.getString("name", "데이터 없음")
+        binding.orderUserNameTv.text = nickname
 
         //cartFragment에서 전달한 픽업 시간과 총 결제 금액 띄우기
         cartTimeData = intent.getStringExtra("cartTimeKey")!!
@@ -244,5 +308,6 @@ class OrderActivity() : AppCompatActivity() {
         // Set the formatted total price to the TextView
         binding.orderTotalPrice02Tv.text = formattedTotalPrice
     }
+
 
 }
