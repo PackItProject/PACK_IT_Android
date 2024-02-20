@@ -68,28 +68,28 @@ dependencies {
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 
-    implementation ("com.google.code.gson:gson:2.8.5")
-    implementation ("androidx.viewpager2:viewpager2:1.0.0")
-    implementation ("me.relex:circleindicator:2.1.6")
+    implementation("com.google.code.gson:gson:2.8.5")
+    implementation("androidx.viewpager2:viewpager2:1.0.0")
+    implementation("me.relex:circleindicator:2.1.6")
 
     // Google Maps
-    implementation ("com.google.android.gms:play-services-maps:17.0.0")
-    implementation ("com.google.android.gms:play-services-location:17.0.0")
-    implementation ("com.google.android.gms:play-services-places:17.0.0")
-    implementation ("com.google.android.libraries.places:places:3.3.0")
+    implementation("com.google.android.gms:play-services-maps:17.0.0")
+    implementation("com.google.android.gms:play-services-location:17.0.0")
+    implementation("com.google.android.gms:play-services-places:17.0.0")
+    implementation("com.google.android.libraries.places:places:3.3.0")
 
     // Cardview
-    implementation ("androidx.cardview:cardview:1.0.0")
+    implementation("androidx.cardview:cardview:1.0.0")
 
     // Bottom navigation bar
     implementation("androidx.navigation:navigation-fragment-ktx:2.4.1")
     implementation("androidx.navigation:navigation-ui-ktx:2.4.1")
 
     // Circle Image View
-    implementation ("de.hdodenhof:circleimageview:3.1.0")
+    implementation("de.hdodenhof:circleimageview:3.1.0")
 
     // Gson
-    implementation ("com.google.code.gson:gson:2.8.9")
+    implementation("com.google.code.gson:gson:2.8.9")
 
     // Retrofit
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
@@ -107,17 +107,17 @@ dependencies {
     annotationProcessor("com.github.bumptech.glide:compiler:4.12.0")
 
     //fragment data send
-    implementation ("androidx.fragment:fragment-ktx:1.3.0")
+    implementation("androidx.fragment:fragment-ktx:1.3.0")
 
 
 
-    implementation ("com.kakao.sdk:v2-all:2.19.0") // 전체 모듈 설치, 2.11.0 버전부터 지원
-    implementation ("com.kakao.sdk:v2-user:2.19.0") // 카카오 로그인 API 모듈
-    implementation ("com.kakao.sdk:v2-talk:2.19.0") // 카카오톡 채널, 카카오톡 소셜, 카카오톡 메시지 API 모듈
-    implementation ("com.kakao.sdk:v2-share:2.19.0") // 카카오톡 공유 API 모듈
-    implementation ("com.kakao.sdk:v2-friend:2.19.0") // 피커 API 모듈
-    implementation ("com.kakao.sdk:v2-navi:2.19.0") // 카카오내비 API 모듈
-    implementation ("com.kakao.sdk:v2-cert:2.19.0") // 카카오 인증서비스 API 모듈
+    implementation("com.kakao.sdk:v2-all:2.19.0") // 전체 모듈 설치, 2.11.0 버전부터 지원
+    implementation("com.kakao.sdk:v2-user:2.19.0") // 카카오 로그인 API 모듈
+    implementation("com.kakao.sdk:v2-talk:2.19.0") // 카카오톡 채널, 카카오톡 소셜, 카카오톡 메시지 API 모듈
+    implementation("com.kakao.sdk:v2-share:2.19.0") // 카카오톡 공유 API 모듈
+    implementation("com.kakao.sdk:v2-friend:2.19.0") // 피커 API 모듈
+    implementation("com.kakao.sdk:v2-navi:2.19.0") // 카카오내비 API 모듈
+    implementation("com.kakao.sdk:v2-cert:2.19.0") // 카카오 인증서비스 API 모듈
 
     implementation("com.google.firebase:firebase-analytics")
     implementation(platform("com.google.firebase:firebase-bom:32.7.2"))
