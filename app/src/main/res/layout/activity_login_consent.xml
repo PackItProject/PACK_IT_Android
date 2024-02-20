@@ -14,7 +14,7 @@
         android:layout_centerHorizontal="true"
         android:text="Pack it! 가입"
         android:textSize="30sp"
-        android:textStyle="bold"
+        android:fontFamily="@font/bold"
         android:textColor="@color/dark_grey"
         android:layout_marginTop="90dp"
         android:layout_marginLeft="40dp"

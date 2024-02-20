@@ -32,7 +32,7 @@
         android:text="사이드 메뉴"
         android:textSize="22sp"
         android:textColor="@color/black"
-        android:textStyle="bold"
+        android:fontFamily="@font/bold"
         android:layout_marginLeft="22dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@id/item_side_price_tv"

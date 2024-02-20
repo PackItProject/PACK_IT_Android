@@ -22,14 +22,20 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
+
 class MenuInfoActivity : AppCompatActivity() {
     lateinit var binding: ActivityMenuInfoBinding
+    var userId = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding = ActivityMenuInfoBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+//        val sharedPreferencesManager = SharedPreferencesManager(this@MenuInfoActivity)
+//        userId = sharedPreferencesManager.getUserId() // 사용자 ID를 여기에 설정하세요
+
 
         //
         val menu = intent.getSerializableExtra("MenuData") as? Menu
@@ -65,7 +71,6 @@ class MenuInfoActivity : AppCompatActivity() {
         binding.menuInfoAddCartBtn.setOnClickListener {
 
             val apiService = ApiClient.retrofitInterface
-            val userId = 1 // 사용자 ID를 여기에 설정하세요
 
             menu?.let { newMenu ->
                 Toast.makeText(this, "가게 id: ${menu.store_id}", Toast.LENGTH_SHORT).show()

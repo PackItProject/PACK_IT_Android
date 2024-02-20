@@ -31,7 +31,7 @@
             android:text="가게 이름"
             android:textColor="@color/dark_grey"
             android:textSize="22sp"
-            android:textStyle="bold"
+            android:fontFamily="@font/bold"
             app:layout_constraintStart_toStartOf="@id/order_back_btn_iv"
             app:layout_constraintTop_toBottomOf="@id/order_back_btn_iv" />
 
@@ -58,6 +58,7 @@
 
         <EditText
             android:id="@+id/order_request_et"
+            android:importantForAutofill="no"
             android:layout_width="0dp"
             android:layout_height="48dp"
             android:inputType="text"
@@ -375,7 +376,7 @@
                 android:text="주문정보, 주의사항 모두 확인하였습니다."
                 android:textSize="16sp"
                 android:textColor="@color/dark_grey"
-                android:textStyle="bold" />
+                android:fontFamily="@font/bold" />
 
             <ImageView
                 android:id="@+id/order_check_off_btn_iv"
