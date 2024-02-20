@@ -48,11 +48,11 @@
                     android:id="@+id/menu_list_recycler_view"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:nestedScrollingEnabled="false"
                     android:orientation="vertical"
                     android:overScrollMode="never"
-                    android:nestedScrollingEnabled="false"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    tools:listitem="@layout/item_cart_menu"/>
+                    tools:listitem="@layout/item_cart_menu" />
             </androidx.cardview.widget.CardView>
 
             <!-- 픽업 시간 -->
@@ -90,42 +90,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="100dp"
                         android:timePickerMode="spinner" />
-<!--                    <RelativeLayout-->
-<!--                        android:id="@+id/reservation_time_layout"-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="match_parent"-->
-<!--                        android:layout_weight="1">-->
-
-<!--                        <Spinner-->
-<!--                            android:id="@+id/reservation_am_pm_btn"-->
-<!--                            android:layout_width="60dp"-->
-<!--                            android:layout_height="48dp"-->
-<!--                            android:layout_marginRight="10dp"-->
-<!--                            android:background="@drawable/spn_bar_left"-->
-<!--                            android:layout_toStartOf="@id/reservation_hour_btn"-->
-<!--                            android:layout_alignBottom="@id/reservation_hour_btn"-->
-<!--                            style="@style/BoldDrakGreyText" />-->
-
-<!--                        <Spinner-->
-<!--                            android:id="@+id/reservation_hour_btn"-->
-<!--                            android:layout_width="60dp"-->
-<!--                            android:layout_height="48dp"-->
-<!--                            android:background="@drawable/spn_bar_center"-->
-<!--                            android:layout_marginBottom="30dp"-->
-<!--                            android:layout_centerHorizontal="true"-->
-<!--                            android:layout_alignParentBottom="true"-->
-<!--                            style="@style/BoldDrakGreyText" />-->
-
-<!--                        <Spinner-->
-<!--                            android:id="@+id/reservation_minute_brn"-->
-<!--                            android:layout_width="60dp"-->
-<!--                            android:layout_height="48dp"-->
-<!--                            android:layout_marginLeft="10dp"-->
-<!--                            android:background="@drawable/spn_bar_right"-->
-<!--                            android:layout_toEndOf="@id/reservation_hour_btn"-->
-<!--                            android:layout_alignBottom="@id/reservation_hour_btn"-->
-<!--                            style="@style/BoldDrakGreyText" />-->
-<!--                    </RelativeLayout>-->
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 

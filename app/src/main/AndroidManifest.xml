@@ -57,6 +57,7 @@
 
         <activity android:name=".ProfileActivity"
             android:exported="true" >
+
         </activity>  <!-- 프로필 액티비티 -->
 
 
