@@ -19,10 +19,10 @@ class MypackitFragment : Fragment() {
     // 전역 변수로 10개의 Boolean 값을 담는 리스트 변수 선언
     private var stampList: MutableList<Boolean> = MutableList(10) { false }
 
-    private val dummyItemList = listOf(
-        MypackitItem(R.drawable.mypack_badge, "누적 주문 5회", "2024.2.4"),
-        MypackitItem(R.drawable.mypack_badge, "3회 주문", "2024.1.15"),
-        MypackitItem(R.drawable.mypack_badge, "단 1개 뿐인 지구를 위한 1번째 걸음", "2024.1.1")
+    private var BadgeList = listOf(
+        MypackitItem(R.drawable.img_badge_1st, "단 1개 뿐인 지구를 위한 1번째 걸음", "2024.2.21"),
+        MypackitItem(R.drawable.img_badge_5th, "누적 주문 5회 주문", "2024.2.21"),
+        MypackitItem(R.drawable.img_badge_10th, "누적 주문 10회", "2024.2.21"),
     )
 
     override fun onCreateView(
@@ -33,10 +33,10 @@ class MypackitFragment : Fragment() {
         val rootView = binding.root
 
         if (binding != null) {
+            // 리사이클러뷰 설정
             val recyclerView: RecyclerView = binding.root.findViewById(R.id.badgeRecyclerView)
-
             recyclerView.layoutManager = GridLayoutManager(requireContext(), 2)
-            recyclerView.adapter = MypackitPinAdapter(dummyItemList)
+
 
             // SharedPreference에서 닉네임을 불러와서 name_tv에 표시
             val sharedPreference = requireActivity().getSharedPreferences("sp1", Context.MODE_PRIVATE)
@@ -47,19 +47,24 @@ class MypackitFragment : Fragment() {
             val orderCountValue = sharedPreference.getInt("orderCount",0) //숫자를 문자로 바꾸어 쉐어드프리퍼런스에 저장
             binding.orderCountTv.text = orderCountValue.toString()+"회"
 
-            if (orderCountValue != null) {
-                Log.d("0220get",orderCountValue.toString())
+            // BadgeList 업데이트: 주문 횟수만큼 배지 가져옴 + 역순으로 넣을 준비
+            BadgeList = when {
+                orderCountValue == 0 -> emptyList()
+                orderCountValue in 1..4 -> listOf(BadgeList[0])
+                orderCountValue in 5..9 -> BadgeList.take(2).reversed()
+                else -> BadgeList.take(3).reversed()
             }
+            // 리사이클러뷰 연결
+            recyclerView.adapter = MypackitPinAdapter(BadgeList)
 
-            // 주문 횟수에 따라 booleanList 업데이트
+            // stampList 업데이트: 주문 횟수만큼 도장 찍을 준비
             // 11개 이상이면 나머지 취급
             val stampCount = if (orderCountValue >= 11) orderCountValue % 10 else orderCountValue
-
             for (i in 0 until stampCount) {
                 stampList[i] = true
             }
 
-            // booleanList를 사용하여 도장 이미지 업데이트
+            // stampList가 true면 도장 이미지 업데이트
             for ((index, value) in stampList.withIndex()) {
                 val imageViewId = when (index) {
                     0 -> R.id.stamp1
@@ -79,11 +84,10 @@ class MypackitFragment : Fragment() {
                     val imageView = binding.root.findViewById<ImageView>(imageViewId)
 
                     if (value) {
-                        // true일 때 도장 이미지 설정
+                        // true일 때 도장 이미지
                         imageView.setImageResource(R.drawable.mypack_stamp_yes_gui)
                     } else {
-                        // false일 때 다른 이미지로 설정
-                        // 여기에서 다른 이미지의 리소스 ID를 설정해주세요.
+                        // false일 때 빈 도장 이미지
                         imageView.setImageResource(R.drawable.mypackit_stamp_no_gui)
                     }
                 }
