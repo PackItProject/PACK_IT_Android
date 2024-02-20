@@ -59,6 +59,7 @@ class OrderHistoryDetailedFragment: Fragment() {
                         3 -> paymentTextView.text = "카카오페이"
                         4 -> paymentTextView.text = "네이버페이"}
 
+
                 } catch (e: IOException) {
                     // Handle network error
                     Log.e("OrderHistoryDetailedFrag", "Failed to fetch detailed order history. Exception: ${e.message}", e)

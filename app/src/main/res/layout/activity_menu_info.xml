@@ -11,24 +11,9 @@
         android:id="@+id/menu_info_image_iv"
         android:layout_width="match_parent"
         android:layout_height="180dp"
-        android:background="@color/grey"
+        android:background="@drawable/img_no_menu"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
-
-    <!-- 이미지 들어오면 삭제될 듯? -->
-    <TextView
-        android:id="@+id/menu_info_image_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="메뉴 이미지"
-        android:textColor="@color/white"
-        android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/menu_info_image_iv"
-        app:layout_constraintBottom_toBottomOf="@id/menu_info_image_iv"
-        android:visibility="invisible"
-        />
 
     <ImageView
         android:id="@+id/menu_info_back_btn_iv"
@@ -48,7 +33,7 @@
         android:text="메뉴 이름"
         android:textColor="@color/black"
         android:textSize="18sp"
-        android:textStyle="bold"
+        android:fontFamily="@font/bold"
         android:layout_marginTop="20dp"
         app:layout_constraintStart_toStartOf="@id/menu_info_line_01_view"
         app:layout_constraintEnd_toEndOf="@id/menu_info_line_01_view"
@@ -82,7 +67,7 @@
         android:text="13,000원"
         android:textColor="@color/dark_grey"
         android:textSize="18sp"
-        android:textStyle="bold"
+        android:fontFamily="@font/bold"
         app:layout_constraintEnd_toEndOf="@id/menu_info_line_01_view"
         app:layout_constraintTop_toTopOf="@id/menu_info_price_01_tv"
         app:layout_constraintBottom_toBottomOf="@id/menu_info_price_01_tv" />
@@ -104,7 +89,7 @@
         android:text="270 * 130 mm"
         android:textColor="@color/dark_grey"
         android:textSize="18sp"
-        android:textStyle="bold"
+        android:fontFamily="@font/bold"
         app:layout_constraintEnd_toEndOf="@id/menu_info_line_01_view"
         app:layout_constraintTop_toTopOf="@id/menu_info_size_01_tv"
         app:layout_constraintBottom_toBottomOf="@id/menu_info_size_01_tv" />

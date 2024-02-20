@@ -22,14 +22,20 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
+
 class MenuInfoActivity : AppCompatActivity() {
     lateinit var binding: ActivityMenuInfoBinding
+    var userId = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding = ActivityMenuInfoBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+//        val sharedPreferencesManager = SharedPreferencesManager(this@MenuInfoActivity)
+//        userId = sharedPreferencesManager.getUserId() // 사용자 ID를 여기에 설정하세요
+
 
         //
         val menu = intent.getSerializableExtra("MenuData") as? Menu
@@ -63,20 +69,78 @@ class MenuInfoActivity : AppCompatActivity() {
 
         // 장바구니 담기 버튼
         binding.menuInfoAddCartBtn.setOnClickListener {
+
             val apiService = ApiClient.retrofitInterface
-            //val userId = 1 // 사용자 ID를 여기에 설정하세요
 
             menu?.let { newMenu ->
-                val cartItem = CartItem(1, 1, 1, 1)
+                Toast.makeText(this, "가게 id: ${menu.store_id}", Toast.LENGTH_SHORT).show()
+
+                val cartItem = CartItem(userId, menu.store_id, menu.id, 1)
                 apiService.addMenuToCart(cartItem).enqueue(object : Callback<BookmarkResponse> {
-                    override fun onResponse(call: Call<BookmarkResponse>, response: Response<BookmarkResponse>) {
+                    override fun onResponse(
+                        call: Call<BookmarkResponse>,
+                        response: Response<BookmarkResponse>
+                    ) {
                         if (response.isSuccessful) {
-                            // 성공적으로 추가되었을 때의 처리
+                            // 성공적으로 추가되었을 때의 처리 api 연동 전
+//                            val sharedPreferences = getSharedPreferences("Cart", MODE_PRIVATE)
+//                            val editor = sharedPreferences.edit()
+//
+//                            val savedMenuListJson = sharedPreferences.getString("menuList", null)
+//                            val savedMenuList = if (!savedMenuListJson.isNullOrEmpty()) {
+//                                val listType = object : TypeToken<ArrayList<Menu>>() {}.type
+//                                Gson().fromJson<ArrayList<Menu>>(savedMenuListJson, listType)
+//                            } else {
+//                                ArrayList()
+//                            }
+//
+//                            val newMenuStoreId = newMenu.store_id
+//                            Log.d("MenuInfoActivity", "New Menu's store_id: $newMenuStoreId")
+//
+//                            if (savedMenuList.any { it.store_id == newMenuStoreId }) {
+//                                // 기존 Cart에서 같은 store_id의 메뉴를 찾아 삭제
+//                                val updatedMenuList =
+//                                    savedMenuList.filter { it.store_id == newMenuStoreId }
+//                                        .toMutableList()
+//
+//                                // 중복된 메뉴가 있는지 확인하고, 있으면 수량 증가
+//                                val existingMenu = savedMenuList.find { it.id == menu.id }
+//                                if (existingMenu != null) {
+//                                    //Toast.makeText(this, "이미 장바구니에 있는 메뉴입니다.", Toast.LENGTH_SHORT).show()
+//                                } else {
+//                                    // 장바구니에 없는 메뉴일 경우 새로 추가
+//                                    updatedMenuList.add(newMenu)
+//                                }
+//
+//                                // 리스트를 JSON 형태로 변환하여 저장
+//                                editor.putString("menuList", Gson().toJson(updatedMenuList))
+//                                editor.apply()
+//
+//                                //Toast.makeText(this, "메뉴가 장바구니에 추가되었습니다.", Toast.LENGTH_SHORT).show()
+//                            } else {
+//                                // 기존 Cart의 모든 메뉴 삭제 후 새로운 메뉴 추가
+//                                val updatedMenuList = ArrayList<Menu>()
+//                                updatedMenuList.add(newMenu)
+//
+//                                // 리스트를 JSON 형태로 변환하여 저장
+//                                editor.putString("menuList", Gson().toJson(updatedMenuList))
+//                                editor.apply()
+//                            }
+
+                            // 응답 메시지 받기
                             val responseBody = response.body()
-                            Toast.makeText(this@MenuInfoActivity, responseBody?.message, Toast.LENGTH_SHORT).show()
+                            Toast.makeText(
+                                this@MenuInfoActivity,
+                                responseBody?.message,
+                                Toast.LENGTH_SHORT
+                            ).show()
                         } else {
                             // API 호출은 성공했지만, 서버에서 오류 응답이 왔을 때의 처리
-                            Toast.makeText(this@MenuInfoActivity, "장바구니 추가 실패", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(
+                                this@MenuInfoActivity,
+                                "${response.code()}: 장바구니 추가 실패",
+                                Toast.LENGTH_SHORT
+                            ).show()
                         }
                     }
 
@@ -85,57 +149,10 @@ class MenuInfoActivity : AppCompatActivity() {
                         Toast.makeText(this@MenuInfoActivity, "API 호출 실패", Toast.LENGTH_SHORT).show()
                     }
                 })
-
-
-                val sharedPreferences = getSharedPreferences("Cart", MODE_PRIVATE)
-                val editor = sharedPreferences.edit()
-
-                val savedMenuListJson = sharedPreferences.getString("menuList", null)
-                val savedMenuList = if (!savedMenuListJson.isNullOrEmpty()) {
-                    val listType = object : TypeToken<ArrayList<Menu>>() {}.type
-                    Gson().fromJson<ArrayList<Menu>>(savedMenuListJson, listType)
-                } else {
-                    ArrayList()
-                }
-
-                val newMenuStoreId = newMenu.store_id
-                Log.d("MenuInfoActivity", "New Menu's store_id: $newMenuStoreId")
-
-                if (savedMenuList.any { it.store_id == newMenuStoreId }) {
-                    // 기존 Cart에서 같은 store_id의 메뉴를 찾아 삭제
-                    val updatedMenuList = savedMenuList.filter { it.store_id == newMenuStoreId }.toMutableList()
-
-                    // 중복된 메뉴가 있는지 확인하고, 있으면 수량 증가
-                    val existingMenu = savedMenuList.find { it.id == menu.id }
-                    if (existingMenu != null) {
-                        //Toast.makeText(this, "이미 장바구니에 있는 메뉴입니다.", Toast.LENGTH_SHORT).show()
-                    } else {
-                        // 장바구니에 없는 메뉴일 경우 새로 추가
-                        updatedMenuList.add(newMenu)
-                    }
-
-                    // 리스트를 JSON 형태로 변환하여 저장
-                    editor.putString("menuList", Gson().toJson(updatedMenuList))
-                    editor.apply()
-
-                    //Toast.makeText(this, "메뉴가 장바구니에 추가되었습니다.", Toast.LENGTH_SHORT).show()
-                } else {
-                    // 기존 Cart의 모든 메뉴 삭제 후 새로운 메뉴 추가
-                    val updatedMenuList = ArrayList<Menu>()
-                    updatedMenuList.add(newMenu)
-
-                    // 리스트를 JSON 형태로 변환하여 저장
-                    editor.putString("menuList", Gson().toJson(updatedMenuList))
-                    editor.apply()
-
                     //Toast.makeText(this, "장바구니에 새로운 메뉴가 추가되었습니다.", Toast.LENGTH_SHORT).show()
-                }
             }
             finish()
         }
-
-
-
     }
 
     private fun saveMenuToSharedPreferences(menu: Menu) {
@@ -154,7 +171,7 @@ class MenuInfoActivity : AppCompatActivity() {
         // 중복된 메뉴가 있는지 확인하고, 있으면 수량 증가
         val existingMenu = savedMenuList.find { it.id == menu.id }
         if (existingMenu != null) {
-            existingMenu.count++
+            existingMenu.quantity++
         } else {
             // 장바구니에 없는 메뉴일 경우 새로 추가
             savedMenuList.add(menu)

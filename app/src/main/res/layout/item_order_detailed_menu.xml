@@ -33,7 +33,7 @@
         android:text="메뉴 이름"
         android:textSize="16sp"
         android:textColor="@color/black"
-        android:textStyle="bold"
+        android:fontFamily="@font/bold"
         app:layout_constraintTop_toTopOf="@id/item_order_detailed_menu_image_view"
         app:layout_constraintStart_toEndOf="@id/item_order_detailed_menu_image_view"/>
 
@@ -42,7 +42,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="13,000원"
-        android:textStyle="bold"
+        android:fontFamily="@font/bold"
         android:textSize="14sp"
         android:textColor="@color/dark_grey"
         app:layout_constraintTop_toBottomOf="@id/item_order_detailed_menu_name_tv"
@@ -57,17 +57,19 @@
         android:textColor="@color/dark_grey"
         app:layout_constraintTop_toTopOf="@id/item_order_detailed_menu_count_tv"
         app:layout_constraintBottom_toBottomOf="@id/item_order_detailed_menu_count_tv"
-        app:layout_constraintEnd_toStartOf="@id/item_order_detailed_menu_count_tv" />
+        app:layout_constraintEnd_toStartOf="@id/item_order_detailed_menu_count_tv"
+        android:visibility="invisible"/>
 
     <TextView
         android:id="@+id/item_order_detailed_menu_count_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="2"
-        android:textStyle="bold"
+        android:fontFamily="@font/bold"
         android:textSize="14sp"
         android:textColor="@color/dark_grey"
         app:layout_constraintTop_toTopOf="@id/item_order_detailed_menu_price_tv"
         app:layout_constraintBottom_toBottomOf="@id/item_order_detailed_menu_price_tv"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        android:visibility="invisible"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

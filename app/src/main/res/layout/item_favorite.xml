@@ -39,7 +39,7 @@
         android:text="가게 이름"
         android:textSize="17sp"
         android:textColor="@color/black"
-        android:textStyle="bold"
+        android:fontFamily="@font/bold"
         android:scrollHorizontally="true"
         android:marqueeRepeatLimit="marquee_forever"
         app:layout_constraintTop_toTopOf="@id/item_favorite_img_cardView"
@@ -54,7 +54,7 @@
         android:text="(영업 종료)"
         android:textSize="17sp"
         android:textColor="@color/black"
-        android:textStyle="bold"
+        android:fontFamily="@font/bold"
         app:layout_constraintTop_toTopOf="@id/item_favorite_img_cardView"
         app:layout_constraintBottom_toTopOf="@id/item_favorite_rate_tv"
         app:layout_constraintStart_toEndOf="@id/item_favorite_name_tv"/>

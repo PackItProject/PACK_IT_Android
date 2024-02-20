@@ -10,7 +10,7 @@ import com.umc.android.packit.databinding.ItemCartMenuBinding
 
 
 
-class CartRVAdapter(private val menuList: ArrayList<Menu>):RecyclerView.Adapter<CartRVAdapter.ViewHolder>() {
+class CartRVAdapter(private val menuList: ArrayList<CartResponse>):RecyclerView.Adapter<CartRVAdapter.ViewHolder>() {
 
     // 클릭 이벤트 등록
     interface ItemClick {
@@ -58,7 +58,6 @@ class CartRVAdapter(private val menuList: ArrayList<Menu>):RecyclerView.Adapter<
 
     // 메뉴 삭제 함수
     fun removeMenu(position:Int) {
-        menuList[position].count = 0 // 메뉴 수량 0으로 초기화
         menuList.removeAt(position)
         notifyItemRemoved(position)
         notifyItemRangeChanged(position, itemCount) // 아이템 위치 변경을 알림
@@ -83,7 +82,7 @@ class CartRVAdapter(private val menuList: ArrayList<Menu>):RecyclerView.Adapter<
     }
 
     inner class ViewHolder(val binding: ItemCartMenuBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(menu: Menu, context : Context){
+        fun bind(menu: CartResponse, context : Context){
             menu.image?.let {
                 Glide.with(context)
                     .load(it)

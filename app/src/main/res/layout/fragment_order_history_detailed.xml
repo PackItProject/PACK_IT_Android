@@ -28,7 +28,7 @@
                 android:text="가게이름"
                 android:textSize="22sp"
                 android:textColor="@color/dark_grey"
-                android:textStyle="bold"
+                android:fontFamily="@font/bold"
                 android:layout_marginStart="30dp"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
@@ -100,7 +100,7 @@
                             android:text="신용/체크카드"
                             android:textColor="@color/dark_grey"
                             android:textSize="18sp"
-                            android:textStyle="bold"
+                            android:fontFamily="@font/bold"
                             android:layout_alignParentEnd="true"
                             android:layout_centerVertical="true"/>
                     </RelativeLayout>
@@ -129,7 +129,7 @@
                             android:text="오후 12:30"
                             android:textColor="@color/dark_grey"
                             android:textSize="18sp"
-                            android:textStyle="bold"
+                            android:fontFamily="@font/bold"
                             android:layout_alignParentEnd="true"
                             android:layout_centerVertical="true"/>
                     </RelativeLayout>
@@ -159,7 +159,7 @@
                             android:text="35,000원"
                             android:textColor="@color/dark_grey"
                             android:textSize="18sp"
-                            android:textStyle="bold"
+                            android:fontFamily="@font/bold"
                             android:layout_alignParentEnd="true"
                             android:layout_centerVertical="true"/>
                     </RelativeLayout>

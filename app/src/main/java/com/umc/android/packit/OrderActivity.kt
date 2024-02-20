@@ -1,7 +1,9 @@
 package com.umc.android.packit
 
 import android.animation.ObjectAnimator
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -10,7 +12,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import androidx.core.animation.doOnEnd
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.bumptech.glide.Glide.init
 import com.umc.android.packit.databinding.FragmentOrderBinding
 import retrofit2.Call
 import retrofit2.Callback
@@ -26,6 +27,13 @@ class OrderActivity() : AppCompatActivity() {
     private var isClicked = false // 쿠폰 버튼 상태
     private var isChecked = false // 체크 버튼 상태
     private var orderDatas=ArrayList<OrderMenu>()
+    var cartTimeData: String = ""
+    var store_id: Int = 0
+    var cartPriceData: Int =0
+    var userId: Int = 1
+    var orderMenus = ArrayList<OrderMenu>()
+
+
 
 
     private val couponList = listOf(
@@ -42,12 +50,44 @@ class OrderActivity() : AppCompatActivity() {
         binding = FragmentOrderBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+//        val sharedPreferencesManager = SharedPreferencesManager(this@OrderActivity)
+//        userId = sharedPreferencesManager.getUserId() // 사용자 ID를 여기에 설정하세요
+
+
         init()  // 화면 초기화
 
         // 리사이클러뷰 연결
         val adapter = OrderCouponRVAdapter(couponList)
         binding.orderCouponRecyclerView.adapter = adapter
         binding.orderCouponRecyclerView.layoutManager= LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+
+
+        val requestText = binding.orderRequestEt.text.toString()
+
+        // RadioButton 선택 여부 확인 및 값 가져오기
+        val selectedPaymentMethodId = binding.orderRadioGroup.checkedRadioButtonId
+        var selectedPaymentMethod = 0
+
+        // RadioButton 클릭 리스너 설정
+        binding.orderPaymentCardTv.setOnClickListener {
+            // 클릭된 RadioButton에 대한 처리
+            selectedPaymentMethod = 1
+        }
+
+        binding.orderPaymentMobileTv.setOnClickListener {
+            // 클릭된 RadioButton에 대한 처리
+            selectedPaymentMethod = 2
+        }
+
+        binding.orderPaymentKakaoTv.setOnClickListener {
+            // 클릭된 RadioButton에 대한 처리
+            selectedPaymentMethod = 3
+        }
+
+        binding.orderPaymentNaverTv.setOnClickListener {
+            // 클릭된 RadioButton에 대한 처리
+            selectedPaymentMethod = 4
+        }
 
 
         // 아이템 클릭 이벤트 설정
@@ -90,18 +130,21 @@ class OrderActivity() : AppCompatActivity() {
             // 주문하기 버튼 누르면 주문추가 API 처리
             // 서버에 상태 업데이트 요청 전송
             val apiService = ApiClient.retrofitInterface
-            val userId = 1 // 사용자 ID
 
+            store_id = intent.getIntExtra("storeId",0)
+            orderMenus = (intent.getSerializableExtra("orderMenu") as? ArrayList<OrderMenu>)!!
             val orderRequest = OrderRequest(
-                pk_user = 1,
-                store_id = 1,
-                requirement = "단무지 빼주세요",
-                payment = 1,
-                pickup_time = "2024-02-19 23:01:11",
+                pk_user = userId,
+                store_id = store_id,
+                requirement = requestText,
+                payment = selectedPaymentMethod,
+                pickup_time = cartTimeData,
                 status = 1,
-                menus = listOf(Menu(id = 1, count = 3)),
-                fee = 330000
+                menus = orderMenus,
+                fee = cartPriceData
             )
+
+            Log.d("selected card: ",selectedPaymentMethod.toString())
             val addOrderCall = apiService.addOrder(orderRequest)
 
              addOrderCall.enqueue(object : Callback<AddOrderResponse> {
@@ -111,8 +154,14 @@ class OrderActivity() : AppCompatActivity() {
                         val addOrderResponse = response.body()
                         addOrderResponse?.let {
                             // 성공적으로 주문이 추가되었을 때의 처리
+
+
                             Toast.makeText(this@OrderActivity, "정상적으로 주문되었습니다.", Toast.LENGTH_SHORT).show()
+
+
+
                         }
+
                     } else {
                         // 주문 추가 실패 시의 처리
 
@@ -126,14 +175,6 @@ class OrderActivity() : AppCompatActivity() {
                         }
 
                     }
-
-                  /*  Unsuccessful response: 500
-                    2024-02-18 16:40:31.051  2998-2998  OrderActivity           com.umc.android.packit
-                    E  Error body: Error: Bind parameters must not contain undefined. To pass SQL NULL specify JS null
-                    at PromisePool.execute (/app/node_modules/mysql2/promise.js:374:22)
-                    at addOrderService (file:///app/src/services/cart.service.js:51:20)
-                    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
-                    at async addOrderController (file:///app/src/controllers/cart.controller.js:29:24)*/
                 }
 
                 override fun onFailure(call: Call<AddOrderResponse>, t: Throwable) {
@@ -155,12 +196,21 @@ class OrderActivity() : AppCompatActivity() {
         binding.orderCheckOffBtnIv.visibility = View.VISIBLE
         binding.orderCheckOnBtnIv.visibility = View.GONE
 
+    /*    //가게이름 불러오기
+        val storeName = intent.getStringExtra("storeName")
+        binding.orderStoreNameTv.text = storeName.toString()*/
+
+        // SharedPreference에서 닉네임을 불러와서 orderUserNameTv에 표시
+        val sharedPreference = getSharedPreferences("sp1", Context.MODE_PRIVATE)
+        val nickname = sharedPreference.getString("name", "데이터 없음")
+        binding.orderUserNameTv.text = nickname
+
         //cartFragment에서 전달한 픽업 시간과 총 결제 금액 띄우기
-        val cartTimeData = intent.getStringExtra("cartTimeKey")
+        cartTimeData = intent.getStringExtra("cartTimeKey")!!
         binding.orderPickUp02Tv.text = cartTimeData  //주문 시간 데이터 전달
 
-        val cartPriceData = intent.getStringExtra("cartPriceKey")
-        binding.orderTotalPrice02Tv.text =cartPriceData  //총 결제 금액 데이터 전달
+        cartPriceData = intent.getIntExtra("cartPriceKey", 0)!!
+        binding.orderTotalPrice02Tv.text =cartPriceData.toString()+" 원"  //총 결제 금액 데이터 전달
     }
 
     // 쿠폰 클릭 시, 쿠폰 리스트 띄우기
@@ -224,16 +274,22 @@ class OrderActivity() : AppCompatActivity() {
             startActivity(intent)
         }
     }
-    private fun updateTotalPriceWithDiscount(discountPercent:Double) {
-        //cartFragment에서 전달한 주문 총액을 string으로 받아와서 double로 변환
-        val originalPriceString: String? = intent.getStringExtra("cartPriceKey")
-        //ex.13000원->13000으로 원을 빼야 더블로 변환 가능
-        val originalPrice: Double? = originalPriceString?.replace("[^0-9]".toRegex(), "")?.toDoubleOrNull()
-        //할인율 적용
-        val discountedTotalPrice = originalPrice?.times((1 - discountPercent))
+    private fun updateTotalPriceWithDiscount(discountPercent: Double) {
+        // Get the original price from the intent
+        val originalPrice: Int = intent.getIntExtra("cartPriceKey", 0)
 
-        //쿠폰할인율이 적용된 총액을 텍스트뷰에 전달
-        val formattedTotalPrice = String.format("%,.0f원", discountedTotalPrice ?: 0.0)
+        // Convert the original price to a double
+        val originalPriceDouble: Double = originalPrice.toDouble()
+
+        // Apply discount
+        val discountedTotalPrice = originalPriceDouble * (1 - discountPercent)
+
+        // Format the discounted total price
+        val formattedTotalPrice = String.format("%,.0f원", discountedTotalPrice)
+
+        // Set the formatted total price to the TextView
         binding.orderTotalPrice02Tv.text = formattedTotalPrice
     }
+
+
 }

@@ -50,7 +50,12 @@ class MapFragment : Fragment(), OnMapReadyCallback, StoreListRVAdapter.MyItemCli
     var storeImg: String = ""
     var is_bookmarked: Int = 0
     var storeName: String = ""
+    var userId = 1
 
+
+    // TODO: 로그인 구현 후 삭제
+    // mainAtctivity에서 유저 ID 가져오기
+    //private val userID = arguments?.getInt("userId", 1)
 
     // api 호출 (for 가게 목로 조회, 북마크 기능)
     val apiService = ApiClient.retrofitInterface
@@ -66,6 +71,11 @@ class MapFragment : Fragment(), OnMapReadyCallback, StoreListRVAdapter.MyItemCli
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Places.initialize(requireContext(),"AIzaSyAIiKuJ8RTp54prSp0lyIUw15lUVftR-6s")
+
+        // TODO: 로그인 구현 후 삭제
+
+        // 현재 유저 아이디 체크
+        //Toast.makeText(requireContext(), "현재 유저 아이디: ${userID}", Toast.LENGTH_SHORT).show()
     }
 
     override fun onCreateView(
@@ -73,6 +83,9 @@ class MapFragment : Fragment(), OnMapReadyCallback, StoreListRVAdapter.MyItemCli
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentMapBinding.inflate(inflater, container, false)
+
+//        val sharedPreferencesManager = SharedPreferencesManager(requireContext())
+//        userId = sharedPreferencesManager.getUserId() // 사용자 ID를 여기에 설정하세요
 
         //배경에 지도 띄우기
         this.mapView = binding.mapView
@@ -127,20 +140,6 @@ class MapFragment : Fragment(), OnMapReadyCallback, StoreListRVAdapter.MyItemCli
 
         })
 
-
-        // TODO: 최후의 방법(회의 후에 지울 것) -> CoroutineScope를 생성하고 비동기 호출을 수행
-//        CoroutineScope(Dispatchers.Main).launch {
-//            try {
-//                // API 호출 결과를 LiveData에 저장
-//                storeDataFromAPI = apiService.getNearbyStores()
-//                storeList = ArrayList(storeDataFromAPI)
-//            } catch (e: Exception) {
-//                // 예외 처리 로직
-//                storeList =  ArrayList()
-//                Toast.makeText(requireContext(), "API 호출에 실패했습니다.", Toast.LENGTH_SHORT).show()
-//            }
-//        }
-
         // 주변 가게 목록 데이터 조회하기
         binding.storeListBtn.setOnClickListener {
             // 1. 버튼 클릭 시, api 요청
@@ -150,7 +149,6 @@ class MapFragment : Fragment(), OnMapReadyCallback, StoreListRVAdapter.MyItemCli
                     if (response.isSuccessful) {
                         val storeDataFromAPI = response.body()
                         showBottomSheet(ArrayList(storeDataFromAPI))
-                        Toast.makeText(requireContext(), "${response.code()}: 가게 목록 조회에 성공하였습니다.", Toast.LENGTH_SHORT).show()
                     } else {
                         // 2-1. API 호출 실패 처리
                         Toast.makeText(requireContext(), "${response.code()}: 가게 목록 조회에 실패하였습니다.", Toast.LENGTH_SHORT).show()
@@ -185,6 +183,8 @@ class MapFragment : Fragment(), OnMapReadyCallback, StoreListRVAdapter.MyItemCli
         // 아이템 클릭 시 StoreActivity를 시작
         val intent = Intent(requireContext(), StoreActivity::class.java)
 
+        // userId 전달
+        //intent.putExtra("userId", userID)
 
         // storeImg, star, storeId, storeName 전달
         intent.putExtra("storeImg", store.image ?: "") // storeImg가 null이 아니면 해당 값, null이면 -1을 전달
@@ -200,8 +200,6 @@ class MapFragment : Fragment(), OnMapReadyCallback, StoreListRVAdapter.MyItemCli
     override fun onStarClick(store: StoreResponse) {
         if (store.is_bookmarked == 1) store.is_bookmarked = 0 else store.is_bookmarked = 1
 
-        // TODO: api 추가
-        val userId = 1 // 사용자 ID를 여기에 설정하세요
 
         apiService.changeBookmarkStatus(store.store_id!!, userId).enqueue(object :
             Callback<BookmarkResponse> {
@@ -228,8 +226,6 @@ class MapFragment : Fragment(), OnMapReadyCallback, StoreListRVAdapter.MyItemCli
         val adapter = bottomSheet.storeListRecyclerView.adapter as? StoreListRVAdapter
         adapter?.updateStoreStarImage(store)
     }
-
-
     override fun onMapReady(googleMap: GoogleMap) {
         this.googleMap = googleMap
 

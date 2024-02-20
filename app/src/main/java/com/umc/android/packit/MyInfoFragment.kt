@@ -2,6 +2,7 @@ package com.umc.android.packit
 
 import android.app.AlertDialog
 import android.content.ContentValues.TAG
+import android.content.Context
 import android.content.Intent
 import android.graphics.BitmapFactory
 import android.graphics.Outline
@@ -15,12 +16,21 @@ import android.view.ViewOutlineProvider
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.Toast
+import com.bumptech.glide.Glide
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
 import com.kakao.sdk.user.UserApiClient
 import com.umc.android.packit.databinding.FragmentMyInfoBinding
 
 class MyInfoFragment : Fragment() {
 
     private lateinit var binding: FragmentMyInfoBinding
+    private lateinit var storageReference: StorageReference
+    private lateinit var auth: FirebaseAuth
+    private lateinit var databaseReference: DatabaseReference
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,6 +53,11 @@ class MyInfoFragment : Fragment() {
             }
         }
         binding.profileImgIv.clipToOutline = true
+
+        // SharedPreferences에서 닉네임을 불러와서 name_tv에 표시
+        val sharedPreferences = requireActivity().getSharedPreferences("sp1", Context.MODE_PRIVATE)
+        val nickname = sharedPreferences.getString("name", "데이터 없음")
+        binding.profileNameTv.text = nickname
 
 
 
@@ -260,6 +275,8 @@ class MyInfoFragment : Fragment() {
         binding.profileNameTv.text = arguments?.getString("nickname")?:"강희정"
 
     }
+
+
 
 
 }
