@@ -1,6 +1,9 @@
 package com.umc.android.packit
 
 import android.app.AlertDialog
+import android.content.ContentValues.TAG
+import android.content.Context
+import android.content.Intent
 import android.graphics.BitmapFactory
 import android.graphics.Outline
 import android.os.Bundle
@@ -13,11 +16,21 @@ import android.view.ViewOutlineProvider
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.Toast
+import com.bumptech.glide.Glide
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
+import com.kakao.sdk.user.UserApiClient
 import com.umc.android.packit.databinding.FragmentMyInfoBinding
 
 class MyInfoFragment : Fragment() {
 
     private lateinit var binding: FragmentMyInfoBinding
+    private lateinit var storageReference: StorageReference
+    private lateinit var auth: FirebaseAuth
+    private lateinit var databaseReference: DatabaseReference
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,6 +53,11 @@ class MyInfoFragment : Fragment() {
             }
         }
         binding.profileImgIv.clipToOutline = true
+
+        // SharedPreferences에서 닉네임을 불러와서 name_tv에 표시
+        val sharedPreferences = requireActivity().getSharedPreferences("sp1", Context.MODE_PRIVATE)
+        val nickname = sharedPreferences.getString("name", "데이터 없음")
+        binding.profileNameTv.text = nickname
 
 
 
@@ -125,11 +143,33 @@ class MyInfoFragment : Fragment() {
             val alertDialog = builder.show()
             val okBtn = alertDialog.findViewById<Button>(R.id.ok_btn)
             okBtn.setOnClickListener {
-                Toast.makeText(
-                    requireActivity(), "정상적으로 회원 탈퇴되었습니다. 메인 화면으로 이동합니다.", Toast.LENGTH_SHORT
-                ).show()
-                navigateToMapFragment() //메인화면으로 이동
-                alertDialog.dismiss() //다이얼로그는 닫기
+
+
+                UserApiClient.instance.unlink { error ->
+                    if (error != null) {
+                        Log.e(TAG, "연결 끊기 실패", error)
+                    }
+                    else {
+                        Log.i(TAG, "연결 끊기 성공. SDK에서 토큰 삭제 됨")
+                        Toast.makeText(
+                            requireActivity(), "정상적으로 회원 탈퇴되었습니다. 로그인 화면으로 이동합니다.", Toast.LENGTH_SHORT
+                        ).show()
+
+//                        navigateToMapFragment() //메인화면으로 이동
+                        alertDialog.dismiss() //다이얼로그는 닫기
+
+                        val intent = Intent(requireActivity(), LoginActivity::class.java)
+                        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                        startActivity(intent)
+                        requireActivity().finish()
+
+                    }
+                }
+
+
+
+
+
 
                 //TODO: 카카오 api 연결 끊기 = 회원탈퇴
                 //TODO: 로그인 구현 전이므로 아래 코드는 주석처리하였음
@@ -235,6 +275,8 @@ class MyInfoFragment : Fragment() {
         binding.profileNameTv.text = arguments?.getString("nickname")?:"강희정"
 
     }
+
+
 
 
 }

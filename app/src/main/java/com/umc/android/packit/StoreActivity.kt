@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.google.android.material.tabs.TabLayoutMediator
@@ -57,6 +58,27 @@ class StoreActivity : AppCompatActivity() {
 
         binding.storeStarIv.setOnClickListener {
             if (isStarSelected == 1) isStarSelected = 0 else isStarSelected = 1
+
+            val userId = 1 // 사용자 ID를 여기에 설정하세요
+            val apiService = ApiClient.retrofitInterface
+
+            apiService.changeBookmarkStatus(storeId, userId).enqueue(object :
+                Callback<BookmarkResponse> {
+                override fun onResponse(call: Call<BookmarkResponse>, response: Response<BookmarkResponse>) {
+                    if (response.isSuccessful) {
+                        // 북마크 상태 변경 성공
+                        binding.storeStarIv.setImageResource(
+                            if (isStarSelected == 1) R.drawable.btn_star_select else R.drawable.btn_star_no_select)
+
+                    } else {
+                        // 북마크 상태 변경 실패
+                    }
+                }
+
+                override fun onFailure(call: Call<BookmarkResponse>, t: Throwable) {
+                    // 네트워크 오류 등으로 인한 실패
+                }
+            })
 
             binding.storeStarIv.setImageResource(
                 if (isStarSelected == 1) R.drawable.btn_star_select else R.drawable.btn_star_no_select

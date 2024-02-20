@@ -7,8 +7,7 @@ package com.umc.android.packit
 // 간단하게 메뉴 이름, 가격, 수량만
 
 data class OrderMenu(
-   var menu_name: String? = "",
-    var price: Int = 0,
-    var count: Int = 1
+   var menu_id: Int = 0,
+    var quantity: Int = 0
 )
 

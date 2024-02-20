@@ -10,7 +10,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import androidx.core.animation.doOnEnd
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.bumptech.glide.Glide.init
 import com.umc.android.packit.databinding.FragmentOrderBinding
 import retrofit2.Call
 import retrofit2.Callback
@@ -26,6 +25,10 @@ class OrderActivity() : AppCompatActivity() {
     private var isClicked = false // 쿠폰 버튼 상태
     private var isChecked = false // 체크 버튼 상태
     private var orderDatas=ArrayList<OrderMenu>()
+    var cartTimeData: String = ""
+    var store_id: Int = 0
+    var cartPriceData: Int =0
+
 
 
     private val couponList = listOf(
@@ -41,6 +44,7 @@ class OrderActivity() : AppCompatActivity() {
 
         binding = FragmentOrderBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
 
         init()  // 화면 초기화
 
@@ -97,10 +101,10 @@ class OrderActivity() : AppCompatActivity() {
                 store_id = 1,
                 requirement = "단무지 빼주세요",
                 payment = 1,
-                pickup_time = "2024-02-19 23:01:11",
+                pickup_time = cartTimeData,
                 status = 1,
-                menus = listOf(Menu(id = 1, count = 3)),
-                fee = 330000
+                menus = listOf(OrderMenu(menu_id = 1, quantity = 3)),
+                fee = cartPriceData
             )
             val addOrderCall = apiService.addOrder(orderRequest)
 
@@ -156,11 +160,11 @@ class OrderActivity() : AppCompatActivity() {
         binding.orderCheckOnBtnIv.visibility = View.GONE
 
         //cartFragment에서 전달한 픽업 시간과 총 결제 금액 띄우기
-        val cartTimeData = intent.getStringExtra("cartTimeKey")
+        cartTimeData = intent.getStringExtra("cartTimeKey")!!
         binding.orderPickUp02Tv.text = cartTimeData  //주문 시간 데이터 전달
 
-        val cartPriceData = intent.getStringExtra("cartPriceKey")
-        binding.orderTotalPrice02Tv.text =cartPriceData  //총 결제 금액 데이터 전달
+        cartPriceData = intent.getIntExtra("cartPriceKey", 0)!!
+        binding.orderTotalPrice02Tv.text =cartPriceData.toString()+" 원"  //총 결제 금액 데이터 전달
     }
 
     // 쿠폰 클릭 시, 쿠폰 리스트 띄우기
@@ -224,16 +228,21 @@ class OrderActivity() : AppCompatActivity() {
             startActivity(intent)
         }
     }
-    private fun updateTotalPriceWithDiscount(discountPercent:Double) {
-        //cartFragment에서 전달한 주문 총액을 string으로 받아와서 double로 변환
-        val originalPriceString: String? = intent.getStringExtra("cartPriceKey")
-        //ex.13000원->13000으로 원을 빼야 더블로 변환 가능
-        val originalPrice: Double? = originalPriceString?.replace("[^0-9]".toRegex(), "")?.toDoubleOrNull()
-        //할인율 적용
-        val discountedTotalPrice = originalPrice?.times((1 - discountPercent))
+    private fun updateTotalPriceWithDiscount(discountPercent: Double) {
+        // Get the original price from the intent
+        val originalPrice: Int = intent.getIntExtra("cartPriceKey", 0)
 
-        //쿠폰할인율이 적용된 총액을 텍스트뷰에 전달
-        val formattedTotalPrice = String.format("%,.0f원", discountedTotalPrice ?: 0.0)
+        // Convert the original price to a double
+        val originalPriceDouble: Double = originalPrice.toDouble()
+
+        // Apply discount
+        val discountedTotalPrice = originalPriceDouble * (1 - discountPercent)
+
+        // Format the discounted total price
+        val formattedTotalPrice = String.format("%,.0f원", discountedTotalPrice)
+
+        // Set the formatted total price to the TextView
         binding.orderTotalPrice02Tv.text = formattedTotalPrice
     }
+
 }

@@ -1,7 +1,9 @@
 package com.umc.android.packit
 
 import android.Manifest
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.util.Log
 import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
@@ -15,6 +17,7 @@ import android.text.TextWatcher
 import android.util.Base64
 import android.view.View
 import android.widget.Button
+import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.activity.viewModels
@@ -37,6 +40,9 @@ class ProfileActivity : ProfilePermissionActivity() {
     private lateinit var databaseReference: DatabaseReference
     private lateinit var storageRefrence: StorageReference
     private lateinit var imageUri:Uri
+
+    //닉네임전달용
+    private lateinit var sharedPreferences: SharedPreferences
 
     val PERM_GALLERY = 1    // 갤러리 접근 권한 코드
     val maxLength = 12      // editText 글자 수 제한
@@ -97,6 +103,7 @@ class ProfileActivity : ProfilePermissionActivity() {
                     }
                 }
             }
+
         }
 
         // 프로필 사진 버튼
@@ -107,6 +114,9 @@ class ProfileActivity : ProfilePermissionActivity() {
             else requirePermission(arrayOf(Manifest.permission.READ_MEDIA_IMAGES), PERM_GALLERY)
         }
         makeBitmap()
+
+
+
 
     }
 
@@ -153,6 +163,13 @@ class ProfileActivity : ProfilePermissionActivity() {
             // TODO: 확인용 -> 지울거임
             // Toast로 데이터 클래스의 내용 및 이미지 확인
             val toastMessage = "Nickname: ${profileData.nickname}"
+
+            // 닉네임을 입력받아 SharedPreferences에 저장
+            val sharedPreference = getSharedPreferences("sp1", MODE_PRIVATE)
+            val editor  : SharedPreferences.Editor = sharedPreference.edit()
+            editor.putString("name", profileData.nickname)
+            Log.d("0219",profileData.nickname)
+            editor.commit() // data 저장! (정상저장됨 확인)
 
             // Bitmap을 Base64 문자열로 인코딩
             val byteArrayOutputStream = ByteArrayOutputStream()

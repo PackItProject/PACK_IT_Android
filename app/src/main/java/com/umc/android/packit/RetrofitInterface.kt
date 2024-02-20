@@ -59,11 +59,18 @@ interface RetrofitInterface {
         @Path("menu_id") menuId: Int
     ): Call<List<Menu>>
 
+    // 가게 이름으로 가게 정보 가져오기
+    @GET("/order/search/{store_name}")
+    fun getStoreByName(@Path("store_name") storeName: String): Call<List<StoreResponse>>
+
     @GET("/cart/order/{pk_user}")
     suspend fun getOrderLists(@Path("pk_user") userId: Int): Response<List<OrderHistoryMenu>>
 
     @GET("/cart/orderdetail/{orderId}")
     suspend fun getOrderDetail(@Path("orderId") orderId: Int): Response<List<OrderHistoryDetail>>
+
+    @POST("auth/kakao/signin")
+    suspend fun sendUserInfo(@Body request: LoginRequest): Response<SignInResponse>
 
     @POST("/cart/order")//주문추가
     fun addOrder(@Body order: OrderRequest): Call<AddOrderResponse>

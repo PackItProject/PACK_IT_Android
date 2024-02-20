@@ -54,11 +54,12 @@ class CartActivity : AppCompatActivity() {
         binding.orderBtn.setOnClickListener {
             //카트->주문내역으로 시간과 가격 보내기
             val cartTimeData = binding.receiptPickUp02Tv.text.toString()// 장바구니 주문 시간 데이터 추출
-            val cartPriceData= binding.receiptTotalPrice02Tv.text.toString() //장바구니 주문 가격 데이터 추출
+            val cartPriceData = binding.receiptTotalPrice02Tv.text.toString()
 
             val intent = Intent(this, OrderActivity::class.java)
             intent.putExtra("cartTimeKey", cartTimeData)
-            intent.putExtra("cartPriceKey", cartPriceData)
+            intent.putExtra("cartPriceKey", totalPrice)
+            intent.putExtra("fee", storeId)
 
             startActivity(intent)
         }
@@ -202,8 +203,9 @@ class CartActivity : AppCompatActivity() {
     // 총 결제금액 업데이트
     private fun updateTotalPrice() {
         totalPrice = 0
-        for (cart in menuList) {
-            totalPrice += cart.price * cart.count
+
+        for (menu in menuList) {
+            totalPrice += menu.price * menu.count
         }
         binding.receiptTotalPrice02Tv.text = String.format("%,d 원", totalPrice)
     }

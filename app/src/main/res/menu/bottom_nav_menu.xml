@@ -6,7 +6,7 @@
     <item
         android:id="@+id/mapFragment"
         android:icon="@drawable/ic_navigation"
-        android:title="주변"/>
+        android:title="주변" />
 
     <item
         android:id="@+id/favoriteFragment"

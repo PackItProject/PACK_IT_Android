@@ -15,8 +15,9 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
 
-    <application
 
+    <application
+        android:name=".GlobalApplication"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:enableOnBackInvokedCallback="true"
@@ -53,6 +54,7 @@
         <activity android:name=".ProfileActivity"
             android:exported="true" />  <!-- 프로필 액티비티 -->
 
+
         <activity android:name=".StoreActivity"
             android:exported="true" />  <!-- 가게 액티비티 -->
 
@@ -69,16 +71,30 @@
             android:exported="true"/>
 
         <activity android:name=".LoginConsentActivity"
-            android:exported="true">  <!-- 이용약관 액티비티 -->
-
-        </activity>
+            android:exported="true"/>  <!-- 이용약관 액티비티 -->
 
         <activity
             android:name=".LoginActivity"
             android:exported="true" >
 
-
         </activity>
+
+
+        <activity
+            android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <!-- Redirect URI: "kakao${NATIVE_APP_KEY}://oauth" -->
+                <data android:host="oauth"
+                    android:scheme="kakao69f8ab14f794eb7bd9954317f3f36059" />
+            </intent-filter>
+        </activity>
+
+
 
     </application>
 

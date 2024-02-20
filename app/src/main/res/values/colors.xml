@@ -14,4 +14,6 @@
     <color name="gui_white">#FAF8ED</color>
     <color name="gui_light_green">#C1F2B0</color>
     <color name="gui_green">#65B741</color>
+    <color name="gui_yellow">#F1C84C</color>
+    <color name="gui_stamp">#C7A376</color>
 </resources>
