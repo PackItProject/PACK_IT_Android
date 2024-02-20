@@ -124,7 +124,7 @@ class CartActivity : AppCompatActivity() {
                                     // 장바구니 메누 삭제 성공
                                     adapter.removeMenu(position)
                                     updateTotalPrice()
-                                    Toast.makeText(this@CartActivity, "${response.message()}", Toast.LENGTH_SHORT).show()
+                                    Toast.makeText(this@CartActivity, "메뉴가 성공적으로 삭제되었습니다.", Toast.LENGTH_SHORT).show()
                                 }
                                 404 -> {
                                     Toast.makeText(this@CartActivity, "${response.code()}: 장바구니에 해당 아이템이 존재하지 않습니다.", Toast.LENGTH_SHORT).show()
