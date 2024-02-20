@@ -2,6 +2,7 @@ package com.umc.android.packit
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.util.AttributeSet
 import android.util.Log
@@ -189,19 +190,21 @@ class MenuInfoActivity : AppCompatActivity() {
     private fun initMenuInfo(menu: Menu) {
         // 메뉴 정보 초기화
         menu.image?.let {
+            binding.menuInfoImageIv.setBackgroundColor(Color.GRAY)
             Glide.with(this)
                 .load(it)
                 .into(binding.menuInfoImageIv)
+
         }
         binding.menuInfoNameTv.text = menu.menu_name
         binding.menuInfoDescriptionTv.text = menu.about_menu
         binding.menuInfoPrice02Tv.text = "${menu.price}원"
         binding.menuInfoSize02Tv.text = menu.containter
         if (menu.insulation == 0){
-            binding.menuInfoRequired01Tv.visibility = View.GONE
+            binding.menuInfoRequired02Tv.text = "X"
         }
         if (menu.liquid_seal == 0){
-            binding.menuInfoRequired02Tv.visibility = View.GONE
+            binding.menuInfoRequired04Tv.text = "X"
         }
     }
 }

@@ -16,7 +16,6 @@ import com.kakao.sdk.common.model.KakaoSdkError
 import com.kakao.sdk.common.util.Utility
 import com.kakao.sdk.user.UserApiClient
 import kotlinx.coroutines.launch
-import com.kakao.sdk.common.util.Utility
 
 class LoginActivity : AppCompatActivity() {
 

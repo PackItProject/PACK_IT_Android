@@ -51,7 +51,7 @@ class OrderHistoryDetailedFragment: Fragment() {
                     recyclerView.adapter = adapter
                     storeTextView.text=orderHistoryList[0].store_name
                     pickupTextView.text=orderHistoryList[0].pickup_time
-                    priceTextView.text=orderHistoryList[0].fee
+                    priceTextView.text=orderHistoryList[0].fee+"원"
 
 
                 } catch (e: IOException) {

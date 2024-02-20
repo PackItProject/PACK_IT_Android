@@ -70,6 +70,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:contentDescription="Store Tabs"
+            app:tabMode="fixed"
             app:tabIndicatorFullWidth="false"
             app:tabSelectedTextColor="@color/black"
             app:tabIndicatorColor="@color/black"

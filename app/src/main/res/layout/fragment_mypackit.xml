@@ -34,7 +34,7 @@
                 android:fontFamily="@font/mypackit"
                 android:textColor="@color/gui_orange"
                 android:textSize="37sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"/>
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -55,7 +55,7 @@
                     android:layout_height="wrap_content"
                     android:text="강희정"
                     android:textSize="20sp"
-                    android:textStyle="bold"
+                    android:fontFamily="@font/bold"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/orderCount_tv"
                     app:layout_constraintHorizontal_bias="0.0"
@@ -135,7 +135,7 @@
                     android:text="스탬프카드"
                     android:textColor="@color/white"
                     android:textSize="20sp"
-                    android:textStyle="bold" />
+                    android:fontFamily="@font/bold" />
 
                 <GridLayout
                     android:layout_width="382dp"
@@ -256,7 +256,7 @@
                     android:layout_marginBottom="10dp"
                     android:text="뱃지"
                     android:textSize="20sp"
-                    android:textStyle="bold" />
+                    android:fontFamily="@font/bold" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/badgeRecyclerView"

@@ -20,14 +20,14 @@
             android:id="@+id/item_order_detailed_menu_image_iv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:scaleType="fitCenter"
+            android:scaleType="centerCrop"
             android:src="@color/grey" />
     </androidx.cardview.widget.CardView>
 
     <!-- 오른쪽 부분 (메뉴 이름 + 가격 + 수량) -->
     <TextView
         android:id="@+id/item_order_detailed_menu_name_tv"
-        android:layout_width="wrap_content"
+        android:layout_width="180dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
         android:text="메뉴 이름"
@@ -41,6 +41,7 @@
         android:id="@+id/item_order_detailed_menu_price_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:text="13,000원"
         android:fontFamily="@font/bold"
         android:textSize="14sp"

@@ -188,6 +188,10 @@ class OrderActivity() : AppCompatActivity() {
 
     // 화면 초기화 함수
     private fun init() {
+
+        binding.orderStoreNameTv.text = intent.getStringExtra("storeName")
+        binding.orderStoreAddressTv.text = intent.getStringExtra("storeAdd")
+
         // 쿠폰 리스트 숨김 상태
         couponBackground = binding.orderCouponBackgroundView
         couponBackground.visibility = View.INVISIBLE

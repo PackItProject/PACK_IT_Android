@@ -20,7 +20,7 @@
             android:id="@+id/item_cart_menu_image_iv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:scaleType="fitCenter"
+            android:scaleType="centerCrop"
             android:src="@color/grey" />
     </androidx.cardview.widget.CardView>
 
