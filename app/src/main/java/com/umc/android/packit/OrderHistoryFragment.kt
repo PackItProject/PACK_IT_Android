@@ -89,10 +89,10 @@ class OrderHistoryFragment : Fragment() {
         lifecycleScope.launch {
             try {
 
-                val sharedPreferencesManager = SharedPreferencesManager(requireContext())
-                val userId = sharedPreferencesManager.getUserId()
+//                val sharedPreferencesManager = SharedPreferencesManager(requireContext())
+//                val userId = sharedPreferencesManager.getUserId()
 
-//                val userId = 1//
+                val userId = 1
                 val orderHistoryList: List<OrderHistoryMenu> = fetchOrderHistory(userId)
                 val adapter = OrderHistoryRVAdapter(orderHistoryList)
 

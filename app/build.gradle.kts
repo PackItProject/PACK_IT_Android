@@ -116,7 +116,7 @@ dependencies {
     implementation("com.kakao.sdk:v2-talk:2.19.0") // 카카오톡 채널, 카카오톡 소셜, 카카오톡 메시지 API 모듈
     implementation("com.kakao.sdk:v2-share:2.19.0") // 카카오톡 공유 API 모듈
     implementation("com.kakao.sdk:v2-friend:2.19.0") // 피커 API 모듈
-    implementation("com.kakao.sdk:v2-navi:2.19.0") // 카카오내비 API 모듈
+    implementation("com.kakao.sdk:v2-navi:2.19.0") // 카카오내비 API 모듈0
     // implementation ("com.kakao.sdk:v2-cert:2.19.0")
     implementation("com.kakao.sdk:v2-cert:2.19.0") // 카카오 인증서비스 API 모듈
 

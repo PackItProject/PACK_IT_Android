@@ -84,7 +84,8 @@
         android:textColor="@color/grey"
         app:layout_constraintTop_toBottomOf="@+id/item_history_menu_tv"
         app:layout_constraintBottom_toBottomOf="@id/item_history_img_cardView"
-        app:layout_constraintStart_toStartOf="@id/item_history_name_tv"/>
+        app:layout_constraintStart_toStartOf="@id/item_history_name_tv"
+        android:visibility="invisible"/>
 
     <TextView
         android:id="@+id/item_history_state_tv"

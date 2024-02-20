@@ -50,6 +50,7 @@ class MapFragment : Fragment(), OnMapReadyCallback, StoreListRVAdapter.MyItemCli
     var storeImg: String = ""
     var is_bookmarked: Int = 0
     var storeName: String = ""
+    var userId = 1
 
 
     // TODO: 로그인 구현 후 삭제
@@ -82,6 +83,9 @@ class MapFragment : Fragment(), OnMapReadyCallback, StoreListRVAdapter.MyItemCli
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentMapBinding.inflate(inflater, container, false)
+
+//        val sharedPreferencesManager = SharedPreferencesManager(requireContext())
+//        userId = sharedPreferencesManager.getUserId() // 사용자 ID를 여기에 설정하세요
 
         //배경에 지도 띄우기
         this.mapView = binding.mapView
@@ -196,7 +200,6 @@ class MapFragment : Fragment(), OnMapReadyCallback, StoreListRVAdapter.MyItemCli
     override fun onStarClick(store: StoreResponse) {
         if (store.is_bookmarked == 1) store.is_bookmarked = 0 else store.is_bookmarked = 1
 
-        val userId = 1 // 사용자 ID를 여기에 설정하세요
 
         apiService.changeBookmarkStatus(store.store_id!!, userId).enqueue(object :
             Callback<BookmarkResponse> {

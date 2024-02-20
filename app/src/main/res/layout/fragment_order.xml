@@ -58,6 +58,7 @@
 
         <EditText
             android:id="@+id/order_request_et"
+            android:importantForAutofill="no"
             android:layout_width="0dp"
             android:layout_height="48dp"
             android:inputType="text"

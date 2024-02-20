@@ -26,6 +26,7 @@ class CartActivity : AppCompatActivity() {
     private var menuList = ArrayList<CartResponse>()
     var nowPos = 0
     var storeId =0
+    var orderMenus = ArrayList<OrderMenu>()
 
     // 장바구니 조회, 삭제 api 호출
     val api = ApiClient.retrofitInterface
@@ -59,7 +60,9 @@ class CartActivity : AppCompatActivity() {
             val intent = Intent(this, OrderActivity::class.java)
             intent.putExtra("cartTimeKey", cartTimeData)
             intent.putExtra("cartPriceKey", totalPrice)
-            intent.putExtra("fee", storeId)
+            intent.putExtra("storeId", storeId)
+            intent.putExtra("orderMenu", orderMenus)
+
 
             startActivity(intent)
         }
@@ -72,7 +75,7 @@ class CartActivity : AppCompatActivity() {
 
         // 유저 아이디, 가게 아이디 필요
         val userId = 1
-        val storeId = intent.getIntExtra("storeId", -1)
+        storeId = intent.getIntExtra("storeId", -1)
         Toast.makeText(this@CartActivity, "storeID: ${storeId}", Toast.LENGTH_SHORT).show()
 
         api.getCartMenus(userId, storeId).enqueue(object : Callback<List<CartResponse>> {
@@ -203,9 +206,11 @@ class CartActivity : AppCompatActivity() {
     // 총 결제금액 업데이트
     private fun updateTotalPrice() {
         totalPrice = 0
+        orderMenus.clear() // Clear the list before updating
 
         for (menu in menuList) {
             totalPrice += menu.price * menu.count
+            orderMenus.add(OrderMenu(menu.menu_id, menu.count))
         }
         binding.receiptTotalPrice02Tv.text = String.format("%,d 원", totalPrice)
     }
