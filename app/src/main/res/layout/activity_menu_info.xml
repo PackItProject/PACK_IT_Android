@@ -11,24 +11,9 @@
         android:id="@+id/menu_info_image_iv"
         android:layout_width="match_parent"
         android:layout_height="180dp"
-        android:background="@color/grey"
+        android:background="@drawable/img_no_menu"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
-
-    <!-- 이미지 들어오면 삭제될 듯? -->
-    <TextView
-        android:id="@+id/menu_info_image_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="메뉴 이미지"
-        android:textColor="@color/white"
-        android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/menu_info_image_iv"
-        app:layout_constraintBottom_toBottomOf="@id/menu_info_image_iv"
-        android:visibility="invisible"
-        />
 
     <ImageView
         android:id="@+id/menu_info_back_btn_iv"

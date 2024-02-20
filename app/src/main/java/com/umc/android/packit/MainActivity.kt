@@ -21,10 +21,17 @@ class MainActivity : AppCompatActivity() {
     private lateinit var navController: NavController
 
 
+    // TODO: 로그인 구현 후 삭제
+    // 유저 ID
+    //private val userID : Int = 1
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        // 프래그먼트 전달할 bundle 만들기
+        //val bundle = Bundle()
+        //bundle.putInt("userID", userID)
 
         // 주문 완료 다이얼로그 표시
         // Check if the intent has a flag to show OrderCompletedFragment
@@ -47,35 +54,26 @@ class MainActivity : AppCompatActivity() {
 
         binding.bottomnavi.setOnItemSelectedListener { item ->
             when (item.itemId) {
+                // userId 내용담고 화면 전환
                 R.id.mapFragment -> {
-                    supportFragmentManager.beginTransaction()
-                        .replace(R.id.container, MapFragment())
-                        .commit()
+                    createFragmentWithBundle(MapFragment())
                 }
 
                 R.id.favoriteFragment -> {
-                    supportFragmentManager.beginTransaction()
-                        .replace(R.id.container, FavoriteFragment())
-                        .commit()
+                    createFragmentWithBundle(FavoriteFragment())
                 }
 
                 R.id.myPackitFragment -> {
-                    supportFragmentManager.beginTransaction()
-                        .replace(R.id.container, MypackitFragment())
-                        .commit()
+                    createFragmentWithBundle(MypackitFragment())
                 }
 
 
                 R.id.orderHistoryFragment -> {
-                    supportFragmentManager.beginTransaction()
-                        .replace(R.id.container, OrderHistoryFragment())
-                        .commit()
+                    createFragmentWithBundle(OrderHistoryFragment())
                 }
 
                 R.id.myInfoFragment -> {
-                    supportFragmentManager.beginTransaction()
-                        .replace(R.id.container, MyInfoFragment())
-                        .commit()
+                    createFragmentWithBundle(MyInfoFragment())
                 }
             }
             true
@@ -83,7 +81,22 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    fun goBack() {
-        onBackPressed()
+//    // 번들 연결 및 프래그먼트 이동함수
+//    fun createFragmentWithBundle(fragment: Fragment, bundle: Bundle) {
+//        // userId 넘기기
+//        fragment.arguments = bundle
+//
+//        // 화면 전환
+//        supportFragmentManager.beginTransaction()
+//            .replace(R.id.container, fragment)
+//            .commit()
+//    }
+
+    // 프래그먼트 이동 함수
+    fun createFragmentWithBundle(fragment: Fragment) {
+        // 화면 전환
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.container, fragment)
+            .commit()
     }
 }

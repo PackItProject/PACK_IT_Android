@@ -10,7 +10,7 @@ import com.umc.android.packit.databinding.ItemCartMenuBinding
 
 
 
-class CartRVAdapter(private val menuList: ArrayList<Menu>):RecyclerView.Adapter<CartRVAdapter.ViewHolder>() {
+class CartRVAdapter(private val menuList: ArrayList<CartResponse>):RecyclerView.Adapter<CartRVAdapter.ViewHolder>() {
 
     // 클릭 이벤트 등록
     interface ItemClick {
@@ -58,7 +58,6 @@ class CartRVAdapter(private val menuList: ArrayList<Menu>):RecyclerView.Adapter<
 
     // 메뉴 삭제 함수
     fun removeMenu(position:Int) {
-        menuList[position].quantity = 0 // 메뉴 수량 0으로 초기화
         menuList.removeAt(position)
         notifyItemRemoved(position)
         notifyItemRangeChanged(position, itemCount) // 아이템 위치 변경을 알림
@@ -68,7 +67,7 @@ class CartRVAdapter(private val menuList: ArrayList<Menu>):RecyclerView.Adapter<
     fun addMenu(position: Int) {
         // position이 menuList의 유효한 인덱스 범위라면, 수량 증가
         if (position in 0 until menuList.size) {
-            menuList[position].quantity++
+            menuList[position].count++
             notifyItemChanged(position)
         }
     }
@@ -76,14 +75,14 @@ class CartRVAdapter(private val menuList: ArrayList<Menu>):RecyclerView.Adapter<
     // 메뉴 수 빼기 함수
     fun subMenu(position: Int) {
         // 수량이 1 이하로 감소하는 것을 방지
-        if (position in 0 until menuList.size && menuList[position].quantity > 1) {
-            menuList[position].quantity--
+        if (position in 0 until menuList.size && menuList[position].count > 1) {
+            menuList[position].count--
             notifyItemChanged(position)
         }
     }
 
     inner class ViewHolder(val binding: ItemCartMenuBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(menu: Menu, context : Context){
+        fun bind(menu: CartResponse, context : Context){
             menu.image?.let {
                 Glide.with(context)
                     .load(it)
@@ -91,7 +90,7 @@ class CartRVAdapter(private val menuList: ArrayList<Menu>):RecyclerView.Adapter<
             }
             binding.itemCartMenuNameTv.text = menu.menu_name
             binding.itemCartMenuPriceTv.text = String.format("%,d 원", menu.price)
-            binding.itemCartCountBtn.text = menu.quantity.toString()
+            binding.itemCartCountBtn.text = menu.count.toString()
         }
     }
 }
