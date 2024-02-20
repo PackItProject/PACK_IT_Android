@@ -115,8 +115,9 @@ class CartActivity : AppCompatActivity() {
         adapter.onItemClickListener(object : CartRVAdapter.ItemClick{
             // 메뉴 삭제
             override fun onRemoveMenu(position: Int) {
-                var menu = menuList[position]
 
+                // 클릭한 메뉴 아이템의 유저 id, 가게 id, 메뉴 id 가져온 후, 전송
+                val menu = menuList[position]
                 api.subMenuToCart(DeleteCartRequest(menu.pk_user,menu.store_id,menu.menu_id)).enqueue(object : Callback<BookmarkResponse> {
                     override fun onResponse(call: Call<BookmarkResponse>, response: Response<BookmarkResponse>) {
                         if (response.isSuccessful) {
@@ -128,9 +129,11 @@ class CartActivity : AppCompatActivity() {
                                     Toast.makeText(this@CartActivity, "메뉴가 성공적으로 삭제되었습니다.", Toast.LENGTH_SHORT).show()
                                 }
                                 404 -> {
+                                    // 실패 1
                                     Toast.makeText(this@CartActivity, "${response.code()}: 장바구니에 해당 아이템이 존재하지 않습니다.", Toast.LENGTH_SHORT).show()
                                 }
                                 500 -> {
+                                    // 실패 2
                                     Toast.makeText(this@CartActivity, "${response.code()}: 장바구니에서 아이템을 삭제하는데 실패하였습니다.", Toast.LENGTH_SHORT).show()
                                 }
                             }
@@ -145,9 +148,6 @@ class CartActivity : AppCompatActivity() {
                         Toast.makeText(this@CartActivity, "API 호출에 실패했습니다.", Toast.LENGTH_SHORT).show()
                     }
                 })
-
-//                adapter.removeMenu(position)
-//                updateTotalPrice() // 메뉴 제거 후 총 가격 업데이트
             }
 
             // 메뉴 수량 추가
