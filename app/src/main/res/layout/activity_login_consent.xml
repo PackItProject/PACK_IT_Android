@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/img_background_2">
 
+
     <!-- 서비스 이름 -->
     <TextView
         android:id="@+id/service_name_tv"
