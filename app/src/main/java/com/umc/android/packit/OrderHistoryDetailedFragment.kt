@@ -53,6 +53,7 @@ class OrderHistoryDetailedFragment: Fragment() {
                     pickupTextView.text=orderHistoryList[0].pickup_time
                     priceTextView.text=orderHistoryList[0].fee
 
+
                 } catch (e: IOException) {
                     // Handle network error
                     Log.e("OrderHistoryDetailedFrag", "Failed to fetch detailed order history. Exception: ${e.message}", e)

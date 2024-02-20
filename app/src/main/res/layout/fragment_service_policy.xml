@@ -17,7 +17,7 @@
         android:layout_height="wrap_content"
         android:text="서비스 정책 및 약관"
         android:textSize="20sp"
-        android:textStyle="bold"
+        android:fontFamily="@font/bold"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="50dp"/>
 

@@ -14,7 +14,7 @@
         android:text="즐겨찾는 가게"
         android:textSize="22sp"
         android:textColor="@color/black"
-        android:textStyle="bold"
+        android:fontFamily="@font/bold"
         android:gravity="center_vertical"
         />
 
@@ -26,7 +26,7 @@
         android:text="@string/favorite_sum"
         android:textSize="19sp"
         android:textColor="@color/grey"
-        android:textStyle="bold"
+        android:fontFamily="@font/bold"
         android:gravity="center_vertical"
         android:layout_toEndOf="@id/favorite_title_tv"
         android:layout_marginStart="8dp"

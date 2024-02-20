@@ -20,6 +20,7 @@ class StoreActivity : AppCompatActivity() {
     lateinit var binding: ActivityStoreBinding
     private var isStarSelected:Int = 0
     var storeId : Int = 0
+    var userId : Int = 1
 
     private val information = arrayListOf("메뉴", "가게 정보", "평점")
 
@@ -31,6 +32,9 @@ class StoreActivity : AppCompatActivity() {
 
         // 현재 유저 아이디 체크
         //Toast.makeText(this, "현재 유저 아이디: ${userID}", Toast.LENGTH_SHORT).show()
+
+//        val sharedPreferencesManager = SharedPreferencesManager(this@StoreActivity)
+//        userId = sharedPreferencesManager.getUserId() // 사용자 ID를 여기에 설정하세요
 
         // 가게 정보 초기화
         initStore()
@@ -59,7 +63,6 @@ class StoreActivity : AppCompatActivity() {
         binding.storeStarIv.setOnClickListener {
             if (isStarSelected == 1) isStarSelected = 0 else isStarSelected = 1
 
-            val userId = 1 // 사용자 ID를 여기에 설정하세요
             val apiService = ApiClient.retrofitInterface
 
             apiService.changeBookmarkStatus(storeId, userId).enqueue(object :

@@ -30,6 +30,9 @@ class OrderActivity() : AppCompatActivity() {
     var cartTimeData: String = ""
     var store_id: Int = 0
     var cartPriceData: Int =0
+    var userId: Int = 1
+    var orderMenus = ArrayList<OrderMenu>()
+
 
 
 
@@ -47,6 +50,9 @@ class OrderActivity() : AppCompatActivity() {
         binding = FragmentOrderBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+//        val sharedPreferencesManager = SharedPreferencesManager(this@OrderActivity)
+//        userId = sharedPreferencesManager.getUserId() // 사용자 ID를 여기에 설정하세요
+
 
         init()  // 화면 초기화
 
@@ -54,6 +60,34 @@ class OrderActivity() : AppCompatActivity() {
         val adapter = OrderCouponRVAdapter(couponList)
         binding.orderCouponRecyclerView.adapter = adapter
         binding.orderCouponRecyclerView.layoutManager= LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+
+
+        val requestText = binding.orderRequestEt.text.toString()
+
+        // RadioButton 선택 여부 확인 및 값 가져오기
+        val selectedPaymentMethodId = binding.orderRadioGroup.checkedRadioButtonId
+        var selectedPaymentMethod = 0
+
+        // RadioButton 클릭 리스너 설정
+        binding.orderPaymentCardTv.setOnClickListener {
+            // 클릭된 RadioButton에 대한 처리
+            selectedPaymentMethod = 1
+        }
+
+        binding.orderPaymentMobileTv.setOnClickListener {
+            // 클릭된 RadioButton에 대한 처리
+            selectedPaymentMethod = 2
+        }
+
+        binding.orderPaymentKakaoTv.setOnClickListener {
+            // 클릭된 RadioButton에 대한 처리
+            selectedPaymentMethod = 3
+        }
+
+        binding.orderPaymentNaverTv.setOnClickListener {
+            // 클릭된 RadioButton에 대한 처리
+            selectedPaymentMethod = 4
+        }
 
 
         // 아이템 클릭 이벤트 설정
@@ -96,18 +130,21 @@ class OrderActivity() : AppCompatActivity() {
             // 주문하기 버튼 누르면 주문추가 API 처리
             // 서버에 상태 업데이트 요청 전송
             val apiService = ApiClient.retrofitInterface
-            val userId = 1 // 사용자 ID
 
+            store_id = intent.getIntExtra("storeId",0)
+            orderMenus = (intent.getSerializableExtra("orderMenu") as? ArrayList<OrderMenu>)!!
             val orderRequest = OrderRequest(
-                pk_user = 1,
-                store_id = 1,
-                requirement = "단무지 빼주세요",
-                payment = 1,
+                pk_user = userId,
+                store_id = store_id,
+                requirement = requestText,
+                payment = selectedPaymentMethod,
                 pickup_time = cartTimeData,
                 status = 1,
-                menus = listOf(OrderMenu(menu_id = 1, quantity = 3)),
+                menus = orderMenus,
                 fee = cartPriceData
             )
+
+            Log.d("selected card: ",selectedPaymentMethod.toString())
             val addOrderCall = apiService.addOrder(orderRequest)
 
              addOrderCall.enqueue(object : Callback<AddOrderResponse> {
@@ -253,5 +290,6 @@ class OrderActivity() : AppCompatActivity() {
         // Set the formatted total price to the TextView
         binding.orderTotalPrice02Tv.text = formattedTotalPrice
     }
+
 
 }
