@@ -52,10 +52,8 @@ class OrderHistoryDetailedFragment: Fragment() {
                     recyclerView.adapter = adapter
                     storeTextView.text=orderHistoryList[0].store_name
                     pickupTextView.text=orderHistoryList[0].pickup_time
-
                     priceTextView.text=orderHistoryList[0].fee+"원"
 
-                    priceTextView.text=orderHistoryList[0].fee
                     when (orderHistoryList[0].payment) {
                         1 -> paymentTextView.text = "신용/체크카드"
                         2 -> paymentTextView.text = "휴대폰 결제"

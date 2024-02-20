@@ -193,6 +193,45 @@ class OrderActivity() : AppCompatActivity() {
                 })
             }
 
+            Log.d("selected card: ",selectedPaymentMethod.toString())
+            val addOrderCall = apiService.addOrder(orderRequest)
+
+            addOrderCall.enqueue(object : Callback<AddOrderResponse> {
+                override fun onResponse(call: Call<AddOrderResponse>, response: Response<AddOrderResponse>) {
+
+                    if (response.isSuccessful) {
+                        val addOrderResponse = response.body()
+                        addOrderResponse?.let {
+                            // 성공적으로 주문이 추가되었을 때의 처리
+
+
+                            Toast.makeText(this@OrderActivity, "정상적으로 주문되었습니다.", Toast.LENGTH_SHORT).show()
+
+
+
+                        }
+
+                    } else {
+                        // 주문 추가 실패 시의 처리
+
+                        Toast.makeText(this@OrderActivity, "주문추가에 실패하였습니다.", Toast.LENGTH_SHORT).show()
+                        Log.e("OrderActivity", "Unsuccessful response: ${response.code()}")
+                        try {
+                            val errorBody = response.errorBody()?.string()
+                            Log.e("OrderActivity", "Error body: $errorBody")
+                        } catch (e: IOException) {
+                            e.printStackTrace()
+                        }
+
+                    }
+                }
+
+                override fun onFailure(call: Call<AddOrderResponse>, t: Throwable) {
+                    // 네트워크 오류 등으로 호출에 실패했을 때의 처리
+                    Toast.makeText(this@OrderActivity, "onFailure.", Toast.LENGTH_SHORT).show()
+                }
+            })
+
         }
 
     }
