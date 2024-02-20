@@ -57,6 +57,10 @@ class CartActivity : AppCompatActivity() {
             val cartTimeData = binding.receiptPickUp02Tv.text.toString()// 장바구니 주문 시간 데이터 추출
             val cartPriceData = binding.receiptTotalPrice02Tv.text.toString()
 
+
+            if (totalPrice==0){ //총 결제금액이 0원-> 화면 넘어가면 안됨
+                Toast.makeText(this@CartActivity, "장바구니가 비었습니다.", Toast.LENGTH_SHORT).show()
+
             val intent = Intent(this, OrderActivity::class.java)
             intent.putExtra("cartTimeKey", cartTimeData)
             intent.putExtra("cartPriceKey", totalPrice)
@@ -64,7 +68,15 @@ class CartActivity : AppCompatActivity() {
             intent.putExtra("orderMenu", orderMenus)
 
 
-            startActivity(intent)
+
+            }else {
+                val intent = Intent(this, OrderActivity::class.java)
+                intent.putExtra("cartTimeKey", cartTimeData)
+                intent.putExtra("cartPriceKey", totalPrice)
+                intent.putExtra("fee", storeId)
+
+                startActivity(intent)
+            }
         }
     }
 

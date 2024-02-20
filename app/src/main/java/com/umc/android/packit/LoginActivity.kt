@@ -13,6 +13,7 @@ import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.common.model.ClientError
 import com.kakao.sdk.common.model.ClientErrorCause
 import com.kakao.sdk.common.model.KakaoSdkError
+import com.kakao.sdk.common.util.Utility
 import com.kakao.sdk.user.UserApiClient
 import kotlinx.coroutines.launch
 import com.kakao.sdk.common.util.Utility
@@ -27,6 +28,7 @@ class LoginActivity : AppCompatActivity() {
 
         var keyHash = Utility.getKeyHash(this)
         Log.d("keyhash: ",keyHash)
+
         // 로그인 여부 확인
         if (AuthApiClient.instance.hasToken()) {
             UserApiClient.instance.accessTokenInfo { _, error ->
