@@ -24,6 +24,10 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+//        var keyHash = Utility.getKeyHash(this)
+//        Log.d("keyhash: ",keyHash)
+
+
         // 로그인 여부 확인
         if (AuthApiClient.instance.hasToken()) {
             UserApiClient.instance.accessTokenInfo { _, error ->
@@ -95,12 +99,22 @@ class LoginActivity : AppCompatActivity() {
                                         ApiClient.retrofitInterface.sendUserInfo(userInfo)
                                     }
 
+                                    val bundle = Bundle().apply {
+                                        putString("userEmail", user.kakaoAccount?.email)
+                                    }
+
+                                    val myInfoFragment = MyInfoFragment().apply {
+                                        arguments = bundle
+                                    }
+
                                     if (response!!.isSuccessful) {
                                         // 성공적으로 전송됨
                                         Log.i(TAG, "사용자 정보 전송 성공")
 
                                         val sharedPreferencesManager = SharedPreferencesManager(this@LoginActivity)
-                                        sharedPreferencesManager.saveUserId(user.id!!.toInt())
+                                        sharedPreferencesManager.saveUserId(user.kakaoAccount?.email!!)
+
+
 
                                     } else {
                                         // 서버에서 오류 응답
@@ -112,8 +126,12 @@ class LoginActivity : AppCompatActivity() {
                                 }
                             }
 
+
+
                         }
                     }
+
+
 
                     // 로그인 성공 시 LoginConsentActivity로 이동하고 현재 액티비티를 종료
                     val intent = Intent(this@LoginActivity, LoginConsentActivity::class.java)
