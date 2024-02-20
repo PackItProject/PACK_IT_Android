@@ -109,11 +109,33 @@
         android:id="@+id/menu_info_required_02_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="O"
+        android:fontFamily="@font/bold"
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toEndOf="@id/menu_info_size_02_tv"
+        app:layout_constraintTop_toBottomOf="@id/menu_info_size_01_tv"
+        android:textColor="@color/black"/>
+
+    <TextView
+        android:id="@+id/menu_info_required_03_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:text="액체 밀폐 필요"
         android:layout_marginTop="20dp"
         app:layout_constraintStart_toStartOf="@id/menu_info_required_01_tv"
         app:layout_constraintTop_toBottomOf="@id/menu_info_required_01_tv"
         style="@style/GreyText"/>
+
+    <TextView
+        android:id="@+id/menu_info_required_04_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="O"
+        android:fontFamily="@font/bold"
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toEndOf="@id/menu_info_size_02_tv"
+        app:layout_constraintTop_toBottomOf="@id/menu_info_required_01_tv"
+        android:textColor="@color/black"/>
 
     <!-- 하단부 -->
     <View
@@ -133,8 +155,8 @@
         android:layout_height="wrap_content"
         android:text="주의사항"
         android:layout_marginTop="30dp"
-        app:layout_constraintStart_toStartOf="@id/menu_info_required_02_tv"
-        app:layout_constraintTop_toBottomOf="@id/menu_info_required_02_tv"
+        app:layout_constraintStart_toStartOf="@id/menu_info_required_03_tv"
+        app:layout_constraintTop_toBottomOf="@id/menu_info_required_03_tv"
         style="@style/GreyText"/>
 
     <TextView
