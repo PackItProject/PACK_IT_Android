@@ -2,11 +2,16 @@ package com.umc.android.packit
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.TimePicker
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.umc.android.packit.databinding.FragmentCartBinding
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 // 프래그먼트 상속
 
@@ -18,9 +23,12 @@ class CartActivity : AppCompatActivity() {
     private var pickUpHour: Int = 0
     private var pickUpminute: Int = 0
 
-    private var menuList = ArrayList<Menu>()
+    private var menuList = ArrayList<CartResponse>()
     var nowPos = 0
     var storeId =0
+
+    // 장바구니 조회, 삭제 api 호출
+    val api = ApiClient.retrofitInterface
 
     private var totalPrice : Int = 0
 
@@ -31,37 +39,11 @@ class CartActivity : AppCompatActivity() {
         binding = FragmentCartBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // SharedPreferences에서 메뉴 리스트를 가져와서 보여줌
+        // 가게 이름 설정
         loadMenuList()
-        initView()
-        reservePickUp()
-        updateTotalPrice()
 
-
-        val adapter = CartRVAdapter(menuList)
-        binding.menuListRecyclerView.adapter = adapter
-
-        // 아이템 클릭 이벤트 등록
-        adapter.onItemClickListener(object : CartRVAdapter.ItemClick{
-            // 메뉴 삭제
-            override fun onRemoveMenu(position: Int) {
-                adapter.removeMenu(position)
-                updateTotalPrice() // 메뉴 삭제 후 총 가격 업데이트
-            }
-
-            // 메뉴 수량 추가
-            override fun onAddMenu(position: Int) {
-                adapter.addMenu(position)
-                updateTotalPrice() // 메뉴 수량 추가 후 총 가격 업데이트
-            }
-
-            // 메뉴 수량 빼기
-            override fun onSubMenu(position: Int) {
-                adapter.subMenu(position)
-                updateTotalPrice() // 메뉴 수량 뺀 후 총 가격 업데이트
-            }
-
-        })
+        // 픽업 피커 초기화
+        initTimePicker()
 
         // 뒤로 가기 버튼 -> 가게 화면으로 이동
         binding.backBtnIv.setOnClickListener {
@@ -84,22 +66,105 @@ class CartActivity : AppCompatActivity() {
     }
 
     private fun loadMenuList() {
-        val sharedPreferences = getSharedPreferences("Cart", MODE_PRIVATE)
-        val menuListJson = sharedPreferences.getString("menuList", null)
+        // 가게 이름 설정
+        val storeName = intent.getStringExtra("storeName")
+        binding.storeNameTv.text = storeName
 
-//        storeId = menuList[0].store_id
+        // 유저 아이디, 가게 아이디 필요
+        val userId = 1
+        val storeId = intent.getIntExtra("storeId", -1)
+        Toast.makeText(this@CartActivity, "storeID: ${storeId}", Toast.LENGTH_SHORT).show()
 
-        menuList = if (!menuListJson.isNullOrEmpty()) {
-            // 기존에 저장된 JSON 데이터가 있을 때만 Gson을 사용하여 리스트로 변환
-            Gson().fromJson(menuListJson, object : TypeToken<ArrayList<Menu>>() {}.type)
-        } else {
-            ArrayList() // 저장된 데이터가 없을 경우 빈 리스트 생성
-        }
+        api.getCartMenus(userId, storeId).enqueue(object : Callback<List<CartResponse>> {
+            override fun onResponse(call: Call<List<CartResponse>>, response: Response<List<CartResponse>>) {
+                if (response.isSuccessful) {
+                    val cartResponses: List<CartResponse>? = response.body()
+                    // 리스트가 null이 아닌지 확인
+                    if (cartResponses != null) {
+                        // menuList에 있는 기존 데이터 지우고 새로운 데이터 추가
+                        menuList.clear()
+                        menuList.addAll(cartResponses)
+
+                        connectRecyclerView(menuList)
+                    }
+                } else {
+                    // 조회 실패
+                    Toast.makeText(this@CartActivity,
+                        "${response.code()}: 장바구니 조회에 실패하였습니다.", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            override fun onFailure(call: Call<List<CartResponse>>, t: Throwable) {
+                // 네트워크 오류 등 호출 실패 시 처리
+                Toast.makeText(this@CartActivity, "API 호출에 실패했습니다.", Toast.LENGTH_SHORT).show()
+            }
+        })
     }
 
+    // 리사이클러 뷰 연결
+    private fun connectRecyclerView(menuList: ArrayList<CartResponse>) {
+        val adapter = CartRVAdapter(menuList)
 
-    private fun initView() {
+        // 연결
+        binding.menuListRecyclerView.adapter = adapter
 
+        // 연결 후, 최종 가격 업데이트
+        updateTotalPrice()
+
+        // 아이템 클릭 이벤트 등록
+        adapter.onItemClickListener(object : CartRVAdapter.ItemClick{
+            // 메뉴 삭제
+            override fun onRemoveMenu(position: Int) {
+
+                // 클릭한 메뉴 아이템의 유저 id, 가게 id, 메뉴 id 가져온 후, 전송
+                val menu = menuList[position]
+                api.subMenuToCart(DeleteCartRequest(menu.pk_user,menu.store_id,menu.menu_id)).enqueue(object : Callback<BookmarkResponse> {
+                    override fun onResponse(call: Call<BookmarkResponse>, response: Response<BookmarkResponse>) {
+                        if (response.isSuccessful) {
+                            when (response.code()) {
+                                200 -> {
+                                    // 장바구니 메누 삭제 성공
+                                    adapter.removeMenu(position)
+                                    updateTotalPrice()
+                                    Toast.makeText(this@CartActivity, "메뉴가 성공적으로 삭제되었습니다.", Toast.LENGTH_SHORT).show()
+                                }
+                                404 -> {
+                                    // 실패 1
+                                    Toast.makeText(this@CartActivity, "${response.code()}: 장바구니에 해당 아이템이 존재하지 않습니다.", Toast.LENGTH_SHORT).show()
+                                }
+                                500 -> {
+                                    // 실패 2
+                                    Toast.makeText(this@CartActivity, "${response.code()}: 장바구니에서 아이템을 삭제하는데 실패하였습니다.", Toast.LENGTH_SHORT).show()
+                                }
+                            }
+                        } else {
+                            // 응답이 실패한 경우
+                            Toast.makeText(this@CartActivity, "장바구니 메뉴 삭제에 실패하였습니다.", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+
+                    override fun onFailure(call: Call<BookmarkResponse>, t: Throwable) {
+                        // 네트워크 오류 등 호출 실패 시 처리
+                        Toast.makeText(this@CartActivity, "API 호출에 실패했습니다.", Toast.LENGTH_SHORT).show()
+                    }
+                })
+            }
+
+            // 메뉴 수량 추가
+            override fun onAddMenu(position: Int) {
+                adapter.addMenu(position)
+                updateTotalPrice() // 메뉴 수량 추가 후 총 가격 업데이트
+            }
+
+            // 메뉴 수량 빼기
+            override fun onSubMenu(position: Int) {
+                adapter.subMenu(position)
+                updateTotalPrice() // 메뉴 수량 뺀 후 총 가격 업데이트
+            }
+        })
+    }
+
+    private fun initTimePicker() {
         // timePicker 초기화
         timePicker = binding.reservationTp
 
@@ -118,12 +183,11 @@ class CartActivity : AppCompatActivity() {
             timePicker.currentMinute
         }
         setFormatTime(getHour, getMinute)
+
+        // 타임피커 이벤트 처리
+        timePicker.setOnTimeChangedListener { _, hourOfDay, minute -> setFormatTime(hourOfDay, minute) }
     }
 
-    private fun reservePickUp() {
-        timePicker.setOnTimeChangedListener { _, hourOfDay, minute -> setFormatTime(hourOfDay, minute)
-        }
-    }
 
     private fun setFormatTime(hours:Int, minutes: Int) {
         // 오전/오후, 시, 분 저장
@@ -134,14 +198,15 @@ class CartActivity : AppCompatActivity() {
         // "오후 12:30" 꼴
         binding.receiptPickUp02Tv.text = String.format("%s %02d:%02d", pickUpAmPm, pickUpHour, pickUpminute)
     }
+
+
     // 총 결제금액 업데이트
     private fun updateTotalPrice() {
         totalPrice = 0
-        for (menu in menuList) {
-            totalPrice += menu.price * menu.quantity
-        }
 
+        for (menu in menuList) {
+            totalPrice += menu.price * menu.count
+        }
         binding.receiptTotalPrice02Tv.text = String.format("%,d 원", totalPrice)
     }
 }
-

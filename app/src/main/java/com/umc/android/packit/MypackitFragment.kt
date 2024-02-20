@@ -2,6 +2,7 @@ package com.umc.android.packit
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,7 +14,6 @@ import com.umc.android.packit.databinding.FragmentMypackitBinding
 
 class MypackitFragment : Fragment() {
     private lateinit var binding: FragmentMypackitBinding
-    private lateinit var nameTv: TextView
 
     private val dummyItemList = listOf(
         MypackitItem(R.drawable.mypack_badge, "누적 주문 5회", "2024.2.4"),
@@ -34,15 +34,14 @@ class MypackitFragment : Fragment() {
             recyclerView.layoutManager = GridLayoutManager(requireContext(), 2)
             recyclerView.adapter = MypackitPinAdapter(dummyItemList)
 
-        /*    // SharedPreferences에서 닉네임을 불러와서 name_tv에 표시
-            val sharedPreferences = requireActivity().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
-            val nickname = sharedPreferences.getString("nickname", "닉네임") ?: "닉네임"
+            // SharedPreferences에서 닉네임을 불러와서 name_tv에 표시
+            val sharedPreferences = requireActivity().getSharedPreferences("sp1", Context.MODE_PRIVATE)
+            val nickname = sharedPreferences.getString("name", "데이터 없음")
             binding.nameTv.text = nickname
 
-            binding = FragmentMypackitBinding.inflate(inflater, container, false)
-            binding.nameTv.text = arguments?.getString("nickname")
-*/
-
+            if (nickname != null) {
+                Log.d("0219",nickname)
+            }
         }
 
         return rootView

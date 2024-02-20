@@ -114,15 +114,8 @@ class ProfileActivity : ProfilePermissionActivity() {
             else requirePermission(arrayOf(Manifest.permission.READ_MEDIA_IMAGES), PERM_GALLERY)
         }
         makeBitmap()
-/*
 
-        // 닉네임을 입력받아 SharedPreferences에 저장
-        val nickname = binding.profileNicknameEt.text.toString()  // 실제 사용자가 입력한 닉네임을 받아오는 코드
-        val sharedPreference = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
-        val editor = sharedPreference.edit()
-        editor.putString("nickname", nickname)
-        editor.apply()
-*/
+
 
 
     }
@@ -170,6 +163,13 @@ class ProfileActivity : ProfilePermissionActivity() {
             // TODO: 확인용 -> 지울거임
             // Toast로 데이터 클래스의 내용 및 이미지 확인
             val toastMessage = "Nickname: ${profileData.nickname}"
+
+            // 닉네임을 입력받아 SharedPreferences에 저장
+            val sharedPreference = getSharedPreferences("sp1", MODE_PRIVATE)
+            val editor  : SharedPreferences.Editor = sharedPreference.edit()
+            editor.putString("name", profileData.nickname)
+            Log.d("0219",profileData.nickname)
+            editor.commit() // data 저장! (정상저장됨 확인)
 
             // Bitmap을 Base64 문자열로 인코딩
             val byteArrayOutputStream = ByteArrayOutputStream()

@@ -16,12 +16,8 @@ import retrofit2.Response
 
 class MenuFragment : Fragment(), MainMenuRVAdapter.MyItemClickListener, SideMenuRVAdapter.MyItemClickListener {
 
-    private lateinit var mainmenuRVAdapter : MainMenuRVAdapter
-    private lateinit var sidemenuRVAdapter : MainMenuRVAdapter
-
     lateinit var binding: FragmentMenuBinding
     private var menuDatas = ArrayList<Menu>()
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
