@@ -48,7 +48,7 @@
         android:text="가게 이름"
         android:textSize="17sp"
         android:textColor="@color/black"
-        android:textStyle="bold"
+        android:fontFamily="@font/bold"
         app:layout_constraintTop_toTopOf="@id/item_history_img_cardView"
         app:layout_constraintBottom_toTopOf="@id/item_history_time_tv"
         app:layout_constraintStart_toEndOf="@id/item_history_img_cardView"/>
@@ -94,7 +94,7 @@
         android:text="주문 완료"
         android:textSize="12sp"
         android:textColor="@color/black"
-        android:textStyle="bold"
+        android:fontFamily="@font/bold"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:visibility="visible"/>

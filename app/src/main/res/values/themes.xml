@@ -5,6 +5,8 @@
 
         <!--  타이틀 바 삭제 -->
         <item name="windowNoTitle">true</item>
+        <item name="android:fontFamily">@font/suit</item>
+
     </style>
 
 </resources>
