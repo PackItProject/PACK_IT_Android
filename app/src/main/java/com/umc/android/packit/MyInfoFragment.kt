@@ -17,20 +17,20 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.Toast
 import com.bumptech.glide.Glide
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.storage.FirebaseStorage
-import com.google.firebase.storage.StorageReference
+//import com.google.firebase.auth.FirebaseAuth
+//import com.google.firebase.database.DatabaseReference
+//import com.google.firebase.database.FirebaseDatabase
+//import com.google.firebase.storage.FirebaseStorage
+//import com.google.firebase.storage.StorageReference
 import com.kakao.sdk.user.UserApiClient
 import com.umc.android.packit.databinding.FragmentMyInfoBinding
 
 class MyInfoFragment : Fragment() {
 
     private lateinit var binding: FragmentMyInfoBinding
-    private lateinit var storageReference: StorageReference
-    private lateinit var auth: FirebaseAuth
-    private lateinit var databaseReference: DatabaseReference
+//    private lateinit var storageReference: StorageReference
+//    private lateinit var auth: FirebaseAuth
+//    private lateinit var databaseReference: DatabaseReference
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,6 +59,10 @@ class MyInfoFragment : Fragment() {
         val nickname = sharedPreferences.getString("name", "데이터 없음")
         binding.profileNameTv.text = nickname
 
+        val sharedPreferencesManager = SharedPreferencesManager(requireContext())
+        val userEmail = sharedPreferencesManager.getUserId()
+
+        binding.profileEmailTv.text=userEmail
 
 
         //비트맵으로 한번해봐야겠다..
