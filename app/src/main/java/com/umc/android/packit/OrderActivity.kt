@@ -32,7 +32,7 @@ class OrderActivity() : AppCompatActivity() {
     var cartPriceData: Int =0
     var userId: Int = 1
     var orderMenus = ArrayList<OrderMenu>()
-
+    var orderStoreName: String =""
 
 
 
@@ -49,9 +49,6 @@ class OrderActivity() : AppCompatActivity() {
 
         binding = FragmentOrderBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-//        val sharedPreferencesManager = SharedPreferencesManager(this@OrderActivity)
-//        userId = sharedPreferencesManager.getUserId() // 사용자 ID를 여기에 설정하세요
 
 
         init()  // 화면 초기화
@@ -214,9 +211,7 @@ class OrderActivity() : AppCompatActivity() {
         binding.orderCheckOffBtnIv.visibility = View.VISIBLE
         binding.orderCheckOnBtnIv.visibility = View.GONE
 
-    /*    //가게이름 불러오기
-        val storeName = intent.getStringExtra("storeName")
-        binding.orderStoreNameTv.text = storeName.toString()*/
+
 
         // SharedPreference에서 닉네임을 불러와서 orderUserNameTv에 표시
         val sharedPreference = getSharedPreferences("sp1", Context.MODE_PRIVATE)
@@ -225,7 +220,13 @@ class OrderActivity() : AppCompatActivity() {
 
         //cartFragment에서 전달한 픽업 시간과 총 결제 금액 띄우기
         cartTimeData = intent.getStringExtra("cartTimeKey")!!
+
+        //TODO:
+  /*      orderStoreName = intent.getStringExtra("orderStoreName")!!
+*/
         binding.orderPickUp02Tv.text = cartTimeData  //주문 시간 데이터 전달
+        val orderCompletedFragment = OrderCompletedFragment.newInstance(cartTimeData) //orderCompletedFragment로도 전달
+
 
         cartPriceData = intent.getIntExtra("cartPriceKey", 0)!!
         binding.orderTotalPrice02Tv.text =cartPriceData.toString()+" 원"  //총 결제 금액 데이터 전달
@@ -284,6 +285,13 @@ class OrderActivity() : AppCompatActivity() {
         } else {
             // 모든 유효성 검사를 통과한 경우, 메인 화면으로 페이지 이동
             val intent = Intent(this, MainActivity::class.java)
+            intent.putExtra("orderTime", cartTimeData)
+
+        /*    //TODO
+            //스토어네임을 오더액티비티->메인액티비티->오더컴플리티드프래그먼트로 전달
+            intent.putExtra("orderStoreName", binding.orderStoreNameTv.text.toString())
+            Log.d("ykorderActivity storename",binding.orderStoreNameTv.text.toString())
+*/
 
             // 플래그 설정 (지금까지의 액티비티 초기화)
             intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
@@ -293,20 +301,14 @@ class OrderActivity() : AppCompatActivity() {
         }
     }
     private fun updateTotalPriceWithDiscount(discountPercent: Double) {
-        // Get the original price from the intent
+        //인텐트로 할인적용 전 가격 가져오기
         val originalPrice: Int = intent.getIntExtra("cartPriceKey", 0)
-
-        // Convert the original price to a double
-        val originalPriceDouble: Double = originalPrice.toDouble()
-
-        // Apply discount
-        val discountedTotalPrice = originalPriceDouble * (1 - discountPercent)
-
-        // Format the discounted total price
-        val formattedTotalPrice = String.format("%,.0f원", discountedTotalPrice)
-
-        // Set the formatted total price to the TextView
-        binding.orderTotalPrice02Tv.text = formattedTotalPrice
+        //할인적용
+        val discountedTotalPrice = originalPrice.toDouble() * (1 - discountPercent)
+        //10원단위에 맞추기 (절사형: 2959원-> 2950원)
+        val roundedTotalPrice = (discountedTotalPrice / 10).toInt() * 10
+        //텍스트뷰에 할인적용금액 보여주기
+        binding.orderTotalPrice02Tv.text = "${roundedTotalPrice}원"
     }
 
 

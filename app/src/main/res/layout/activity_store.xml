@@ -111,7 +111,7 @@
             android:textSize="16sp"
             android:text="장바구니 보기"
             android:textColor="@color/white"
-            android:background="@color/grey"/>
+            android:background="@color/gui_orange"/>
     </LinearLayout>
 
 </RelativeLayout>
