@@ -156,6 +156,77 @@ class LoginActivity : AppCompatActivity() {
                         UserApiClient.instance.loginWithKakaoAccount(this, callback = callback)
                     } else if (token != null) {
                         Log.i(TAG, "카카오톡으로 로그인 성공 ${token.accessToken}")
+
+                        UserApiClient.instance.me { user, error ->
+                            if (error != null) {
+                                Log.e(TAG, "사용자 정보 요청 실패", error)
+                            }
+                            else if (user != null) {
+                                Log.i(TAG, "사용자 정보 요청 성공" +
+                                        "\n회원번호: ${user.id}" +
+                                        "\n이메일: ${user.kakaoAccount?.email}" +
+                                        "\n닉네임: ${user.kakaoAccount?.profile?.nickname}" +
+                                        "\n프로필사진: ${user.kakaoAccount?.profile?.thumbnailImageUrl}")
+
+                                lifecycleScope.launch {
+                                    try {
+                                        // 로그인한 사용자 정보를 서버로 전송
+                                        val userInfo =
+                                            user.kakaoAccount?.profile?.thumbnailImageUrl?.let { it1 ->
+                                                user.kakaoAccount!!.email?.let { it2 ->
+                                                    user.kakaoAccount?.profile?.nickname?.let { it3 ->
+                                                        LoginRequest(
+                                                            kakaoId = user.id!!.toInt(),
+                                                            email = it2,
+                                                            name = it3,
+                                                            profileImage = it1
+                                                        )
+                                                    }
+                                                }
+                                            }
+
+                                        val response = userInfo?.let {
+                                            ApiClient.retrofitInterface.sendUserInfo(userInfo)
+                                        }
+
+                                        val bundle = Bundle().apply {
+                                            putString("userEmail", user.kakaoAccount?.email)
+                                        }
+
+                                        val myInfoFragment = MyInfoFragment().apply {
+                                            arguments = bundle
+                                        }
+
+                                        if (response!!.isSuccessful) {
+                                            // 성공적으로 전송됨
+                                            Log.i(TAG, "사용자 정보 전송 성공")
+
+                                            val sharedPreferencesManager = SharedPreferencesManager(this@LoginActivity)
+                                            sharedPreferencesManager.saveUserId(user.kakaoAccount?.email!!)
+
+
+
+                                        } else {
+                                            // 서버에서 오류 응답
+                                            Log.e(TAG, "사용자 정보 전송 실패. HTTP code: ${response.code()}")
+                                        }
+                                    } catch (e: Exception) {
+                                        // 예외 처리
+                                        Log.e(TAG, "사용자 정보 전송 실패", e)
+                                    }
+                                }
+
+
+
+                            }
+                        }
+
+
+
+                        // 로그인 성공 시 LoginConsentActivity로 이동하고 현재 액티비티를 종료
+                        val intent = Intent(this@LoginActivity, LoginConsentActivity::class.java)
+                        startActivity(intent)
+                        finish()
                     }
                 }
             } else {
