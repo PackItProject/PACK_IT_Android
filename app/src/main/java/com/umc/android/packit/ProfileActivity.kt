@@ -114,10 +114,6 @@ class ProfileActivity : ProfilePermissionActivity() {
             else requirePermission(arrayOf(Manifest.permission.READ_MEDIA_IMAGES), PERM_GALLERY)
         }
         makeBitmap()
-
-
-
-
     }
 
     // editText 효과 초기화 함수
@@ -160,9 +156,6 @@ class ProfileActivity : ProfilePermissionActivity() {
                 profile = profileImage
             )
 
-            // TODO: 확인용 -> 지울거임
-            // Toast로 데이터 클래스의 내용 및 이미지 확인
-            val toastMessage = "Nickname: ${profileData.nickname}"
 
             // 닉네임을 입력받아 SharedPreferences에 저장
             val sharedPreference = getSharedPreferences("sp1", MODE_PRIVATE)
@@ -170,17 +163,6 @@ class ProfileActivity : ProfilePermissionActivity() {
             editor.putString("name", profileData.nickname)
             Log.d("0219",profileData.nickname)
             editor.commit() // data 저장! (정상저장됨 확인)
-
-            // Bitmap을 Base64 문자열로 인코딩
-            val byteArrayOutputStream = ByteArrayOutputStream()
-            profileData.profile?.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream)
-            val byteArray = byteArrayOutputStream.toByteArray()
-            val base64Image = Base64.encodeToString(byteArray, Base64.DEFAULT)
-
-            // Base64 문자열을 Toast 메시지에 추가
-            val fullToastMessage = "$toastMessage\nProfile Image: $base64Image"
-
-            Toast.makeText(this, fullToastMessage, Toast.LENGTH_SHORT).show()
 
             // 유효한 경우, 페이지 이동 -> 메인 액티비티
             val intent = Intent(this, MainActivity::class.java)

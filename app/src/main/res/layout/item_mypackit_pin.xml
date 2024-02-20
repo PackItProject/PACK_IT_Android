@@ -1,34 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- res/layout/badge_item.xml -->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_columnWeight="1"
     android:layout_height="wrap_content"
-    android:layout_margin="20dp"
     android:orientation="vertical">
 
     <ImageView
+        android:layout_gravity="center"
         android:id="@+id/badge_iv"
+        android:layout_marginTop="4dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         android:src="@drawable/img_badge_1st" />
 
     <TextView
         android:id="@+id/mypackitPinName"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
-        android:text="샘플 주문 5회"
+        android:text="단 1개 뿐인 지구를 위한 1번째 걸음"
         android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@id/badge_iv"
+        app:layout_constraintEnd_toEndOf="@id/badge_iv"
+        app:layout_constraintTop_toBottomOf="@id/badge_iv"
         android:gravity="center_vertical"/>
 
     <TextView
         android:id="@+id/mypackitPinDate"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
         android:text="2024.1.24"
         android:textSize="14sp"
-        android:layout_marginLeft="3dp"/>
+        app:layout_constraintStart_toStartOf="@id/badge_iv"
+        app:layout_constraintEnd_toEndOf="@id/badge_iv"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/mypackitPinName" />
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
