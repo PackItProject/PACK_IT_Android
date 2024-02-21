@@ -97,17 +97,6 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-//    // 번들 연결 및 프래그먼트 이동함수
-//    fun createFragmentWithBundle(fragment: Fragment, bundle: Bundle) {
-//        // userId 넘기기
-//        fragment.arguments = bundle
-//
-//        // 화면 전환
-//        supportFragmentManager.beginTransaction()
-//            .replace(R.id.container, fragment)
-//            .commit()
-//    }
-
     // 프래그먼트 이동 함수
     fun createFragmentWithBundle(fragment: Fragment) {
         // 화면 전환

@@ -42,76 +42,59 @@
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="20dp"
                 android:background="#F5F5F5"
-                android:padding="20dp">
+                android:padding="15dp">
 
                 <!-- 이름 -->
-
-                <!-- 가이드라인 -->
-
-
-                <TextView
-                    android:id="@+id/name_tv"
+                <RelativeLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="강희정"
-                    android:textSize="20sp"
-                    android:fontFamily="@font/bold"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/orderCount_tv"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.05">
-
-                </TextView>
-
-                <TextView
-                    android:id="@+id/count_explain1_tv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="60dp"
-                    android:text="님이"
-                    android:textSize="18sp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/guideline"
-                    app:layout_constraintHorizontal_bias="0.092"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.125" />
+                    app:layout_constraintStart_toStartOf="parent">
 
-                <TextView
-                    android:id="@+id/count_explain2_tv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="지금까지 지구를 지킨 횟수"
-                    android:textSize="18sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/name_tv"
-                    app:layout_constraintVertical_bias="0.453" />
+                    <TextView
+                        android:id="@+id/name_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="열두글자까지가능하다했는"
+                        android:textColor="@color/dark_grey"
+                        android:textSize="20sp"
+                        android:fontFamily="@font/bold" />
 
-                <androidx.constraintlayout.widget.Guideline
-                    android:id="@+id/guideline"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    app:layout_constraintGuide_end="141dp" />
+                    <TextView
+                        android:id="@+id/count_explain1_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=" 님이"
+                        android:textSize="18sp"
+                        android:layout_alignBottom="@id/name_tv"
+                        android:layout_toEndOf="@id/name_tv" />
+
+                    <TextView
+                        android:id="@+id/count_explain2_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="지금까지 지구를 지킨 횟수"
+                        android:textSize="18sp"
+                        android:layout_below="@id/name_tv"
+                        android:layout_alignParentStart="true"
+                        android:layout_marginTop="8dp" />
+                </RelativeLayout>
+
+
 
                 <!-- 주문 횟수 -->
                 <TextView
                     android:id="@+id/orderCount_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="50dp"
                     android:text="12회"
                     android:textColor="@color/gui_orange"
                     android:textSize="30sp"
                     android:fontFamily="@font/bold"
+                    android:layout_marginEnd="7dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/guideline"
                     app:layout_constraintTop_toTopOf="parent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -267,9 +250,9 @@
                     android:id="@+id/badgeRecyclerView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
+                    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                     app:spanCount="2"
-                    tools:listitem="@layout/item_mypackit_pin"/>
+                    tools:listitem="@layout/item_mypackit_pin" />
             </LinearLayout>
 
 

@@ -38,9 +38,8 @@ class OrderActivity() : AppCompatActivity() {
 
     private val couponList = listOf(
         OrderCoupon("[첫 주문] 5% 할인",0.05),
-        OrderCoupon("[누적 주문 10회] 5% 할인",0.05),
+        OrderCoupon("[누적 주문 5회] 10% 할인",0.05),
         OrderCoupon("[누적 주문 10회] 15% 할인",0.15),
-        OrderCoupon("[누적 주문 10회] 20% 할인",0.2),
         OrderCoupon("쿠폰 미사용",0.0)
     )
 
