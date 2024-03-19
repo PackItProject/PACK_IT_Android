@@ -1,6 +1,9 @@
 # PackIt! 프로젝트 프론트엔드
 
 
+데모 영상 - (https://drive.google.com/file/d/1oYuL4SARouzYeG7MAQL5Qtv_HYtDfsFu/view?usp=sharing)
+
+
 ## 각각 브랜치 만들어서 진행할 것
 저도 깃은 잘 모르기 때문에,,  [GitHub으로 협업하기](https://www.youtube.com/watch?v=6sBNPvxjyt0, "유튜브 링크")를 참고해서 진행할 예정입니다.
   + [이 주소](https://paullabworkspace.notion.site/GitHub-435ec8074bcf4353afb947f601a030df)는 위 유튜브 영상에서 다루는 **깃 관련 용어** 및 **깃 협업 관련 내용**이 담긴 노션입니다.
